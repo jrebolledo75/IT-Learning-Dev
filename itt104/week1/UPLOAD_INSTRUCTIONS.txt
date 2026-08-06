@@ -1,0 +1,13 @@
+ITT104 WEEK 1 INTERACTIVE REVIEW - SAME-DAY UPDATE
+
+1. Open IT-Learning-Dev > itt104 > week1.
+2. Choose Add file > Upload files.
+3. Drag ALL files from this week1 folder into GitHub.
+4. GitHub may show that index.html and review.html already exist. Choose to replace/overwrite them when prompted.
+5. Commit directly to main with: Replace Week 1 review with interactive version
+6. Wait 1-2 minutes, then hard refresh with Ctrl+Shift+R.
+
+Test direct link:
+https://jrebolledo75.github.io/IT-Learning-Dev/itt104/week1/review-interactive.html
+
+This new filename avoids browser and GitHub cache issues.
