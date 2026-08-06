@@ -1,322 +1,131 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>ITT104 Week 1 Review Center</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ITT104 Week 1 Review Center | NCC IT Learning Hub</title>
 <style>
-body{
-font-family:Arial,sans-serif;
-background:#f4f6fb;
-margin:0;
-padding:30px;
-color:#222;
-}
-
-.container{
-max-width:1100px;
-margin:auto;
-background:white;
-padding:40px;
-border-radius:15px;
-box-shadow:0 0 20px rgba(0,0,0,.15);
-}
-
-h1{
-color:#2d2a75;
-}
-
-h2{
-color:#0c7db1;
-margin-top:35px;
-}
-
-.card{
-background:#eef3ff;
-padding:20px;
-margin-top:15px;
-border-radius:12px;
-}
-
-.question{
-margin-top:18px;
-padding:15px;
-background:#fafafa;
-border-left:5px solid #6d42c4;
-}
-
-button{
-background:#4b3670;
-color:white;
-padding:12px 22px;
-border:none;
-border-radius:8px;
-font-size:16px;
-cursor:pointer;
-margin-top:20px;
-}
-
-button:hover{
-background:#2d2a75;
-}
+:root{--p:#4b3670;--p2:#6d4ea1;--t:#0e8998;--o:#f2720f;--bg:#f5f3f8;--line:#ded7eb;--text:#241c38;--muted:#706981;--good:#147a49;--bad:#b42318;--gold:#e5a000}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 "Segoe UI",Arial,sans-serif}
+a{color:inherit}.wrap{max-width:1120px;margin:auto;padding:18px}.topbar{position:sticky;top:0;z-index:20;background:rgba(245,243,248,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}.topbar .inner{max-width:1120px;margin:auto;padding:10px 18px;display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}.nav{display:flex;gap:8px;flex-wrap:wrap}.nav a,.btn{border:0;border-radius:10px;padding:10px 14px;font-weight:800;text-decoration:none;cursor:pointer}.nav a{background:white;border:1px solid var(--line)}.btn{background:var(--p);color:white}.btn.alt{background:var(--t)}.btn.orange{background:var(--o)}.btn.light{background:white;color:var(--p);border:1px solid var(--line)}button:disabled{opacity:.45;cursor:not-allowed}.hero,.panel,.card{background:white;border:1px solid var(--line);border-radius:18px;box-shadow:0 10px 28px rgba(36,28,56,.08)}.hero{padding:28px;border-top:7px solid var(--p);margin-top:16px}.tag{font-size:12px;font-weight:900;letter-spacing:.13em;color:var(--t)}h1{font-size:clamp(29px,5vw,44px);line-height:1.1;margin:8px 0}h2{margin:0 0 12px}h3{margin:18px 0 8px}.muted{color:var(--muted)}.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:18px}.metric{background:#f4f0fa;border:1px solid var(--line);border-radius:13px;padding:12px}.metric b{font-size:22px;display:block}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}.tab{border:1px solid var(--line);background:white;color:var(--text);border-radius:999px;padding:10px 14px;font-weight:800;cursor:pointer}.tab.active{background:var(--p);color:white}.panel{padding:24px;margin-bottom:18px}.hidden{display:none!important}.guide-grid,.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:14px}.card{padding:18px}.card h3{margin-top:0}.keyline{border-left:5px solid var(--o);padding:10px 14px;background:#fff7ed;border-radius:8px}.comparison{overflow:auto}.comparison table{width:100%;border-collapse:collapse;min-width:660px}.comparison th,.comparison td{padding:10px;border:1px solid var(--line);text-align:left;vertical-align:top}.comparison th{background:#f0ecf6}.flash-wrap{max-width:720px;margin:auto}.flashcard{min-height:280px;border:2px solid var(--p);border-radius:20px;padding:28px;display:flex;align-items:center;justify-content:center;text-align:center;cursor:pointer;background:linear-gradient(145deg,#fff,#f3eef9);position:relative}.flashcard .label{position:absolute;top:14px;left:16px;font-size:12px;font-weight:900;color:var(--t);letter-spacing:.1em}.flashcard .term{font-size:clamp(26px,4vw,38px);font-weight:900}.flashcard .definition{font-size:21px}.controls{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}.progress{height:12px;background:#e8e2ef;border-radius:999px;overflow:hidden}.progress>div{height:100%;background:var(--t);width:0;transition:.25s}.quiz-card{border:1px solid var(--line);border-radius:16px;padding:20px}.choice{display:block;width:100%;text-align:left;margin:9px 0;padding:13px;border-radius:11px;border:1px solid var(--line);background:white;cursor:pointer;font-size:16px}.choice:hover{border-color:var(--p)}.choice.selected{outline:3px solid rgba(75,54,112,.25);border-color:var(--p)}.choice.correct{background:#e8f7ef;border-color:var(--good)}.choice.wrong{background:#fff0ee;border-color:var(--bad)}.feedback{margin-top:12px;padding:12px;border-radius:10px;background:#f4f0fa}.jeopardy-wrap{overflow:auto}.jeopardy{display:grid;grid-template-columns:repeat(5,minmax(135px,1fr));gap:8px;min-width:760px}.jhead{background:var(--p);color:white;padding:14px 8px;text-align:center;border-radius:10px;font-weight:900}.jcell{background:#18388b;color:#ffd54a;border:2px solid white;min-height:82px;border-radius:10px;font-size:24px;font-weight:900;cursor:pointer}.jcell.used{background:#ddd;color:#888;cursor:default}.modal{position:fixed;inset:0;background:rgba(20,13,35,.78);z-index:50;display:flex;align-items:center;justify-content:center;padding:18px}.modalbox{background:white;border-radius:18px;max-width:720px;width:100%;padding:26px;max-height:90vh;overflow:auto}.jprompt{font-size:24px;font-weight:800}.answerbox{padding:14px;background:#edf8fa;border-left:5px solid var(--t);border-radius:9px;margin-top:14px}.score-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}.score{background:#f0ecf6;border-radius:12px;padding:10px;text-align:center}.score input{width:100%;border:1px solid var(--line);border-radius:7px;padding:7px;text-align:center;font-weight:800}.score strong{font-size:23px;display:block}.checklist label{display:block;padding:9px;border-bottom:1px solid var(--line)}.ready{padding:20px;border-radius:16px;background:#edf8fa;border:2px solid var(--t)}.certificate{border:8px double var(--p);padding:34px;text-align:center;background:white}.certificate h2{font-size:35px}.certificate .name{font-size:28px;border-bottom:1px solid var(--text);display:inline-block;min-width:280px;padding:6px}.small{font-size:13px}.print-only{display:none}@media(max-width:700px){.metrics{grid-template-columns:1fr 1fr}.hero,.panel{padding:18px}.topbar .inner{display:block}.nav{margin-top:8px}.score-row{grid-template-columns:1fr}.flashcard{min-height:240px}}@media print{.topbar,.tabs,.no-print,.controls{display:none!important}body{background:white}.panel,.hero{box-shadow:none;break-inside:avoid}.print-only{display:block}}
 </style>
 </head>
-
 <body>
-
-<div class="container">
-
-<h1>🏆 ITT104 Week 1 Review Center</h1>
-
-<p><strong>NCC Software Solutions™</strong></p>
-
-<p>Ready for Assessment</p>
-
-<hr>
-
-<h2>📖 Chapter Review</h2>
-
-<div class="card">
-
-<h3>Programming</h3>
-
-Programming is the process of creating instructions that tell a computer how to perform specific tasks.
-
-<h3>Programming Languages</h3>
-
-<ul>
-
-<li>Machine Language</li>
-
-<li>Assembly Language</li>
-
-<li>High-Level Languages</li>
-
-</ul>
-
-<h3>Translators</h3>
-
-<ul>
-
-<li>Compiler</li>
-
-<li>Interpreter</li>
-
-<li>JIT Compiler</li>
-
-</ul>
-
-<h3>Programming Errors</h3>
-
-<ul>
-
-<li>Syntax Error</li>
-
-<li>Run-Time Error</li>
-
-<li>Logical Error</li>
-
-</ul>
-
-<h3>Object-Oriented Programming</h3>
-
-<ul>
-
-<li>Class</li>
-
-<li>Object</li>
-
-<li>Inheritance</li>
-
-<li>Polymorphism</li>
-
-</ul>
-
+<header class="topbar"><div class="inner"><strong>NCC IT Learning Hub · ITT104 Week 1</strong><nav class="nav"><a href="index.html">Week 1 Home</a><a href="mission-ready.html">Mission Ready™</a><a href="#review">Review Center</a></nav></div></header>
+<main class="wrap" id="review">
+<section class="hero">
+<div class="tag">NCC SOFTWARE SOLUTIONS · PROGRAMMING & PROGRAMMING LANGUAGES</div>
+<h1>Week 1 Review Center</h1>
+<p class="muted">Study Chapter 8, practice the Canvas-style quiz concepts, play Jeopardy, review flashcards, and prove that you are ready for assessment.</p>
+<div class="metrics"><div class="metric"><span>Flashcards viewed</span><b id="mFlash">0</b></div><div class="metric"><span>Quiz best</span><b id="mQuiz">—</b></div><div class="metric"><span>Jeopardy clues</span><b id="mJep">0/25</b></div><div class="metric"><span>Readiness</span><b id="mReady">In progress</b></div></div>
+</section>
+<div class="tabs no-print" role="tablist">
+<button class="tab active" data-tab="guide">📖 Study Guide</button><button class="tab" data-tab="flash">🃏 Flashcards</button><button class="tab" data-tab="jeopardy">🎮 Jeopardy</button><button class="tab" data-tab="quiz">📝 Practice Quiz</button><button class="tab" data-tab="ready">🏆 Readiness</button>
 </div>
-
-<h2>⭐ Key Vocabulary</h2>
-
-<div class="card">
-
-<b>Program</b> – Set of instructions.
-
-<br><br>
-
-<b>Algorithm</b> – Step-by-step solution.
-
-<br><br>
-
-<b>Compiler</b> – Converts an entire program.
-
-<br><br>
-
-<b>Interpreter</b> – Executes one statement at a time.
-
-<br><br>
-
-<b>Machine Language</b> – Binary instructions.
-
-<br><br>
-
-<b>Assembly Language</b> – Low-level language.
-
-<br><br>
-
-<b>High-Level Language</b> – Easier for programmers.
-
-<br><br>
-
-<b>Syntax Error</b> – Violates language rules.
-
-<br><br>
-
-<b>Run-Time Error</b> – Happens while running.
-
-<br><br>
-
-<b>Logical Error</b> – Produces incorrect results.
-
+<section class="panel tabpanel" id="guide">
+<h2>Chapter 8: Must-Know Review</h2>
+<p class="keyline"><strong>Big idea:</strong> Programming languages let people express algorithms at different levels of abstraction. Translators convert source code into forms a computer can execute, and programming paradigms organize how developers structure solutions.</p>
+<div class="guide-grid">
+<article class="card"><h3>1. Language levels</h3><ul><li><strong>Machine language:</strong> binary/hexadecimal instructions native to a processor.</li><li><strong>Assembly:</strong> mnemonics with nearly one-to-one mapping to machine instructions.</li><li><strong>High-level:</strong> human-readable constructs such as assignments, selections, loops, and subroutines.</li></ul></article>
+<article class="card"><h3>2. Translators</h3><ul><li><strong>Assembler:</strong> assembly → machine code.</li><li><strong>Compiler:</strong> translates the whole high-level program before execution.</li><li><strong>Interpreter:</strong> translates and executes instructions as the program runs.</li><li><strong>JIT/runtime:</strong> source → bytecode/intermediate code → virtual machine execution.</li></ul></article>
+<article class="card"><h3>3. Errors & debugging</h3><ul><li><strong>Syntax:</strong> violates language rules; often found during compilation.</li><li><strong>Run-time:</strong> occurs during execution, such as divide-by-zero or file-not-found.</li><li><strong>Logical:</strong> runs but produces an incorrect result.</li><li><strong>Debugging:</strong> locating and correcting errors.</li></ul></article>
+<article class="card"><h3>4. Data & control</h3><ul><li>Variables have a name, type, value, and scope.</li><li>Arrays are homogeneous; records may contain mixed field types.</li><li>Selection chooses a path; iteration repeats instructions.</li><li>An infinite loop occurs when its terminating condition never becomes false.</li></ul></article>
+<article class="card"><h3>5. Language history</h3><ul><li><strong>FORTRAN:</strong> scientific/math; early reliance on GO TO.</li><li><strong>COBOL:</strong> business data, English-like syntax, records.</li><li><strong>LISP:</strong> AI, recursion, lists, prefix notation, interpreted.</li><li><strong>ALGOL:</strong> blocks and recursion; influenced C and Pascal.</li><li><strong>Ada:</strong> US government standardization effort, strong typing.</li></ul></article>
+<article class="card"><h3>6. Paradigms</h3><ul><li><strong>Structured:</strong> control structures replace excessive GO TO.</li><li><strong>Modular/procedural:</strong> programs divided into subroutines.</li><li><strong>OOP:</strong> classes, objects, encapsulation, inheritance, polymorphism, message passing.</li><li><strong>Functional:</strong> computation emphasized through functions (for example, LISP).</li></ul></article>
 </div>
-
-<h2>📝 Practice Quiz</h2>
-
-<div class="question">
-
-1. Which language is written in binary?<br><br>
-
-<input type="radio"> Assembly<br>
-
-<input type="radio"> High-Level<br>
-
-<input type="radio"> Machine Language ✅<br>
-
-<input type="radio"> Python
-
-</div>
-
-<div class="question">
-
-2. Which translator executes one line at a time?<br><br>
-
-<input type="radio"> Compiler<br>
-
-<input type="radio"> Interpreter ✅<br>
-
-<input type="radio"> Loader<br>
-
-<input type="radio"> Linker
-
-</div>
-
-<div class="question">
-
-3. Which error gives the wrong answer while still running?<br><br>
-
-<input type="radio"> Syntax<br>
-
-<input type="radio"> Run-Time<br>
-
-<input type="radio"> Logical ✅
-
-</div>
-
-<div class="question">
-
-4. OOP stands for?<br><br>
-
-<input type="radio"> Operating Object Program<br>
-
-<input type="radio"> Object-Oriented Programming ✅<br>
-
-<input type="radio"> Organized Operating Program
-
-</div>
-
-<div class="question">
-
-5. Which language was designed for business?<br><br>
-
-<input type="radio"> COBOL ✅<br>
-
-<input type="radio"> FORTRAN<br>
-
-<input type="radio"> Pascal
-
-</div>
-
-<h2>🎯 Mission Ready Review</h2>
-
-<div class="card">
-
-Imagine your assigned business.
-
-Answer:
-
-<ul>
-
-<li>Which programming language would you recommend?</li>
-
-<li>Name one possible syntax error.</li>
-
-<li>Name one run-time error.</li>
-
-<li>Name one logical error.</li>
-
-<li>What class would your application contain?</li>
-
-<li>Give two objects.</li>
-
-</ul>
-
-</div>
-
-<h2>🏅 Ready for Assessment</h2>
-
-<div class="card">
-
-☐ I understand Programming Languages
-
-<br>
-
-☐ I know Machine vs Assembly vs High-Level
-
-<br>
-
-☐ I know Compiler vs Interpreter
-
-<br>
-
-☐ I can identify Syntax Errors
-
-<br>
-
-☐ I understand Run-Time Errors
-
-<br>
-
-☐ I understand Logical Errors
-
-<br>
-
-☐ I know Classes and Objects
-
-<br>
-
-☐ I understand Inheritance
-
-<br>
-
-☐ I understand Polymorphism
-
-</div>
-
-<button onclick="alert('Congratulations! You are Ready for Assessment!')">
-
-I'm Ready for Assessment
-
-</button>
-
-</div>
-
+<h3>High-value comparisons</h3><div class="comparison"><table><thead><tr><th>Concept</th><th>What to remember</th><th>Typical example</th></tr></thead><tbody>
+<tr><td>Compiled vs. interpreted</td><td>Compiled code generally executes efficiently; interpreted environments support rapid experimentation.</td><td>C vs. LISP/Python-style use</td></tr>
+<tr><td>Bytecode/JVM</td><td>Java compiles to platform-independent bytecode executed by a JVM.</td><td>“Write once, run anywhere” principle</td></tr>
+<tr><td>Array vs. record</td><td>Array elements share one data type; record fields may have different types.</td><td>Scores array vs. customer record</td></tr>
+<tr><td>Encapsulation vs. information hiding</td><td>Encapsulation groups data with operations; information hiding controls access.</td><td>Class data protected behind methods</td></tr>
+<tr><td>Inheritance vs. polymorphism</td><td>Inheritance extends an existing class; polymorphism lets one reference work with parent or child objects.</td><td>Car and UsedCar</td></tr>
+</tbody></table></div>
+<h3>Quiz-focused facts</h3><ul><li>COBOL input keyword: <strong>ACCEPT</strong>.</li><li>COBOL variables are declared in the <strong>data definition section</strong>.</li><li>COBOL conditional loop: <strong>PERFORM … UNTIL</strong>.</li><li>FORTRAN used <strong>=</strong> for both assignment and equality in the historical framing used by the quiz.</li><li>Perl scalar and array prefixes: <strong>$</strong> and <strong>@</strong>.</li><li>Java compiles into <strong>bytecode</strong>; the JVM is a <strong>virtual machine</strong>.</li><li>LISP uses <strong>prefix notation</strong> and was an early interpreted language.</li><li>Code dominated by GO TO statements is called <strong>spaghetti code</strong>.</li><li>A linked list typically uses a <strong>pointer</strong> to connect nodes.</li></ul>
+</section>
+<section class="panel tabpanel hidden" id="flash">
+<h2>Interactive Flashcards</h2><p class="muted">Click the card to flip it. Use the buttons to move through the deck or shuffle.</p><div class="flash-wrap"><div class="progress"><div id="flashProgress"></div></div><p class="small" id="flashCount"></p><div class="flashcard" id="flashcard" role="button" aria-live="polite"><span class="label" id="flashSide">TERM</span><div id="flashText" class="term"></div></div><div class="controls"><button class="btn light" id="prevFlash">Previous</button><button class="btn alt" id="flipFlash">Flip</button><button class="btn light" id="nextFlash">Next</button><button class="btn orange" id="shuffleFlash">Shuffle</button></div></div>
+</section>
+<section class="panel tabpanel hidden" id="jeopardy">
+<h2>Programming Languages Jeopardy</h2><p class="muted">Classroom mode: choose a clue, reveal the answer, then award or deduct points for the active team.</p><div class="score-row no-print"><div class="score"><input value="Team 1" aria-label="Team 1 name"><strong id="s1">0</strong><button class="btn light teamSelect" data-team="1">Select</button></div><div class="score"><input value="Team 2" aria-label="Team 2 name"><strong id="s2">0</strong><button class="btn light teamSelect" data-team="2">Select</button></div><div class="score"><input value="Team 3" aria-label="Team 3 name"><strong id="s3">0</strong><button class="btn light teamSelect" data-team="3">Select</button></div></div><p class="small" id="activeTeam">Active team: Team 1</p><div class="jeopardy-wrap"><div class="jeopardy" id="jBoard"></div></div><div class="controls no-print"><button class="btn light" id="resetJ">Reset Game</button></div>
+</section>
+<section class="panel tabpanel hidden" id="quiz">
+<h2>Randomized Practice Quiz</h2><p class="muted">Twenty-five questions are selected from the Week 1 question bank. Select an answer, check it, and read the explanation.</p><div class="progress"><div id="quizProgress"></div></div><p id="quizStatus" class="small"></p><div class="quiz-card" id="quizCard"><h3 id="qText"></h3><div id="qChoices"></div><div id="qFeedback" class="feedback hidden" aria-live="polite"></div><div class="controls"><button class="btn alt" id="checkQ" disabled>Check Answer</button><button class="btn" id="nextQ" disabled>Next Question</button></div></div><div id="quizResult" class="ready hidden"></div>
+</section>
+<section class="panel tabpanel hidden" id="ready">
+<h2>Assessment Readiness</h2><p>Complete the checklist honestly. A score of 80% or higher on the practice quiz plus all checked skills unlocks your certificate.</p><div class="checklist" id="checklist">
+<label><input type="checkbox"> I can compare machine, assembly, and high-level languages.</label><label><input type="checkbox"> I can distinguish a compiler, interpreter, assembler, and JIT/runtime.</label><label><input type="checkbox"> I can identify syntax, run-time, and logical errors.</label><label><input type="checkbox"> I can explain loops, conditions, iterators, and infinite loops.</label><label><input type="checkbox"> I can compare arrays, records, pointers, and linked structures.</label><label><input type="checkbox"> I know the major contributions of FORTRAN, COBOL, LISP, ALGOL, C/Pascal, Ada, Java, Simula, and Smalltalk.</label><label><input type="checkbox"> I can explain structured, modular, functional, and object-oriented programming.</label><label><input type="checkbox"> I can define encapsulation, information hiding, inheritance, polymorphism, dynamic binding, and message passing.</label>
+</div><div class="controls no-print"><button class="btn alt" id="checkReady">Check Readiness</button><button class="btn light" onclick="window.print()">Print / Save PDF</button></div><div id="readyFeedback" class="ready hidden"></div><div id="certificate" class="certificate hidden"><div class="tag">NCC IT LEARNING HUB</div><h2>Ready for Assessment</h2><p>This certifies that</p><div class="name" id="certName">Student</div><p>completed the ITT104 Week 1 Programming & Programming Languages Review Center.</p><p><strong>Practice Quiz Score:</strong> <span id="certScore"></span></p><p class="muted">Requirements Analyst · Junior Software Analyst Pathway</p></div>
+</section>
+</main>
+<div class="modal hidden" id="jModal" role="dialog" aria-modal="true"><div class="modalbox"><div class="tag" id="jCat"></div><p class="jprompt" id="jClue"></p><div id="jAnswer" class="answerbox hidden"></div><div class="controls"><button class="btn alt" id="revealJ">Reveal Answer</button><button class="btn" id="awardJ">Award Points</button><button class="btn orange" id="deductJ">Deduct Points</button><button class="btn light" id="closeJ">Close</button></div></div></div>
+<script>
+const flashcards=[
+['Machine language','Binary or hexadecimal instructions that execute directly on a specific processor.'],['Assembly language','A low-level language using mnemonic operation codes with an almost one-to-one mapping to machine instructions.'],['High-level language','A human-readable language that expresses tasks with constructs such as loops, selections, and subroutines.'],['Assembler','Translator that converts assembly language into machine language.'],['Compiler','Translator that converts an entire high-level program before execution.'],['Interpreter','Translator that processes and executes instructions as the program runs.'],['JIT compilation','Compilation to intermediate bytecode followed by execution through a runtime or virtual machine.'],['Bytecode','Platform-independent intermediate code, commonly associated with Java.'],['JVM','The Java Virtual Machine that executes Java bytecode.'],['Syntax error','A violation of language grammar, such as an unknown identifier or missing delimiter.'],['Run-time error','A failure during execution, such as divide-by-zero, invalid input, or file-not-found.'],['Logical error','A program runs but produces an unintended result.'],['Debugging','The process of finding and correcting programming errors.'],['Coercion','Automatic conversion of a value from one data type to another.'],['Cast','An explicit instruction to convert a value to another type.'],['Array','A homogeneous collection whose elements have the same data type.'],['Record','A non-homogeneous structure whose fields may contain different data types.'],['Pointer','A variable that stores a memory address and can link nodes in a data structure.'],['Iterator / loop index','A variable used to track progress through loop iterations.'],['Infinite loop','A loop that never terminates because its condition never becomes false.'],['FORTRAN','Early high-level language designed for mathematical and scientific computing.'],['COBOL','Business-oriented language with English-like syntax and record data structures.'],['LISP','Early interpreted functional language associated with AI, lists, recursion, and prefix notation.'],['ALGOL','Influential language that introduced block structure and recursion in a compiled language.'],['Structured programming','Uses clear control structures such as loops and selections to avoid excessive GO TO statements.'],['Spaghetti code','Hard-to-follow code created by excessive or unstructured branching.'],['Modular programming','Divides a program into smaller subroutines or modules.'],['Encapsulation','Combines a data structure with the operations that manipulate it.'],['Information hiding','Restricts direct access to data or methods.'],['Inheritance','Creates a new class by extending an existing class.'],['Polymorphism','Allows a reference to work with objects of a parent class or its subclasses.'],['Dynamic type binding','Associates an object reference with its actual class at run time.'],['Message passing','OOP mechanism for requesting an object to invoke a method.'],['Ada','Language developed through a US government effort to standardize programming for employees and contractors.']];
+const questions=[
+{q:'Which translator converts assembly language into machine language?',o:['Compiler','Assembler','Interpreter','Linker'],a:1,e:'An assembler translates assembly mnemonics into processor machine instructions.'},
+{q:'What is the primary advantage of a high-level language?',o:['It runs without translation','It uses only binary','It lets programmers express tasks with fewer, more readable instructions','It is always faster than machine code'],a:2,e:'High-level constructs reduce complexity and improve readability and productivity.'},
+{q:'Which translator processes an entire source program before execution?',o:['Compiler','Interpreter','Assembler','Loader'],a:0,e:'A compiler translates the complete source program and commonly produces an executable or intermediate form.'},
+{q:'Which approach translates and executes instructions while the program is running?',o:['Compiled only','Interpreted','Machine-code editing','Static linking'],a:1,e:'An interpreter translates code as it executes.'},
+{q:'Java source code is normally compiled into what intermediate form?',o:['Native x86 instructions','Assembly mnemonics','Bytecode','HTML'],a:2,e:'Java compilers produce bytecode that runs on a JVM.'},
+{q:'The JVM is best described as what?',o:['A physical CPU','A virtual machine','A text editor','A database engine'],a:1,e:'The JVM is a software-defined or virtual machine that executes Java bytecode.'},
+{q:'Which error violates the grammatical rules of a programming language?',o:['Logical error','Run-time error','Syntax error','Business error'],a:2,e:'Syntax errors include missing delimiters, unknown identifiers, and invalid operators.'},
+{q:'Which example is a run-time error?',o:['A missing closing quote','Dividing by zero during execution','Using addition instead of subtraction','A misspelled comment'],a:1,e:'Divide-by-zero prevents an instruction from completing while the program is running.'},
+{q:'A program runs successfully but calculates the wrong total. What type of error is this?',o:['Syntax','Logical','Translation','Linking'],a:1,e:'Logical errors produce incorrect results without necessarily stopping the program.'},
+{q:'What is the process of finding and correcting errors called?',o:['Binding','Debugging','Compiling','Formatting'],a:1,e:'Debugging is the systematic search for and correction of bugs.'},
+{q:'What most likely causes an infinite loop?',o:['The loop condition never becomes false','The loop is skipped','The loop runs a fixed number of times','The program contains comments'],a:0,e:'A loop must eventually reach a terminating condition.'},
+{q:'Which term describes the variable that tracks loop repetitions?',o:['Record','Iterator','Constant','Method'],a:1,e:'An iterator or loop index tracks progress through iterations.'},
+{q:'Why is an array called homogeneous?',o:['It uses no memory','All elements store the same type','It stores only text','It has named fields'],a:1,e:'Array elements share a common element type.'},
+{q:'Why is a record non-homogeneous?',o:['It cannot store numbers','Its fields may use different data types','It is always global','It cannot be saved'],a:1,e:'A record can combine fields such as a string name, integer ID, and Boolean status.'},
+{q:'Which variable type commonly connects nodes in a linked list?',o:['Boolean','Pointer','Float','Character'],a:1,e:'Pointers hold addresses that link one node to another.'},
+{q:'Which early language was designed for scientific and mathematical computation?',o:['COBOL','FORTRAN','Smalltalk','HTML'],a:1,e:'FORTRAN means FORmula TRANslator and was built for scientific computation.'},
+{q:'Which language was developed for business-oriented data processing?',o:['COBOL','LISP','ALGOL','C'],a:0,e:'COBOL was designed around business data and English-like instructions.'},
+{q:'Which word is used in COBOL to receive input?',o:['SCAN','ACCEPT','INPUT','READLINE'],a:1,e:'The Week 1 quiz uses ACCEPT as the COBOL input keyword.'},
+{q:'Where are COBOL variables declared in the course framing?',o:['Typing section','Data definition section','Loop section','Object section'],a:1,e:'COBOL places variable definitions in a dedicated data definition section.'},
+{q:'Which COBOL phrase provides a conditional loop?',o:['WHILE…NEXT','PERFORM…UNTIL','LOOP…END','REPEAT…FOREVER'],a:1,e:'PERFORM…UNTIL repeats until its condition is satisfied.'},
+{q:'Which early language is associated with AI, lists, recursion, and prefix notation?',o:['FORTRAN','COBOL','LISP','Pascal'],a:2,e:'LISP was developed for list processing and AI research.'},
+{q:'In prefix notation, where does the operation appear?',o:['After both operands','Before the operands','Only in a comment','Between the operands'],a:1,e:'Prefix notation places the operation first, such as + B C.'},
+{q:'Which language introduced block structure and recursion in a compiled high-level language?',o:['ALGOL','COBOL','BASIC','SQL'],a:0,e:'ALGOL introduced influential block structure and recursion.'},
+{q:'Code that relies heavily on GO TO statements is commonly called what?',o:['Bytecode','Spaghetti code','Object code','Safe code'],a:1,e:'Unstructured jumps can make control flow resemble tangled spaghetti.'},
+{q:'What programming style emphasizes loops and selection statements instead of GO TO?',o:['Structured programming','Machine programming','Markup programming','Query programming'],a:0,e:'Structured programming uses well-defined control structures.'},
+{q:'Breaking a program into smaller subroutines supports which concept?',o:['Modular programming','Spaghetti programming','Machine binding','Markup'],a:0,e:'Modules and subroutines make code easier to organize, test, and maintain.'},
+{q:'Which language was intended as a standard language for US government programmers and contractors?',o:['Ada','Perl','COBOL','LISP'],a:0,e:'Ada was created through a US government standardization initiative.'},
+{q:'Which OOP feature groups data with the operations that manipulate it?',o:['Encapsulation','Iteration','Compilation','Recursion'],a:0,e:'Encapsulation packages data and behavior together.'},
+{q:'Which OOP feature restricts direct access to data structures or methods?',o:['Information hiding','Looping','Coercion','Formatting'],a:0,e:'Information hiding exposes only approved interfaces.'},
+{q:'Which OOP feature creates a new class from an existing class?',o:['Inheritance','Interpretation','Iteration','Exception handling'],a:0,e:'Inheritance allows a subclass to reuse and extend a parent class.'},
+{q:'Which OOP feature lets a parent-class reference point to child-class objects?',o:['Polymorphism','Recursion','Compilation','Array indexing'],a:0,e:'Polymorphic references can represent objects from related classes.'},
+{q:'Choosing the object’s actual method implementation at run time is related to what?',o:['Dynamic type binding','Static comments','File formatting','Assembly mapping'],a:0,e:'Dynamic binding resolves the actual class and method at run time.'},
+{q:'In OOP, behavior is commonly invoked through what mechanism?',o:['Message passing','GO TO','Machine reset','File copying'],a:0,e:'Objects receive messages that request their methods.'},
+{q:'What symbols identify scalar and array variables in Perl?',o:['# and &','$ and @','@ and $','% and #'],a:1,e:'The Week 1 quiz uses $ for scalar and @ for array.'},
+{q:'Which language historically used = for both equality and assignment in the quiz material?',o:['FORTRAN','C','Pascal','Ada'],a:0,e:'The quiz identifies FORTRAN for this historical syntax characteristic.'},
+{q:'Which feature was first introduced in COBOL according to the quiz?',o:['Record data structures','Recursion','Local variables','Exception handlers'],a:0,e:'COBOL is strongly associated with record-oriented business data.'},
+{q:'Which early language was interpreted rather than compiled?',o:['LISP','FORTRAN','COBOL','ALGOL'],a:0,e:'LISP’s interpreted environment supported experimentation.'},
+{q:'Which item is NOT a core OOP feature in the quiz framing?',o:['Inheritance','Polymorphism','Encapsulation','Exception handling'],a:3,e:'Exception handling is useful, but the listed core OOP concepts are encapsulation, information hiding, inheritance, and polymorphism.'},
+{q:'Which language pioneered classes that influenced Smalltalk?',o:['Simula','COBOL','FORTRAN','PL/I'],a:0,e:'Simula introduced class-based modeling and inheritance.'},
+{q:'What is coercion?',o:['Automatic type conversion','A loop with no exit','A hidden class','A compiler error list'],a:0,e:'Coercion automatically converts a value to a compatible type.'}];
+const jeopardy={
+'Language Levels':[[100,'This is the only language a processor executes directly.','What is machine language?'],[200,'This low-level language uses mnemonic operation codes.','What is assembly language?'],[300,'This translator converts assembly source into machine code.','What is an assembler?'],[400,'One high-level C loop may translate into many of these primitive instructions.','What are machine instructions?'],[500,'This quality describes bytecode that can execute on different systems with the correct runtime.','What is platform independence?']],
+'Translators & Errors':[[100,'It translates an entire source program before execution.','What is a compiler?'],[200,'It executes code instruction by instruction.','What is an interpreter?'],[300,'A missing delimiter is this type of error.','What is a syntax error?'],[400,'Divide-by-zero is normally this type of error.','What is a run-time error?'],[500,'The program runs but produces the wrong answer.','What is a logical error?']],
+'Language History':[[100,'This language was created for scientific formulas.','What is FORTRAN?'],[200,'This business language uses English-like instructions.','What is COBOL?'],[300,'This AI language uses prefix notation and lists.','What is LISP?'],[400,'This language introduced block structure and recursion.','What is ALGOL?'],[500,'This language was intended as a US government standard.','What is Ada?']],
+'Data & Control':[[100,'A collection with elements of one data type.','What is an array?'],[200,'A structure whose fields may have different data types.','What is a record?'],[300,'A variable used to connect linked-list nodes.','What is a pointer?'],[400,'A loop that never reaches its stopping condition.','What is an infinite loop?'],[500,'The variable that tracks loop repetitions.','What is an iterator or loop index?']],
+'OOP & Paradigms':[[100,'A blueprint used to create objects.','What is a class?'],[200,'Grouping data and operations together.','What is encapsulation?'],[300,'Extending an existing class.','What is inheritance?'],[400,'One reference working with parent or child objects.','What is polymorphism?'],[500,'Objects request behavior through this mechanism.','What is message passing?']]
+};
+const state={flash:0,flipped:false,viewed:new Set(),quiz:[],qi:0,selected:null,score:0,checked:false,best:Number(localStorage.getItem('itt104w1ReviewBest')||0),jUsed:new Set(),jScores:[0,0,0],activeTeam:0,jCurrent:null};
+function save(){localStorage.setItem('itt104w1ReviewBest',state.best);localStorage.setItem('itt104w1ReviewViewed',JSON.stringify([...state.viewed]));localStorage.setItem('itt104w1ReviewJ',JSON.stringify([...state.jUsed]));updateMetrics()}
+try{state.viewed=new Set(JSON.parse(localStorage.getItem('itt104w1ReviewViewed')||'[]'));state.jUsed=new Set(JSON.parse(localStorage.getItem('itt104w1ReviewJ')||'[]'))}catch(e){}
+function updateMetrics(){document.getElementById('mFlash').textContent=state.viewed.size+'/'+flashcards.length;document.getElementById('mQuiz').textContent=state.best?state.best+'%':'—';document.getElementById('mJep').textContent=state.jUsed.size+'/25';document.getElementById('mReady').textContent=(state.best>=80&&document.querySelectorAll('#checklist input:checked').length===8)?'Ready':'In progress'}
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.tabpanel').forEach(x=>x.classList.add('hidden'));document.getElementById(b.dataset.tab).classList.remove('hidden');window.scrollTo({top:130,behavior:'smooth'})}));
+function renderFlash(){const c=flashcards[state.flash];state.viewed.add(state.flash);document.getElementById('flashSide').textContent=state.flipped?'DEFINITION':'TERM';const t=document.getElementById('flashText');t.textContent=state.flipped?c[1]:c[0];t.className=state.flipped?'definition':'term';document.getElementById('flashCount').textContent=`Card ${state.flash+1} of ${flashcards.length}`;document.getElementById('flashProgress').style.width=((state.flash+1)/flashcards.length*100)+'%';save()}
+document.getElementById('flashcard').addEventListener('click',()=>{state.flipped=!state.flipped;renderFlash()});document.getElementById('flipFlash').addEventListener('click',()=>{state.flipped=!state.flipped;renderFlash()});document.getElementById('nextFlash').addEventListener('click',()=>{state.flash=(state.flash+1)%flashcards.length;state.flipped=false;renderFlash()});document.getElementById('prevFlash').addEventListener('click',()=>{state.flash=(state.flash-1+flashcards.length)%flashcards.length;state.flipped=false;renderFlash()});document.getElementById('shuffleFlash').addEventListener('click',()=>{for(let i=flashcards.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[flashcards[i],flashcards[j]]=[flashcards[j],flashcards[i]]}state.flash=0;state.flipped=false;state.viewed.clear();renderFlash()});
+function buildJ(){const board=document.getElementById('jBoard');board.innerHTML='';Object.keys(jeopardy).forEach(cat=>{const h=document.createElement('div');h.className='jhead';h.textContent=cat;board.appendChild(h)});for(let r=0;r<5;r++)Object.entries(jeopardy).forEach(([cat,arr])=>{const [value,clue,answer]=arr[r],id=cat+'-'+value;const b=document.createElement('button');b.className='jcell'+(state.jUsed.has(id)?' used':'');b.textContent=state.jUsed.has(id)?'✓':'$'+value;b.disabled=state.jUsed.has(id);b.addEventListener('click',()=>openJ(cat,value,clue,answer,id,b));board.appendChild(b)})}
+function openJ(cat,value,clue,answer,id,button){state.jCurrent={cat,value,clue,answer,id,button};document.getElementById('jCat').textContent=cat+' · $'+value;document.getElementById('jClue').textContent=clue;document.getElementById('jAnswer').textContent=answer;document.getElementById('jAnswer').classList.add('hidden');document.getElementById('jModal').classList.remove('hidden')}
+document.getElementById('revealJ').addEventListener('click',()=>document.getElementById('jAnswer').classList.remove('hidden'));function scoreJ(mult){if(!state.jCurrent)return;state.jScores[state.activeTeam]+=state.jCurrent.value*mult;document.getElementById('s'+(state.activeTeam+1)).textContent=state.jScores[state.activeTeam];state.jUsed.add(state.jCurrent.id);state.jCurrent.button.classList.add('used');state.jCurrent.button.textContent='✓';state.jCurrent.button.disabled=true;save();document.getElementById('jModal').classList.add('hidden')}
+document.getElementById('awardJ').addEventListener('click',()=>scoreJ(1));document.getElementById('deductJ').addEventListener('click',()=>scoreJ(-1));document.getElementById('closeJ').addEventListener('click',()=>document.getElementById('jModal').classList.add('hidden'));document.querySelectorAll('.teamSelect').forEach(b=>b.addEventListener('click',()=>{state.activeTeam=Number(b.dataset.team)-1;document.getElementById('activeTeam').textContent='Active team: '+b.parentElement.querySelector('input').value}));document.getElementById('resetJ').addEventListener('click',()=>{if(confirm('Reset the Jeopardy board and scores?')){state.jUsed.clear();state.jScores=[0,0,0];['s1','s2','s3'].forEach(id=>document.getElementById(id).textContent='0');buildJ();save()}});
+function startQuiz(){state.quiz=[...questions].sort(()=>Math.random()-.5).slice(0,25);state.qi=0;state.score=0;renderQ()}
+function renderQ(){state.selected=null;state.checked=false;const q=state.quiz[state.qi];document.getElementById('quizStatus').textContent=`Question ${state.qi+1} of ${state.quiz.length} · Score ${state.score}`;document.getElementById('quizProgress').style.width=(state.qi/state.quiz.length*100)+'%';document.getElementById('qText').textContent=q.q;const box=document.getElementById('qChoices');box.innerHTML='';q.o.forEach((x,i)=>{const b=document.createElement('button');b.className='choice';b.textContent=x;b.addEventListener('click',()=>{if(state.checked)return;state.selected=i;box.querySelectorAll('.choice').forEach(c=>c.classList.remove('selected'));b.classList.add('selected');document.getElementById('checkQ').disabled=false});box.appendChild(b)});document.getElementById('qFeedback').classList.add('hidden');document.getElementById('checkQ').disabled=true;document.getElementById('nextQ').disabled=true;document.getElementById('nextQ').textContent=state.qi===state.quiz.length-1?'Finish Quiz':'Next Question'}
+document.getElementById('checkQ').addEventListener('click',()=>{if(state.selected===null||state.checked)return;state.checked=true;const q=state.quiz[state.qi],choices=document.querySelectorAll('#qChoices .choice');choices[q.a].classList.add('correct');if(state.selected!==q.a)choices[state.selected].classList.add('wrong');else state.score++;const f=document.getElementById('qFeedback');f.innerHTML=`<strong>${state.selected===q.a?'Correct!':'Not quite.'}</strong> ${q.e}`;f.classList.remove('hidden');document.getElementById('checkQ').disabled=true;document.getElementById('nextQ').disabled=false;document.getElementById('quizStatus').textContent=`Question ${state.qi+1} of ${state.quiz.length} · Score ${state.score}`});
+document.getElementById('nextQ').addEventListener('click',()=>{if(state.qi<state.quiz.length-1){state.qi++;renderQ()}else finishQuiz()});function finishQuiz(){const pct=Math.round(state.score/state.quiz.length*100);state.best=Math.max(state.best,pct);save();document.getElementById('quizCard').classList.add('hidden');document.getElementById('quizProgress').style.width='100%';const r=document.getElementById('quizResult');r.classList.remove('hidden');r.innerHTML=`<h3>${pct>=80?'Assessment Ready!':'Keep Reviewing'}</h3><p>You scored <strong>${state.score}/${state.quiz.length} (${pct}%)</strong>.</p><p>${pct>=80?'Excellent work. Complete the readiness checklist to unlock your certificate.':'Review missed concepts in the Study Guide and Flashcards, then try again.'}</p><button class="btn" id="retryQ">Try Another Random Quiz</button>`;document.getElementById('retryQ').addEventListener('click',()=>{r.classList.add('hidden');document.getElementById('quizCard').classList.remove('hidden');startQuiz()})}
+document.getElementById('checkReady').addEventListener('click',()=>{const checked=document.querySelectorAll('#checklist input:checked').length;const f=document.getElementById('readyFeedback');f.classList.remove('hidden');if(checked===8&&state.best>=80){const name=prompt('Enter your name for the certificate:','Student')||'Student';f.innerHTML='<h3>Ready for Assessment</h3><p>You completed every skill check and earned at least 80% on the practice quiz.</p>';document.getElementById('certName').textContent=name;document.getElementById('certScore').textContent=state.best+'%';document.getElementById('certificate').classList.remove('hidden')}else{f.innerHTML=`<h3>Almost there</h3><p>Checklist: ${checked}/8 complete. Best quiz score: ${state.best||0}%. Complete all eight skills and earn at least 80%.</p>`}updateMetrics()});document.querySelectorAll('#checklist input').forEach(x=>x.addEventListener('change',updateMetrics));
+renderFlash();buildJ();startQuiz();updateMetrics();
+</script>
 </body>
-
 </html>

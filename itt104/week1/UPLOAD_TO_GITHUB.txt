@@ -1,15 +1,16 @@
-UPLOAD INSTRUCTIONS
+ITT104 WEEK 1 - REVIEW CENTER UPDATE
 
-Upload the entire itt104/week1 folder to the same path in your GitHub repository.
+Upload ALL files in this folder to:
+IT-Learning-Dev / itt104 / week1 /
 
-Development test URL:
-https://jrebolledo75.github.io/IT-Learning-Dev/itt104/week1/
+Files:
+- index.html (updated Week 1 landing page)
+- mission-ready.html (existing Mission Ready activity)
+- review.html (NEW complete Review Center)
+- itt104-week1-mission-qr.png (existing mission QR)
 
-Development direct mission URL:
-https://jrebolledo75.github.io/IT-Learning-Dev/itt104/week1/mission-ready.html
+Development links:
+Week 1: https://jrebolledo75.github.io/IT-Learning-Dev/itt104/week1/
+Review: https://jrebolledo75.github.io/IT-Learning-Dev/itt104/week1/review.html
 
-Production direct mission URL after approval:
-https://jrebolledo75.github.io/IT-Learning/itt104/week1/mission-ready.html
-
-QR image:
-itt104-week1-mission-qr.png
+After testing, upload the same files to IT-Learning / itt104 / week1 / for production.
