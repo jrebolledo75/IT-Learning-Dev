@@ -1,0 +1,15 @@
+UPLOAD INSTRUCTIONS
+
+Upload the entire itt104/week1 folder to the same path in your GitHub repository.
+
+Development test URL:
+https://jrebolledo75.github.io/IT-Learning-Dev/itt104/week1/
+
+Development direct mission URL:
+https://jrebolledo75.github.io/IT-Learning-Dev/itt104/week1/mission-ready.html
+
+Production direct mission URL after approval:
+https://jrebolledo75.github.io/IT-Learning/itt104/week1/mission-ready.html
+
+QR image:
+itt104-week1-mission-qr.png
