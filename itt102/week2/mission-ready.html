@@ -24,6 +24,209 @@ function checkPorts(){let n=0,rows=[];document.querySelectorAll('#portzones .dro
 function showPortKey(){portfb.className='feedback ok';portfb.innerHTML='<h3 style="margin-top:0">📘 Port Answer Key — Know the Purpose</h3>'+Object.keys(pm).map(s=>`<div style="background:#fff;padding:12px;margin:8px 0;border-radius:10px;border-left:5px solid var(--teal)"><b>${s} → ${pm[s]}</b><br><span>${portWhy[s]}</span></div>`).join('')+'<p><b>Technician tip:</b> Do not memorize the number alone. Connect the port to what the service does and to the symptom you are troubleshooting.</p>'}
 renderPorts();
 function subStep(){if(borrow.value=='2'&&prefix.value=='/26'){subfb.className='feedback ok';subfb.textContent='Correct. Borrowing 2 host bits creates 4 equal /26 networks.';let names=['Finance','Marketing','HR','IT'],nets=[['192.168.0.0/26','1–62','63'],['192.168.0.64/26','65–126','127'],['192.168.0.128/26','129–190','191'],['192.168.0.192/26','193–254','255']];subnets.innerHTML=names.map((n,i)=>`<div class="subnet"><b>${n}</b><h3>${nets[i][0]}</h3><small>Usable: 192.168.0.${nets[i][1]}<br>Broadcast: 192.168.0.${nets[i][2]}</small></div>`).join('');subchallenge.innerHTML='<div class="qbox"><b>Challenge:</b> Which department contains host 192.168.0.140? <button class="btn" onclick="subAns(0)">Finance</button> <button class="btn" onclick="subAns(1)">HR</button> <button class="btn" onclick="subAns(0)">IT</button><div id="subans"></div></div>'}else{subfb.className='feedback bad';subfb.textContent='Not yet. Four equal networks require 2 borrowed bits: 2² = 4.'}}function subAns(x){subans.className='feedback '+(x?'ok':'bad');subans.textContent=x?'Correct. 140 falls in 128–191, the HR /26 block in this scenario.':'Try again. Locate the /26 block whose addresses span 128–191.';if(x){done[2]=1;save()}}
-const wires=[['White/Orange','wo'],['Orange','o'],['White/Green','wg'],['Blue','b'],['White/Blue','wb'],['Green','g'],['White/Brown','wbr'],['Brown','br']];function renderCable(){wirebank.innerHTML=shuffle(wires).map(w=>`<div title="${w[0]}" draggable="true" ondragstart="drag='${w[0]}'"><div class="wire ${w[1]}"></div><div class="small">${w[0]}</div></div>`).join('');pins.innerHTML=wires.map((w,i)=>`<div class="pin"><b>${i+1}</b><div class="drop" data-pin="${i}" ondragover="event.preventDefault()" ondrop="placeWire(this,drag)"></div></div>`).join('');tester.innerHTML=''}function placeWire(el,name){let w=wires.find(x=>x[0]==name);el.dataset.val=name;el.innerHTML=`<div title="${name}" class="wire ${w[1]}"></div>`}function toggleRef(){ref.classList.toggle('hidden')}function testCable(){let good=0,lines='';document.querySelectorAll('#pins .drop').forEach((d,i)=>{let ok=d.dataset.val==wires[i][0];if(ok)good++;lines+=(i+1)+'  '+(ok?'●────────●  '+(i+1)+'  ✓':'●──── X ───●  ?  MISWIRE')+'<br>'});tester.innerHTML='<div class="tester"><b>CAT6 CABLE TESTER</b><br>'+lines+'<b>'+(good==8?'PASS — all 8 conductors map correctly.':'FAIL — '+good+'/8 conductors correct. Inspect and reterminate.')+'</b></div>';if(good==8){done[3]=1;save()}}renderCable();
+const wires=[['White/Orange','wo'],['Orange','o'],['White/Green','wg'],['Blue','b'],['White/Blue','wb'],['Green','g'],['White/Brown','wbr'],['Brown','br']];function renderCable(){wirebank.innerHTML=shuffle(wires).map(w=>`<div title="${w[0]}" draggable="true" ondragstart="drag='${w[0]}'"><div class="wire ${w[1]}"></div><div class="small">${w[0]}</div></div>`).join('');pins.innerHTML=wires.map((w,i)=>`<div class="pin"><b>${i+1}</b><div class="drop" data-pin="${i}" ondragover="event.preventDefault()" ondrop="placeWire(this,drag)"></div></div>`).join('');tester.innerHTML=''}function placeWire(el,name){
+ if(!name)return;
+ let w=wires.find(x=>x[0]==name); if(!w)return;
+
+ // If this pin already contains a different wire, return that wire to the bank.
+ let previous=el.dataset.val;
+ if(previous && previous!==name){
+   let prev=wires.find(x=>x[0]==previous);
+   if(prev && !document.querySelector('#wirebank [data-name="'+previous+'"]')){
+     wirebank.insertAdjacentHTML('beforeend',
+       `<div class="wireitem" data-name="${prev[0]}" title="${prev[0]}" draggable="true"
+        onclick="touchWire='${prev[0]}'"
+        ondragstart="drag='${prev[0]}'"><div class="wire ${prev[1]}"></div><div class="small">${prev[0]}</div></div>`);
+   }
+ }
+
+ // If this same wire was previously placed in another pin, clear that old pin.
+ document.querySelectorAll('#pins .drop').forEach(d=>{
+   if(d!==el && d.dataset.val===name){ d.innerHTML=''; delete d.dataset.val; }
+ });
+
+ el.dataset.val=name;
+ el.innerHTML=`<div title="${name}" class="wire ${w[1]}"></div>`;
+
+ // IMPORTANT: remove the used conductor completely from the loose-wire bank.
+ let bankItem=document.querySelector('#wirebank [data-name="'+name+'"]');
+ if(bankItem) bankItem.remove();
+
+ touchWire=''; drag='';
+}function toggleRef(){ref.classList.toggle('hidden')}function testCable(){let good=0,lines='';document.querySelectorAll('#pins .drop').forEach((d,i)=>{let ok=d.dataset.val==wires[i][0];if(ok)good++;lines+=(i+1)+'  '+(ok?'●────────●  '+(i+1)+'  ✓':'●──── X ───●  ?  MISWIRE')+'<br>'});tester.innerHTML='<div class="tester"><b>CAT6 CABLE TESTER</b><br>'+lines+'<b>'+(good==8?'PASS — all 8 conductors map correctly.':'FAIL — '+good+'/8 conductors correct. Inspect and reterminate.')+'</b></div>';if(good==8){done[3]=1;save()}}renderCable();
 function ticket(x){let ok=x=='dns';ticketfb.className='feedback '+(ok?'ok':'bad');ticketfb.textContent=ok?'Correct. Working by IP but not hostname points toward DNS/name resolution.':'That action is premature. Use the symptom as evidence and isolate name resolution first.';if(ok){done[4]=1;save()}}save();
-</script></body></html>
+</script>
+<style>
+@media(max-width:700px){.wrap{padding:12px 10px 40px}.card{padding:17px}.btn,.option,.chip{min-height:48px;font-size:16px}.ports{grid-template-columns:1fr 1fr}.rj{min-width:660px}.wire{width:42px}}
+.chip.selected,.wireitem.selected{outline:4px solid var(--orange);outline-offset:2px}
+.chip.used,.wireitem.used{opacity:.28;pointer-events:none;filter:grayscale(.8)}
+.touchhint{font-size:14px;color:#655c72;margin:8px 0}.scenario{background:#f8f5fb;border-left:5px solid var(--purple);padding:14px;border-radius:10px;margin:10px 0}
+</style>
+<script>
+/* ITT102 Week 2 Enhancement Layer */
+const COMM_SCENARIOS=[
+["My Wi-Fi says connected, but websites will not load. Is the Wi-Fi broken?","Your device is connected to Wi-Fi, but the network may not be reaching the Internet. I’ll check it step by step.","Your DNS resolver or WAN gateway is probably failing."],
+["The Internet is really slow today. Do I need a new computer?","Not necessarily. I’ll first check the network speed and connection to see where the slowdown is happening.","Your NIC may have excessive latency or a duplex mismatch."],
+["Why can I open some websites but not others?","Your connection is working, so I’ll check whether the problem is with certain sites, browser settings, or name resolution.","It is probably an application-layer DNS or TLS issue."],
+["My printer says offline. Is it broken?","It may still be fine. I’ll check its power and network connection before deciding there is a hardware problem.","The print server or TCP/IP stack is likely unavailable."],
+["My laptop keeps disconnecting from Wi-Fi.","I’ll check the signal and connection first, then we can see whether the laptop or wireless network needs attention.","Your WLAN adapter may be roaming between access points."],
+["I cannot get email, but websites work.","Since the Internet is working, I’ll focus on the email connection and account settings first.","We need to inspect SMTP and IMAP transport immediately."],
+["What does an IP address do?","It is an address that helps devices find and communicate with each other on a network.","It is a Layer 3 logical identifier used by routed protocols."],
+["Why do I need a router?","A router helps your devices communicate with other networks, including the Internet.","It forwards packets between Layer 3 broadcast domains."],
+["What is DNS?","DNS works like a directory: it helps your device find a website’s numeric network address from its name.","DNS resolves FQDN records through recursive queries."],
+["Why does the cable tester show a failure?","One or more wires may not be connected in the correct position. We’ll inspect the ends and test again.","The termination likely has an open, short, split pair, or reversal."],
+["My video meeting freezes, but email works.","Your connection is working, but video needs more consistent speed. I’ll check connection quality and bandwidth.","You are probably experiencing jitter, latency, or packet loss."],
+["Why is Ethernet usually more stable than Wi-Fi?","A cable gives the device a direct wired connection, so it is usually less affected by distance and wireless interference.","802.3 has fewer RF-layer variables than 802.11."],
+["I changed offices and now I cannot connect.","I’ll check the new connection point and your network settings to find what changed.","The switchport VLAN or DHCP scope may be incorrect."],
+["The website works by IP address, but not by name.","The Internet path is working. I’ll check the service that translates website names into addresses.","Your DNS resolver path or port 53 is failing."],
+["Why did you ask me to restart the network device?","Restarting can clear a temporary problem and lets us see whether the issue returns before making bigger changes.","We are resetting volatile state and reinitializing interfaces."]
+];
+const TICKETS=[
+["A user can reach a website by IP address but not hostname.",["Replace the router immediately","Check DNS/name resolution and port 53 communication","Recrimp every Ethernet cable"],1,"Working by IP but not hostname points toward DNS/name resolution."],
+["A new workstation receives a 169.254 address.",["Check DHCP service and the path to the DHCP server","Replace the monitor","Check SMTP"],0,"A 169.254 address suggests normal DHCP configuration was not received."],
+["Secure websites fail, but an HTTP test page works.",["Investigate HTTPS/port 443","Replace all patch cables","Disable DNS"],0,"HTTPS normally uses port 443."],
+["A user can browse the web but cannot send email.",["Check the outgoing mail/SMTP path","Replace the keyboard","Reconfigure the monitor"],0,"General connectivity works, so focus on the outgoing email service."],
+["SSH to a Linux server fails.",["Check SSH service and port 22 reachability","Check port 80 only","Replace the RJ45 connector without testing"],0,"SSH normally uses port 22."],
+["A laptop works near the access point but disconnects far away.",["Check wireless signal, distance, and interference","Change DNS immediately","Replace the ISP"],0,"A distance-related symptom points first to wireless coverage."],
+["A cable tester reports pins 1 and 2 reversed.",["Inspect and reterminate using the required wiring order","Change the IP address","Restart the browser"],0,"The tester identifies a physical wiring fault."],
+["Several users lose Internet, but local devices still communicate.",["Check the router/Internet uplink and ISP path","Replace every workstation","Change all hostnames"],0,"Local connectivity working points toward the upstream path."],
+["One PC has no network while nearby PCs work.",["Check that PC’s cable, link light, adapter, and switch connection","Restart every network device","Call the ISP first"],0,"Isolate a single-device problem locally first."],
+["A mail client receives messages but cannot send them.",["Check outgoing SMTP configuration/service","Check DHCP only","Replace the switch"],0,"Receiving works, so focus on the outgoing mail path."],
+["Problems began after a desk was moved.",["Inspect the physical cable and connection first","Replace the router","Change every subnet"],0,"The moved physical connection is the strongest first clue."],
+["A device has a valid IP but cannot reach its gateway.",["Check local connectivity, switch/VLAN path, and gateway","Change a website password","Check IMAP"],0,"The symptom points to the local network path or gateway."],
+["A website works on one PC but not another.",["Compare the affected PC’s DNS/cache and network settings","Replace the building router","Recrimp all cables"],0,"Start with the affected device because another device works."],
+["A newly crimped cable has no link light.",["Test the cable and inspect conductor order and seating","Change DNS","Install a new browser"],0,"No link after termination calls for physical-layer testing."],
+["Video calls become choppy during heavy downloads.",["Check bandwidth use, latency, and congestion","Change RJ45 color order","Disable DHCP"],0,"Heavy traffic can consume bandwidth and affect video."]
+];
+const SUBS=[
+["192.168.10.0",2,"/26",["Sales","HR","IT","Admin"]],["192.168.20.0",2,"/26",["Front Desk","Admissions","Faculty","IT"]],
+["192.168.30.0",3,"/27",["A","B","C","D","E","F","G","H"]],["192.168.40.0",1,"/25",["Office","Lab"]],
+["10.10.5.0",2,"/26",["Finance","Marketing","HR","IT"]],["172.16.8.0",2,"/26",["North","South","East","West"]],
+["192.168.50.0",3,"/27",["T1","T2","T3","T4","T5","T6","T7","T8"]],["192.168.60.0",1,"/25",["Students","Staff"]],
+["10.20.30.0",2,"/26",["Voice","Data","Guest","Admin"]],["172.20.4.0",3,"/27",["D1","D2","D3","D4","D5","D6","D7","D8"]]
+];
+let commCurrent,ticketCurrent,subCurrent,touchService="",touchWire="";
+function randomComm(){
+ commCurrent=COMM_SCENARIOS[Math.floor(Math.random()*COMM_SCENARIOS.length)];
+ const card=document.querySelectorAll(".station")[0];
+ card.innerHTML='<h2>1. 🗣️ Translate Tech → Human</h2><p>Choose the clearest customer-friendly response. A new scenario is selected each round.</p><div class="scenario"><b>Customer:</b> “'+commCurrent[0]+'”</div><div id="commChoices"></div><button class="btn orange" onclick="randomComm()">New Scenario</button><div id="commfb"></div>';
+ const choices=[[commCurrent[1],1],[commCurrent[2],0]].sort(()=>Math.random()-.5);
+ commChoices.innerHTML=choices.map(x=>'<button class="option" onclick="comm2('+x[1]+')">'+x[0]+'</button>').join('');
+}
+function comm2(ok){commfb.className='feedback '+(ok?'ok':'bad');commfb.textContent=ok?'Correct — clear, calm, accurate, and customer-friendly.':'Too technical for the customer. Explain the impact and next step in plain language.';if(ok){done[0]=1;save()}}
+function upgradePorts(){
+ const card=document.querySelectorAll(".station")[1],p=card.querySelector("p");p.innerHTML='Match each service to the correct port. <b>Desktop:</b> drag. <b>Phone/tablet:</b> tap a service, then tap a port.';
+ const oldRender=renderPorts;
+ renderPorts=function(){oldRender();touchService='';document.querySelectorAll('#portbank .chip').forEach(c=>{let svc=c.textContent;c.dataset.service=svc;c.onclick=()=>{touchService=svc;document.querySelectorAll('#portbank .chip').forEach(x=>x.classList.toggle('selected',x===c))}});document.querySelectorAll('#portzones .drop').forEach(d=>{d.onclick=()=>{if(!touchService)return;d.textContent=touchService;d.dataset.val=touchService;let chip=document.querySelector('#portbank .chip[data-service="'+touchService+'"]');if(chip)chip.classList.add('used');touchService='';document.querySelectorAll('#portbank .chip').forEach(x=>x.classList.remove('selected'))};d.ondrop=e=>{e.preventDefault();d.textContent=drag;d.dataset.val=drag;let chip=document.querySelector('#portbank .chip[data-service="'+drag+'"]');if(chip)chip.classList.add('used')}})}
+ renderPorts();
+}
+function randomSubnet(){
+ subCurrent=SUBS[Math.floor(Math.random()*SUBS.length)];
+ const card=document.querySelectorAll(".station")[2],base=subCurrent[0],groups=subCurrent[3];
+ card.innerHTML='<h2>3. 🌐 Guided Subnetting Simulator</h2><p>Randomized equal-size subnetting practice.</p><div class="scenario"><b>Scenario:</b> Divide <b>'+base+'/24</b> into <b>'+groups.length+' equal segments</b> for '+groups.join(', ')+'.</div><div class="qbox"><label>Bits borrowed: <select id="borrow"><option>Choose</option><option>1</option><option>2</option><option>3</option></select></label> &nbsp; <label>New prefix: <select id="prefix"><option>Choose</option><option>/25</option><option>/26</option><option>/27</option></select></label> <button class="btn teal" onclick="sub2()">Build Subnets</button> <button class="btn orange" onclick="randomSubnet()">New Scenario</button><div id="subfb"></div></div><div id="subnets" class="subnets"></div><div id="subchallenge"></div>';
+}
+function sub2(){let bits=subCurrent[1],pre=subCurrent[2],groups=subCurrent[3],root=subCurrent[0].split('.').slice(0,3).join('.');if(borrow.value==bits&&prefix.value==pre){let block=256/(2**bits);subfb.className='feedback ok';subfb.textContent='Correct. Borrowing '+bits+' bit(s) creates '+(2**bits)+' equal '+pre+' networks.';subnets.innerHTML=groups.map((g,i)=>{let n=i*block,b=n+block-1;return '<div class="subnet"><b>'+g+'</b><h3>'+root+'.'+n+pre+'</h3><small>Usable: '+root+'.'+(n+1)+'–'+root+'.'+(b-1)+'<br>Broadcast: '+root+'.'+b+'</small></div>'}).join('');done[2]=1;save()}else{subfb.className='feedback bad';subfb.textContent='Not yet. '+groups.length+' equal networks require '+bits+' borrowed bit(s).'}}
+function upgradeCable(){
+ const old=renderCable;renderCable=function(){old();touchWire='';document.querySelectorAll('#wirebank>div').forEach(item=>{item.classList.add('wireitem');let name=item.title;item.dataset.name=name;item.onclick=()=>{touchWire=name;document.querySelectorAll('.wireitem').forEach(x=>x.classList.toggle('selected',x===item))}});document.querySelectorAll('#pins .drop').forEach(d=>{d.onclick=()=>{if(!touchWire)return;placeWire(d,touchWire);let item=document.querySelector('.wireitem[data-name="'+touchWire+'"]');touchWire=''};d.ondrop=e=>{e.preventDefault();placeWire(d,drag)}})}
+ old();
+ const card=document.querySelectorAll(".station")[3],p=card.querySelector("p");p.innerHTML='Place conductors into pins 1–8. <b>Desktop:</b> drag. <b>Phone/tablet:</b> tap a wire, then tap a pin. Used wires are disabled automatically.';
+}
+function randomTicket(){
+ ticketCurrent=TICKETS[Math.floor(Math.random()*TICKETS.length)];
+ const card=document.querySelectorAll(".station")[4],opts=ticketCurrent[1].map((x,i)=>[x,i]).sort(()=>Math.random()-.5);
+ card.innerHTML='<h2>5. 🧠 Troubleshooting Ticket</h2><p>Choose the best first troubleshooting action. Tickets are randomized.</p><div class="scenario"><b>Ticket:</b> '+ticketCurrent[0]+'</div><div>'+opts.map(x=>'<button class="option" onclick="ticket2('+x[1]+')">'+x[0]+'</button>').join('')+'</div><button class="btn orange" onclick="randomTicket()">New Ticket</button><div id="ticketfb"></div>';
+}
+function ticket2(i){let ok=i===ticketCurrent[2];ticketfb.className='feedback '+(ok?'ok':'bad');ticketfb.textContent=ok?'Correct. '+ticketCurrent[3]:'Not the best first step. Use the symptom as evidence and isolate the most likely service or layer first.';if(ok){done[4]=1;save()}}
+randomComm();upgradePorts();randomSubnet();upgradeCable();randomTicket();save();
+</script>
+
+<script>
+/* RJ45 conductor-bank definitive fix */
+(function () {
+  function usedRJ45Wires() {
+    return new Set(
+      Array.from(document.querySelectorAll('#pins .drop'))
+        .map(pin => pin.dataset.val)
+        .filter(Boolean)
+    );
+  }
+
+  function rebuildLooseConductors() {
+    const bank = document.getElementById('wirebank');
+    if (!bank || typeof wires === 'undefined') return;
+
+    const used = usedRJ45Wires();
+    bank.innerHTML = '';
+
+    wires.forEach(w => {
+      const name = w[0], cls = w[1];
+      if (used.has(name)) return; // DO NOT SHOW a conductor already in a pin
+
+      const item = document.createElement('div');
+      item.className = 'wireitem';
+      item.dataset.name = name;
+      item.title = name;
+      item.draggable = true;
+      item.innerHTML = '<div class="wire ' + cls + '"></div><div class="small">' + name + '</div>';
+
+      item.addEventListener('dragstart', function () {
+        drag = name;
+      });
+      item.addEventListener('click', function () {
+        touchWire = name;
+        document.querySelectorAll('#wirebank .wireitem').forEach(x =>
+          x.classList.toggle('selected', x === item)
+        );
+      });
+      bank.appendChild(item);
+    });
+  }
+
+  // Wrap the existing placement function. After EVERY placement,
+  // rebuild the bank from actual pin state.
+  const originalPlaceWire = window.placeWire;
+  window.placeWire = function(el, name) {
+    if (!name) return;
+    if (typeof originalPlaceWire === 'function') {
+      originalPlaceWire(el, name);
+    }
+    rebuildLooseConductors();
+  };
+
+  // Rebind pins after the page's existing scripts finish.
+  function bindPins() {
+    document.querySelectorAll('#pins .drop').forEach(pin => {
+      pin.addEventListener('click', function () {
+        if (!touchWire) return;
+        window.placeWire(pin, touchWire);
+        touchWire = '';
+      });
+      pin.addEventListener('dragover', e => e.preventDefault());
+      pin.addEventListener('drop', function (e) {
+        e.preventDefault();
+        if (!drag) return;
+        window.placeWire(pin, drag);
+        drag = '';
+      });
+    });
+    rebuildLooseConductors();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bindPins);
+  } else {
+    bindPins();
+  }
+
+  // Also rebuild after Reset / Render actions.
+  const originalRenderCable = window.renderCable;
+  if (typeof originalRenderCable === 'function') {
+    window.renderCable = function() {
+      originalRenderCable();
+      setTimeout(bindPins, 0);
+    };
+  }
+})();
+</script>
+
+</body></html>
