@@ -1,6 +1,44 @@
 <!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ITT102 Week 2 Mission Ready</title><style>
 :root{--purple:#4b2e83;--navy:#1f3d7a;--teal:#0795a5;--orange:#ff7600;--ink:#17123f;--soft:#f4f1f8;--line:#ded7e9;--green:#16845b;--red:#bd2d3a}*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f5f6fa;color:var(--ink)}.wrap{max-width:1120px;margin:auto;padding:26px 18px 60px}.hero{background:linear-gradient(120deg,var(--navy),var(--purple));color:#fff;border-radius:20px;padding:30px;margin:10px 0 18px;box-shadow:0 10px 30px #29184b20}.hero h1{font-size:34px;margin:0 0 10px}.hero p{margin:5px 0;line-height:1.5}.card{background:#fff;border:1px solid #ebe7f1;border-radius:18px;padding:24px;margin:16px 0;box-shadow:0 7px 22px #2a1a4b10}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}.metric{background:#f4f0f9;border:1px solid #ddd4ea;border-radius:14px;padding:16px}.metric b{font-size:24px;display:block;margin-top:7px}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.btn{border:1px solid #d9d1e6;background:#fff;color:var(--ink);font-weight:700;border-radius:999px;padding:11px 17px;cursor:pointer}.btn.primary,.btn.active{background:var(--purple);color:#fff;border-color:var(--purple)}.btn.orange{background:var(--orange);color:#fff;border:0}.btn.teal{background:var(--teal);color:#fff;border:0}.hidden{display:none}.progress{height:13px;background:#e5dfeb;border-radius:9px;overflow:hidden}.bar{height:100%;background:var(--teal);width:0}.flash{min-height:280px;border:2px solid var(--purple);background:#f8f5fb;border-radius:20px;padding:22px;display:flex;align-items:center;justify-content:center;text-align:center;cursor:pointer}.flash .term{font-size:38px;font-weight:800}.label{position:absolute}.center{text-align:center}.feedback{padding:12px;border-radius:10px;margin:10px 0}.ok{background:#e9f7f0;color:#116746}.bad{background:#fff0f1;color:#9d2630}.jeo{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}.jeo .head{background:var(--navy);color:#fff;padding:12px 5px;text-align:center;font-weight:bold;border-radius:8px}.jeo button{background:#243d7d;color:#ffd24a;border:0;border-radius:8px;padding:17px 4px;font-size:18px;font-weight:bold;cursor:pointer}.qbox{padding:18px;border:1px solid var(--line);border-radius:14px;margin:12px 0}.option{display:block;width:100%;text-align:left;margin:8px 0;padding:12px;border:1px solid #d8d0e4;background:#fff;border-radius:10px;cursor:pointer}.station{border-left:6px solid var(--teal)}.dragbank{display:flex;flex-wrap:wrap;gap:8px;padding:12px;background:#f7f4fa;border-radius:12px}.chip{padding:10px 13px;border-radius:10px;background:#e9e2f2;border:1px solid #d2c5e3;cursor:grab;font-weight:bold}.drop{min-height:48px;border:2px dashed #a99cba;border-radius:10px;padding:10px;background:#fcfbfd}.ports{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-top:12px}.portbox{text-align:center;background:#f7f4fa;border-radius:12px;padding:10px}.rjwrap{overflow-x:auto}.rj{min-width:720px;background:linear-gradient(#e8edf2,#cbd5df);border:3px solid #7c8996;border-radius:18px 18px 35px 35px;padding:20px 18px 30px;position:relative}.pins{display:grid;grid-template-columns:repeat(8,1fr);gap:5px}.pin{background:#fff9c4;border:2px solid #9c8a2d;border-radius:6px;padding:7px 4px;text-align:center}.pin .drop{height:145px;padding:4px;display:flex;align-items:center;justify-content:center}.wire{width:38px;height:120px;border-radius:12px;border:1px solid #777;display:inline-block;cursor:grab}.wirebank{display:flex;gap:10px;flex-wrap:wrap;align-items:end;padding:16px;background:#f8f5fb;border-radius:12px}.wo{background:repeating-linear-gradient(45deg,#fff 0 9px,#f28c28 9px 14px)}.o{background:#f28c28}.wg{background:repeating-linear-gradient(45deg,#fff 0 9px,#35a853 9px 14px)}.b{background:#3579c9}.wb{background:repeating-linear-gradient(45deg,#fff 0 9px,#3579c9 9px 14px)}.g{background:#35a853}.wbr{background:repeating-linear-gradient(45deg,#fff 0 9px,#8b5a2b 9px 14px)}.br{background:#8b5a2b}.tester{font-family:monospace;background:#20242a;color:#7dff9b;border-radius:12px;padding:18px;line-height:1.8}.subnets{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.subnet{min-height:140px;border-radius:14px;padding:14px;color:#fff;background:linear-gradient(145deg,#245083,#4b2e83)}.small{font-size:13px;color:#655c72}.stage{display:none}.stage.active{display:block}.topnav a{color:var(--purple);font-weight:bold}.checkrow{padding:10px 0;border-bottom:1px solid #eee}.certificate{border:3px double var(--purple);padding:24px;text-align:center;background:#fffdf7}.homegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}.homecard{background:#fff;border-radius:18px;padding:22px;box-shadow:0 7px 22px #2a1a4b12;border:1px solid #ebe7f1}@media(max-width:700px){.jeo{grid-template-columns:repeat(2,1fr)}.subnets{grid-template-columns:1fr 1fr}.hero h1{font-size:27px}}
-</style></head><body><div class="wrap"><div class="topnav"><a href="index.html">← Week 2 Home</a></div><div class="hero"><h1>🎯 Mission Ready™: Network Support Technician</h1><p><b>Support the Growing Business Network.</b> Explain technology clearly, solve network challenges, practice subnetting, master ports, and digitally rehearse an RJ45 termination before the physical CAT6 lab.</p><div class="progress"><div id="missionbar" class="bar"></div></div><p id="missioncount">0 of 5 core challenges complete</p></div>
+</style>
+<style>
+/* RJ45 mobile full-wire visibility fix */
+#pins .pin { min-width: 0; overflow: visible; }
+#pins .pin .drop {
+  height: 145px;
+  min-height: 145px;
+  padding: 4px 2px;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#pins .pin .drop .wire {
+  display: block;
+  width: min(38px, 82%);
+  min-width: 24px;
+  height: 120px;
+  flex: 0 0 auto;
+  margin: 0 auto;
+  position: relative;
+  inset: auto;
+}
+@media(max-width:700px){
+  .rjwrap{
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    padding-bottom:8px;
+  }
+  .rj{min-width:720px;}
+  #pins .pin .drop .wire{
+    width:38px;
+    min-width:38px;
+    height:120px;
+  }
+}
+</style>
+
+</head><body><div class="wrap"><div class="topnav"><a href="index.html">← Week 2 Home</a></div><div class="hero"><h1>🎯 Mission Ready™: Network Support Technician</h1><p><b>Support the Growing Business Network.</b> Explain technology clearly, solve network challenges, practice subnetting, master ports, and digitally rehearse an RJ45 termination before the physical CAT6 lab.</p><div class="progress"><div id="missionbar" class="bar"></div></div><p id="missioncount">0 of 5 core challenges complete</p></div>
 <div class="card station"><h2>1. 🗣️ Translate Tech → Human</h2><p>A customer says: <b>“My Wi-Fi says connected, but websites will not load. Is the Wi-Fi broken?”</b></p><button class="option" onclick="comm(0)">“Your DNS resolver or WAN gateway is probably failing.”</button><button class="option" onclick="comm(1)">“Your device is connected to the wireless network, but the network may not be reaching the Internet. I’ll check it step by step.”</button><div id="commfb"></div></div>
 <div class="card station"><h2>2. 🔌 Ports & Protocols Arena</h2><p>Drag each service card to the correct port. The cards reshuffle every round.</p><div id="portbank" class="dragbank"></div><div id="portzones" class="ports"></div><div style="margin-top:12px"><button class="btn primary" onclick="checkPorts()">Check Connections</button> <button class="btn teal" onclick="showPortKey()">Show Correct Answers + Why</button> <button class="btn orange" onclick="renderPorts()">New Round</button></div><div id="portfb"></div></div>
 <div class="card station"><h2>3. 🌐 Guided Subnetting Simulator</h2><p><b>Scenario:</b> Finance, Marketing, HR, and IT need four equal network segments from <b>192.168.0.0/24</b>.</p><div class="qbox"><label>How many bits must be borrowed? <select id="borrow"><option>Choose</option><option>1</option><option>2</option><option>3</option></select></label> &nbsp; <label>New prefix: <select id="prefix"><option>Choose</option><option>/25</option><option>/26</option><option>/27</option></select></label> <button class="btn teal" onclick="subStep()">Build Subnets</button><div id="subfb"></div></div><div id="subnets" class="subnets"></div><div id="subchallenge"></div></div>
