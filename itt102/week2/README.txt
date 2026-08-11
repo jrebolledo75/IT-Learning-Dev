@@ -1,1 +1,1 @@
-Upload all files in this folder to IT-Learning-Dev/itt102/week2/. Test index.html, mission-ready.html, and review-interactive.html before sharing with students.
+ITT102 Week 2 upgraded package. Upload all files in this folder to IT-Learning-Dev/itt102/week2/, replacing the existing HTML files. QR images from the prior package can remain because the URLs do not change.
