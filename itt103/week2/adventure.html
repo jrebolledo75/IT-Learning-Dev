@@ -22,8 +22,31 @@
  .terminal-output{min-height:220px;font-size:13px}
 }
 </style>
+
+<style id="commandReferenceStyles">
+.command-reference{margin:16px 0 10px;background:#fff;border:1px solid #d8deea;border-radius:14px;overflow:hidden}
+.command-reference h3{margin:0;padding:14px 16px;background:#eef4ff;color:#172554}
+.command-table-wrap{overflow-x:auto}
+.command-table{width:100%;border-collapse:collapse;min-width:560px}
+.command-table th,.command-table td{padding:11px 13px;border-top:1px solid #e5e7eb;text-align:left;vertical-align:top}
+.command-table th{background:#f8fafc;color:#334155;font-size:.85rem;text-transform:uppercase;letter-spacing:.04em}
+.command-table code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-weight:800;color:#0f5132}
+.command-note{padding:10px 14px;color:#64748b;font-size:.9rem;background:#fafafa}
+</style>
 </head><body><main class="shell"><section class="hero"><div class="eyebrow">ITT103 WEEK 2 · HANDS-ON PRACTICE</div><h1>🐧 Systems Administrator Adventure</h1><p>Five core stations + one optional AI bonus. Every station can be replayed for a new scenario.</p><div class="progress"><span id="prog" style="width:0%"></span></div><b>Stations completed: <span id="done">0</span>/5</b></section>
 <div class="tabs"><button onclick="go('commands')">🐧 Commands</button><button onclick="go('filesystems')">💾 File Systems</button><button onclick="go('directories')">🗂️ Directories</button><button onclick="go('permissions')">🔐 Permissions</button><button onclick="go('admin')">🛡️ Admin</button><button onclick="go('ai')">🤖 AI Bonus</button></div><section id="app"></section><div class="nav"><a class="btn" href="index.html">← Week 2 Home</a><a class="btn" href="review-interactive.html">Review Center</a></div>
+
+<div id="commandReference" class="command-reference" hidden>
+  <h3>Linux Command Reference for This Scenario</h3>
+  <div class="command-table-wrap">
+    <table class="command-table">
+      <thead><tr><th>Command</th><th>Description</th><th>Example</th></tr></thead>
+      <tbody id="commandReferenceBody"></tbody>
+    </table>
+  </div>
+  <div class="command-note">Use the table as a technician reference, then enter and test the command in the terminal below.</div>
+</div>
+
 <div id="terminalQuest" class="terminal-quest" hidden>
   <div class="terminal-topbar">
     <span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span>
@@ -262,5 +285,84 @@ document.addEventListener("DOMContentLoaded",()=>{
   // Hide the terminal when another station button is selected.
   buttons.filter(b=>b!==cmdBtn && /(file systems|directories|permissions|admin|ai bonus)/i.test(b.textContent||""))
     .forEach(b=>b.addEventListener("click",()=>{tq.hidden=true;}));
+});
+</script>
+
+<script id="commandReferenceScript">
+const commandCatalog = {
+  "pwd": ["Show the current working directory.", "pwd"],
+  "ls": ["List files and directories.", "ls"],
+  "ls -l": ["List files with permissions and details.", "ls -l"],
+  "ls -la": ["List all files, including hidden files, with details.", "ls -la"],
+  "cd": ["Change the current directory.", "cd linux_lab"],
+  "mkdir": ["Create a new directory.", "mkdir linux_lab"],
+  "touch": ["Create an empty file or update its timestamp.", "touch file1.txt"],
+  "echo": ["Display text or redirect text into a file.", 'echo "This is file one." > file1.txt'],
+  "cat": ["Display the contents of a text file.", "cat file1.txt"],
+  "mv": ["Move or rename a file or directory.", "mv file3.txt final.txt"],
+  "cp": ["Copy a file or directory.", "cp file1.txt backup.txt"],
+  "rm": ["Remove a file.", "rm file1.txt"],
+  "rm -r": ["Remove a directory and its contents recursively.", "rm -r linux_lab"],
+  "chmod": ["Change file permissions.", "chmod u+x text1.txt"],
+  "whoami": ["Display the current user.", "whoami"],
+  "clear": ["Clear the terminal display.", "clear"]
+};
+function commandKeyFromAccept(a){
+  a=(a||"").trim().toLowerCase();
+  if(a.startsWith("ls -la")||a.startsWith("ls -al")) return "ls -la";
+  if(a.startsWith("ls -l")) return "ls -l";
+  if(a.startsWith("rm -r")||a.startsWith("rm -rf")||a.startsWith("rm -fr")) return "rm -r";
+  return a.split(/\s+/)[0] || "";
+}
+function renderCommandReference(){
+  const body=document.getElementById("commandReferenceBody");
+  const box=document.getElementById("commandReference");
+  if(!body||!box||typeof terminalMissions==="undefined") return;
+  const m=terminalMissions[termMissionIndex];
+  let keys=[];
+  (m.accepts||[]).forEach(a=>{const k=commandKeyFromAccept(a);if(commandCatalog[k]&&!keys.includes(k))keys.push(k)});
+  // Add a few closely related commands so the student must still choose.
+  const related={
+    "pwd":["pwd","ls","cd"],
+    "ls":["ls","ls -l","pwd"],
+    "ls -l":["ls -l","ls","chmod"],
+    "mkdir":["mkdir","cd","ls"],
+    "cd":["cd","pwd","ls"],
+    "touch":["touch","ls","cat"],
+    "echo":["echo","cat","touch"],
+    "cat":["cat","ls","echo"],
+    "mv":["mv","cp","ls"],
+    "chmod":["chmod","ls -l","whoami"]
+  };
+  const primary=keys[0];
+  (related[primary]||[]).forEach(k=>{if(commandCatalog[k]&&!keys.includes(k))keys.push(k)});
+  if(keys.length<3){
+    ["pwd","ls","cd","mkdir","touch","cat","mv","chmod"].forEach(k=>{if(keys.length<4&&!keys.includes(k))keys.push(k)});
+  }
+  body.innerHTML=keys.map(k=>{
+    const d=commandCatalog[k];
+    return `<tr><td><code>${k}</code></td><td>${d[0]}</td><td><code>${d[1].replace(/</g,"&lt;").replace(/>/g,"&gt;")}</code></td></tr>`;
+  }).join("");
+  box.hidden=false;
+}
+const oldTerminalNewMission = terminalNewMission;
+terminalNewMission = function(){
+  oldTerminalNewMission();
+  renderCommandReference();
+};
+document.addEventListener("DOMContentLoaded",()=>{
+  const tq=document.getElementById("terminalQuest"), cr=document.getElementById("commandReference");
+  const buttons=[...document.querySelectorAll("button")];
+  const cmdBtn=buttons.find(b=>/command/i.test(b.textContent||""));
+  if(cmdBtn){
+    cmdBtn.addEventListener("click",()=>setTimeout(()=>{
+      if(cr) cr.hidden=false;
+      if(tq) tq.hidden=false;
+      if(typeof renderCommandReference==="function") renderCommandReference();
+      if(tq) tq.scrollIntoView({behavior:"smooth",block:"start"});
+    },80));
+  }
+  buttons.filter(b=>b!==cmdBtn && /(file systems|directories|permissions|admin|ai bonus)/i.test(b.textContent||""))
+    .forEach(b=>b.addEventListener("click",()=>{if(cr)cr.hidden=true;}));
 });
 </script>
