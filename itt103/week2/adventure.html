@@ -2,8 +2,48 @@
 :root{--ink:#17153d;--purple:#51347f;--blue:#2856a6;--teal:#078b98;--orange:#f27516;--bg:#f5f3f8;--card:#fff;--muted:#6d6878;--line:#ded8e8;--good:#157347;--bad:#b42318;--term:#101827}
 *{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink)}.shell{max-width:1120px;margin:auto;padding:14px}.hero{background:linear-gradient(125deg,#244f91,#56357e);color:white;border-radius:24px;padding:28px;margin:8px 0 16px}.hero h1{font-size:clamp(2rem,6vw,3.35rem);margin:.25rem 0}.hero p{max-width:850px;line-height:1.55}.eyebrow{text-transform:uppercase;font-size:.76rem;letter-spacing:.12em;font-weight:900}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(225px,1fr));gap:13px}.card{background:white;border:1px solid var(--line);border-radius:18px;padding:19px;box-shadow:0 8px 24px #2617440b}.card h2,.card h3{margin-top:0}.btn,button{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid var(--line);border-radius:12px;background:white;color:var(--ink);padding:12px 15px;font-weight:800;cursor:pointer;text-decoration:none;min-height:46px}.primary{background:var(--purple)!important;color:white!important;border-color:var(--purple)!important}.muted{color:var(--muted)}.choices{display:grid;gap:9px;margin-top:12px}.choice{text-align:left;width:100%}.good{border-color:var(--good)!important;background:#eaf7f0!important}.bad{border-color:var(--bad)!important;background:#fff0ee!important}.feedback{padding:12px;border-radius:12px;margin-top:12px;background:#eeeaf6;line-height:1.5}.terminal{background:var(--term);color:#d1fae5;border-radius:14px;padding:16px;font-family:ui-monospace,Consolas,monospace;white-space:pre-wrap;min-height:120px}.nav,.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.progress{height:10px;background:#e3deeb;border-radius:99px;overflow:hidden;margin:12px 0}.progress span{display:block;height:100%;background:var(--teal);transition:.3s}.station{position:relative;overflow:hidden}.station .num{font-size:2.4rem;font-weight:950;opacity:.12;position:absolute;right:15px;top:8px}.badge{display:inline-block;border-radius:999px;padding:5px 9px;background:#eee9f7;font-size:.78rem;font-weight:800}.dirgrid,.permgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:9px}.dir{min-height:90px}.permrow{display:grid;grid-template-columns:1.2fr repeat(3,1fr);gap:7px;align-items:center;margin:7px 0}.toggle.on{background:#51347f;color:white}.ai{border-left:5px solid var(--teal)}.warning{background:#fff4e8;border:1px solid #f5c38e;padding:12px;border-radius:12px}.score{font-weight:900}.tiny{font-size:.85rem}.hidden{display:none!important}
 @media(max-width:650px){.shell{padding:9px}.hero{padding:20px}.btn,button{width:100%;font-size:1rem}.permrow{grid-template-columns:1fr 1fr 1fr 1fr}.grid{grid-template-columns:1fr}.nav>*{flex:1 1 100%}}
-</style></head><body><main class="shell"><section class="hero"><div class="eyebrow">ITT103 WEEK 2 · HANDS-ON PRACTICE</div><h1>🐧 Systems Administrator Adventure</h1><p>Five core stations + one optional AI bonus. Every station can be replayed for a new scenario.</p><div class="progress"><span id="prog" style="width:0%"></span></div><b>Stations completed: <span id="done">0</span>/5</b></section>
-<div class="tabs"><button onclick="go('commands')">🐧 Commands</button><button onclick="go('filesystems')">💾 File Systems</button><button onclick="go('directories')">🗂️ Directories</button><button onclick="go('permissions')">🔐 Permissions</button><button onclick="go('admin')">🛡️ Admin</button><button onclick="go('ai')">🤖 AI Bonus</button></div><section id="app"></section><div class="nav"><a class="btn" href="index.html">← Week 2 Home</a><a class="btn" href="review-interactive.html">Review Center</a></div></main>
+</style>
+<style id="terminalQuestStyles">
+.terminal-quest{margin-top:18px;border-radius:16px;overflow:hidden;border:1px solid #232936;background:#0b1220;box-shadow:0 14px 34px rgba(10,18,32,.2)}
+.terminal-topbar{display:flex;align-items:center;gap:8px;padding:10px 14px;background:#182235;color:#dbeafe;font-size:.9rem}
+.terminal-topbar strong{margin-left:6px}.terminal-dot{width:10px;height:10px;border-radius:50%;background:#64748b;display:inline-block}
+.terminal-output{min-height:280px;max-height:440px;overflow:auto;padding:16px;color:#d1fae5;font:15px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre-wrap}
+.terminal-input-row{display:flex;align-items:center;gap:8px;padding:12px 14px;border-top:1px solid #243044;background:#101827}
+.prompt{color:#93c5fd;font:14px ui-monospace,SFMono-Regular,Consolas,monospace;white-space:nowrap}
+#terminalInput{flex:1;min-width:0;background:#0b1220;color:#fff;border:1px solid #334155;border-radius:9px;padding:11px 12px;font:16px ui-monospace,SFMono-Regular,Consolas,monospace}
+.terminal-run{width:auto!important;background:#0f766e!important;color:#fff!important;border-color:#0f766e!important}
+.terminal-actions{display:flex;gap:8px;flex-wrap:wrap;padding:10px 14px;background:#101827}
+.terminal-actions button{width:auto!important;padding:9px 12px;min-height:38px}
+.terminal-mission{padding:14px;background:#eef6ff;color:#172554;border-top:1px solid #cbd5e1;line-height:1.45}
+.terminal-mission b{color:#1e3a8a}
+@media(max-width:650px){
+ .terminal-input-row{align-items:flex-start;flex-wrap:wrap}.prompt{width:100%}
+ #terminalInput{flex:1 1 calc(100% - 86px)}.terminal-run{width:76px!important}
+ .terminal-output{min-height:220px;font-size:13px}
+}
+</style>
+</head><body><main class="shell"><section class="hero"><div class="eyebrow">ITT103 WEEK 2 · HANDS-ON PRACTICE</div><h1>🐧 Systems Administrator Adventure</h1><p>Five core stations + one optional AI bonus. Every station can be replayed for a new scenario.</p><div class="progress"><span id="prog" style="width:0%"></span></div><b>Stations completed: <span id="done">0</span>/5</b></section>
+<div class="tabs"><button onclick="go('commands')">🐧 Commands</button><button onclick="go('filesystems')">💾 File Systems</button><button onclick="go('directories')">🗂️ Directories</button><button onclick="go('permissions')">🔐 Permissions</button><button onclick="go('admin')">🛡️ Admin</button><button onclick="go('ai')">🤖 AI Bonus</button></div><section id="app"></section><div class="nav"><a class="btn" href="index.html">← Week 2 Home</a><a class="btn" href="review-interactive.html">Review Center</a></div>
+<div id="terminalQuest" class="terminal-quest" hidden>
+  <div class="terminal-topbar">
+    <span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span>
+    <strong>student@itt103-linux:~</strong>
+  </div>
+  <div id="terminalOutput" class="terminal-output" aria-live="polite"></div>
+  <form id="terminalForm" class="terminal-input-row">
+    <span class="prompt">student@itt103-linux:<span id="cwdLabel">~</span>$</span>
+    <input id="terminalInput" autocomplete="off" autocapitalize="off" spellcheck="false"
+           aria-label="Linux command input" placeholder="Type a Linux command and press Enter">
+    <button type="submit" class="terminal-run">Run</button>
+  </form>
+  <div class="terminal-actions">
+    <button type="button" onclick="terminalHint()">Hint</button>
+    <button type="button" onclick="terminalReset()">Reset Lab</button>
+    <button type="button" onclick="terminalNewMission()">New Mission</button>
+  </div>
+  <div id="terminalMission" class="terminal-mission"></div>
+</div>
+</main>
 <script>
 const S=JSON.parse(localStorage.getItem('itt103w2stations')||'{}');const rnd=a=>a[Math.floor(Math.random()*a.length)],sh=a=>[...a].sort(()=>Math.random()-.5);function save(k){S[k]=1;localStorage.setItem('itt103w2stations',JSON.stringify(S));status()}function status(){let n=['commands','filesystems','directories','permissions','admin'].filter(x=>S[x]).length;done.textContent=n;prog.style.width=(n/5*100)+'%'}function pick(title,prompt,ans,wrong,why,onok){app.innerHTML=`<div class=card><div class=eyebrow>${title}</div><h2>${prompt}</h2><div class=choices id=ch></div><div class=feedback id=fb hidden></div><div class=nav><button onclick="render(location.hash.slice(1)||'commands')">🔄 New Random Scenario</button></div></div>`;sh([ans,...wrong]).forEach(v=>{let b=document.createElement('button');b.className='choice';b.textContent=v;b.onclick=()=>{[...ch.children].forEach(x=>{x.disabled=true;if(x.textContent===ans)x.classList.add('good')});if(v===ans){b.classList.add('good');if(onok)onok()}else b.classList.add('bad');fb.hidden=false;fb.innerHTML=(v===ans?'✅ Correct. ':'❌ Best answer: <b>'+ans+'</b>. ')+why};ch.appendChild(b)})}
 const commands=[
@@ -22,3 +62,205 @@ function adminmission(){let x=rnd(admin);pick('STATION 5 · ADMINISTRATOR MISSIO
 function ai(){let qs=[['A Linux script returns Permission denied. Which AI prompt best supports safe troubleshooting?','“I am on Linux. backup.sh returns Permission denied. ls -l shows -rw-r--r--. Explain the likely cause, suggest a low-risk check/change, and explain it before I execute anything.”',['“Fix Linux.”','“Give me a sudo command that fixes everything.”','“Run whatever commands you want.”'],'Good AI use supplies evidence and asks for explanation before action.'],['An AI assistant says: “Use sudo for every command so permissions never block you.” What should you do?','Reject it; elevated privilege should be used only when required, and the recommendation violates least privilege.',['Accept it because AI is faster.','Make every user an administrator.','Disable permissions.'],'The technician remains responsible for validating AI output and applying least privilege.'],['AI suggests deleting a directory with rm -r, but you are unsure of your current location.','Do not execute yet; verify pwd/ls and confirm the target first.',['Execute immediately.','Add sudo to make it safer.','Ignore the target path.'],'Destructive commands require context and verification.']];let x=rnd(qs);pick('BONUS · AI TECHNICIAN COPILOT',x[0],x[1],x[2],x[3]+' <div class="warning"><b>AI workflow:</b> Ask → Verify → Decide → Execute → Observe. AI is assistance, not authority.</div>')}
 function render(k){({commands:command,filesystems, directories,permissions,admin:adminmission,ai}[k]||command)()}function go(k){location.hash=k;render(k)}window.onhashchange=()=>render(location.hash.slice(1)||'commands');status();render(location.hash.slice(1)||'commands');
 </script></body></html>
+<script id="terminalQuestScript">
+const terminalMissions = [
+  {task:"Show your current working directory.", accepts:["pwd"], hint:"Use the command that prints the working directory."},
+  {task:"List the files in the current directory.", accepts:["ls","ls -l","ls -la","ls -al"], hint:"Use ls. Add -l or -la if you want more detail."},
+  {task:"Create a directory named linux_lab.", accepts:["mkdir linux_lab"], hint:"Use mkdir followed by the new directory name."},
+  {task:"Move into the linux_lab directory.", accepts:["cd linux_lab"], hint:"Use cd followed by the directory name."},
+  {task:"Create an empty file named file1.txt.", accepts:["touch file1.txt"], hint:"Use touch followed by the filename."},
+  {task:"Write 'This is file one.' into file1.txt.", accepts:["echo \"this is file one.\" > file1.txt","echo 'this is file one.' > file1.txt"], hint:"Use echo with output redirection >."},
+  {task:"Display the contents of file1.txt.", accepts:["cat file1.txt"], hint:"Use cat followed by the filename."},
+  {task:"Create a directory named archive.", accepts:["mkdir archive"], hint:"Use mkdir archive."},
+  {task:"Rename file3.txt to final.txt.", accepts:["mv file3.txt final.txt"], hint:"mv can move or rename a file."},
+  {task:"Move final.txt into the archive directory.", accepts:["mv final.txt archive/","mv final.txt archive"], hint:"Use mv with the destination directory."},
+  {task:"Show long-format permissions for files.", accepts:["ls -l"], hint:"Use ls with the long-format option."},
+  {task:"Give the user execute permission on text1.txt.", accepts:["chmod u+x text1.txt"], hint:"Use chmod. u = user, + = add, x = execute."},
+  {task:"Remove write permission for others from final.txt.", accepts:["chmod o-w final.txt"], hint:"Use chmod. o = others, - = remove, w = write."},
+  {task:"Give everyone read permission on text1.txt.", accepts:["chmod a+r text1.txt"], hint:"Use chmod. a = all, + = add, r = read."}
+];
+
+let termFS, termCwd, termMissionIndex = 0, termScore = 0, termTried = 0;
+
+function terminalBoot(){
+  termFS = {
+    "/home/student": {type:"dir", children:["file3.txt","text1.txt"]},
+    "/home/student/file3.txt": {type:"file", content:"Temporary report\n", mode:"rw-r--r--"},
+    "/home/student/text1.txt": {type:"file", content:"Practice permissions file\n", mode:"rw-r--r--"}
+  };
+  termCwd="/home/student"; termScore=0; termTried=0;
+  const o=document.getElementById("terminalOutput");
+  if(o) o.textContent="ITT103 Linux Practice Terminal\nType help for supported practice commands.\nThis is a safe simulator; it does not run commands on your device.\n\n";
+  terminalNewMission();
+  terminalPromptUpdate();
+}
+function normPath(p){
+  if(!p||p==="~") return "/home/student";
+  if(p.startsWith("/")) return p.replace(/\/+$/,"")||"/";
+  let base=termCwd.split("/").filter(Boolean);
+  for(const part of p.split("/")){
+    if(!part||part===".") continue;
+    if(part==="..") base.pop(); else base.push(part);
+  }
+  return "/"+base.join("/");
+}
+function terminalPromptUpdate(){
+  const el=document.getElementById("cwdLabel");
+  if(el) el.textContent=termCwd==="/home/student"?"~":termCwd.replace("/home/student","~");
+}
+function termPrint(s){const o=document.getElementById("terminalOutput");o.textContent+=s+"\n";o.scrollTop=o.scrollHeight}
+function terminalHint(){termPrint("HINT: "+terminalMissions[termMissionIndex].hint)}
+function terminalReset(){terminalBoot()}
+function terminalNewMission(){
+  termMissionIndex=Math.floor(Math.random()*terminalMissions.length);
+  const m=terminalMissions[termMissionIndex];
+  const box=document.getElementById("terminalMission");
+  if(box) box.innerHTML="<b>Mission:</b> "+m.task+"<br><small>Enter the command in the terminal. You may retry.</small>";
+}
+function terminalCheckMission(cmd){
+  termTried++;
+  const m=terminalMissions[termMissionIndex];
+  const clean=cmd.trim().toLowerCase().replace(/\s+/g," ");
+  if(m.accepts.some(a=>clean===a.toLowerCase())){
+    termScore++;
+    termPrint("✓ Mission complete. "+m.task);
+    setTimeout(terminalNewMission,350);
+    return true;
+  }
+  return false;
+}
+function listDir(path,longFmt,allFmt){
+  const item=termFS[path];
+  if(!item||item.type!=="dir"){termPrint("ls: cannot access '"+path+"': No such directory");return}
+  let names=[...item.children];
+  if(allFmt) names=[".","..",...names];
+  if(!longFmt){termPrint(names.join("  "));return}
+  for(const n of names){
+    if(n==="."||n===".."){termPrint("drwxr-xr-x student student 4096 "+n);continue}
+    const fp=path+"/"+n, it=termFS[fp];
+    if(!it) continue;
+    if(it.type==="dir") termPrint("drwxr-xr-x student student 4096 "+n);
+    else termPrint("-"+(it.mode||"rw-r--r--")+" student student "+(it.content?.length||0)+" "+n);
+  }
+}
+function ensureDir(path){
+  if(termFS[path]) return false;
+  const parent=path.substring(0,path.lastIndexOf("/"))||"/", name=path.split("/").pop();
+  if(!termFS[parent]||termFS[parent].type!=="dir") return false;
+  termFS[path]={type:"dir",children:[]};termFS[parent].children.push(name);return true;
+}
+function ensureFile(path){
+  const parent=path.substring(0,path.lastIndexOf("/"))||"/", name=path.split("/").pop();
+  if(!termFS[parent]||termFS[parent].type!=="dir") return false;
+  if(!termFS[path]){termFS[path]={type:"file",content:"",mode:"rw-r--r--"};termFS[parent].children.push(name)}
+  return true;
+}
+function removeChild(parent,name){if(termFS[parent]?.children)termFS[parent].children=termFS[parent].children.filter(x=>x!==name)}
+function terminalExecute(raw){
+  const cmd=raw.trim();
+  if(!cmd) return;
+  termPrint("student@itt103-linux:"+(termCwd==="/home/student"?"~":termCwd.replace("/home/student","~"))+"$ "+cmd);
+  const parts=cmd.match(/(?:[^\s"']+|"[^"]*"|'[^']*')+/g)||[];
+  const c=parts[0];
+  if(c==="help"){termPrint("Supported: pwd, ls [-l|-la], cd, mkdir, touch, echo ... > file, cat, mv, cp, rm [-r], chmod, whoami, clear");}
+  else if(c==="pwd") termPrint(termCwd);
+  else if(c==="whoami") termPrint("student");
+  else if(c==="clear"){document.getElementById("terminalOutput").textContent="";}
+  else if(c==="ls"){
+    let target=parts.find(x=>!x.startsWith("-")&&x!=="ls");
+    let p=target?normPath(target):termCwd;
+    listDir(p,parts.includes("-l")||parts.includes("-la")||parts.includes("-al"),parts.includes("-a")||parts.includes("-la")||parts.includes("-al"));
+  }
+  else if(c==="cd"){
+    const p=normPath(parts[1]||"~");
+    if(termFS[p]?.type==="dir"){termCwd=p;terminalPromptUpdate()}else termPrint("bash: cd: "+(parts[1]||"")+": No such file or directory");
+  }
+  else if(c==="mkdir"){
+    const p=normPath(parts[1]||"");
+    if(!parts[1]) termPrint("mkdir: missing operand");
+    else if(ensureDir(p)){} else termPrint("mkdir: cannot create directory '"+parts[1]+"'");
+  }
+  else if(c==="touch"){
+    if(!parts[1]) termPrint("touch: missing file operand"); else if(!ensureFile(normPath(parts[1]))) termPrint("touch: cannot touch '"+parts[1]+"'");
+  }
+  else if(c==="cat"){
+    const p=normPath(parts[1]||"");
+    if(termFS[p]?.type==="file") termPrint(termFS[p].content.replace(/\n$/,"")); else termPrint("cat: "+(parts[1]||"")+": No such file");
+  }
+  else if(c==="echo"){
+    const gt=parts.indexOf(">");
+    if(gt>0 && parts[gt+1]){
+      const p=normPath(parts[gt+1]); if(ensureFile(p)){let content=parts.slice(1,gt).join(" ").replace(/^['"]|['"]$/g,"");termFS[p].content=content+"\n";}
+    } else termPrint(parts.slice(1).join(" ").replace(/^['"]|['"]$/g,""));
+  }
+  else if(c==="mv"||c==="cp"){
+    if(parts.length<3){termPrint(c+": missing operand");}
+    else{
+      const src=normPath(parts[1]), destRaw=parts[2], destBase=normPath(destRaw), srcName=src.split("/").pop();
+      if(!termFS[src]) termPrint(c+": cannot stat '"+parts[1]+"': No such file or directory");
+      else{
+        let dest=termFS[destBase]?.type==="dir" ? destBase+"/"+srcName : destBase;
+        const parent=dest.substring(0,dest.lastIndexOf("/")), name=dest.split("/").pop();
+        if(!termFS[parent]||termFS[parent].type!=="dir") termPrint(c+": target directory does not exist");
+        else{
+          termFS[dest]=JSON.parse(JSON.stringify(termFS[src]));
+          if(!termFS[parent].children.includes(name)) termFS[parent].children.push(name);
+          if(c==="mv"){const sp=src.substring(0,src.lastIndexOf("/")), sn=srcName;removeChild(sp,sn);delete termFS[src];}
+        }
+      }
+    }
+  }
+  else if(c==="rm"){
+    const recursive=parts.includes("-r")||parts.includes("-rf")||parts.includes("-fr");
+    const target=parts.find(x=>x!=="rm"&&!x.startsWith("-"));
+    const p=normPath(target||"");
+    if(!target) termPrint("rm: missing operand");
+    else if(!termFS[p]) termPrint("rm: cannot remove '"+target+"': No such file or directory");
+    else if(termFS[p].type==="dir"&&!recursive) termPrint("rm: cannot remove '"+target+"': Is a directory");
+    else{
+      const parent=p.substring(0,p.lastIndexOf("/")), name=p.split("/").pop();removeChild(parent,name);
+      Object.keys(termFS).filter(k=>k===p||k.startsWith(p+"/")).forEach(k=>delete termFS[k]);
+    }
+  }
+  else if(c==="chmod"){
+    if(parts.length<3){termPrint("chmod: missing operand");}
+    else{
+      const spec=parts[1], p=normPath(parts[2]);
+      if(!termFS[p]||termFS[p].type!=="file") termPrint("chmod: cannot access '"+parts[2]+"'");
+      else{
+        let m=(termFS[p].mode||"rw-r--r--").split("");
+        const groups={u:[0,1,2],g:[3,4,5],o:[6,7,8],a:[0,1,2,3,4,5,6,7,8]};
+        const mm=spec.match(/^([ugoa]+)([+-])([rwx]+)$/);
+        if(!mm) termPrint("chmod: unsupported mode in this simulator");
+        else{
+          let idx=[];for(const ch of mm[1]) idx.push(...groups[ch]);idx=[...new Set(idx)];
+          const permPos={r:[0,3,6],w:[1,4,7],x:[2,5,8]};
+          for(const perm of mm[3]) for(const i of idx) if(permPos[perm].includes(i)) m[i]=mm[2]==="+"?perm:"-";
+          termFS[p].mode=m.join("");
+        }
+      }
+    }
+  }
+  else termPrint(c+": command not found in this practice simulator");
+  terminalCheckMission(cmd);
+}
+document.addEventListener("submit",e=>{
+ if(e.target?.id==="terminalForm"){e.preventDefault();const inp=document.getElementById("terminalInput");terminalExecute(inp.value);inp.value="";inp.focus();}
+});
+</script>
+
+<script id="terminalQuestHook">
+document.addEventListener("DOMContentLoaded",()=>{
+  const tq=document.getElementById("terminalQuest");
+  const buttons=[...document.querySelectorAll("button")];
+  const cmdBtn=buttons.find(b=>/command/i.test(b.textContent||""));
+  if(cmdBtn){
+    cmdBtn.addEventListener("click",()=>{
+      setTimeout(()=>{tq.hidden=false;terminalBoot();tq.scrollIntoView({behavior:"smooth",block:"start"});},50);
+    });
+  }
+  // Hide the terminal when another station button is selected.
+  buttons.filter(b=>b!==cmdBtn && /(file systems|directories|permissions|admin|ai bonus)/i.test(b.textContent||""))
+    .forEach(b=>b.addEventListener("click",()=>{tq.hidden=true;}));
+});
+</script>
