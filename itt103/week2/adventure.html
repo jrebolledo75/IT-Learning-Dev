@@ -43,6 +43,50 @@ body.station-commands #terminalQuest{display:block!important}
 body:not(.station-commands) #commandReference,
 body:not(.station-commands) #terminalQuest{display:none!important}
 </style>
+
+<style id="commandCleanupAndBottomNavStyles">
+body.station-commands #stationFocusHost,
+body.station-commands #area,
+body.station-commands #activity,
+body.station-commands #stationArea,
+body.station-commands #gameArea,
+body.station-commands #adventureArea,
+body.station-commands #contentArea,
+body.station-commands #challengeArea,
+body.station-commands .station-panel,
+body.station-commands .activity-panel,
+body.station-commands .challenge-panel,
+body.station-commands .game-panel {
+  display:none !important;
+}
+body.station-commands #commandReference,
+body.station-commands #terminalQuest {
+  display:block !important;
+}
+#bottomAdventureNav{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin:28px 0 8px;
+  padding-top:18px;
+  border-top:1px solid #ddd7eb;
+}
+#bottomAdventureNav a,
+#bottomAdventureNav button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:44px;
+  padding:10px 16px;
+  border:1px solid #d8d1e6;
+  border-radius:12px;
+  background:#fff;
+  color:#171334;
+  font-weight:800;
+  text-decoration:none;
+  cursor:pointer;
+}
+</style>
 </head><body><main class="shell"><section class="hero"><div class="eyebrow">ITT103 WEEK 2 · HANDS-ON PRACTICE</div><h1>🐧 Systems Administrator Adventure</h1><p>Five core stations + one optional AI bonus. Every station can be replayed for a new scenario.</p><div class="progress"><span id="prog" style="width:0%"></span></div><b>Stations completed: <span id="done">0</span>/5</b></section>
 <div class="tabs"><button onclick="go('commands')">🐧 Commands</button><button onclick="go('filesystems')">💾 File Systems</button><button onclick="go('directories')">🗂️ Directories</button><button onclick="go('permissions')">🔐 Permissions</button><button onclick="go('admin')">🛡️ Admin</button><button onclick="go('ai')">🤖 AI Bonus</button></div><section id="app"></section><div class="nav"><a class="btn" href="index.html">← Week 2 Home</a><a class="btn" href="review-interactive.html">Review Center</a></div>
 
@@ -509,6 +553,62 @@ ai=function(){let x=rnd(aiCases),prompts=sh([x.good,...x.bad]);app.innerHTML=`<d
       const b=findButton(key);
       if(b) b.addEventListener("click",()=>setTimeout(()=>activate(key),20));
     });
+  });
+})();
+</script>
+
+<script id="commandCleanupAndBottomNavScript">
+(function(){
+  function txt(el){return (el.textContent||"").trim();}
+  function findCommandButton(){
+    return [...document.querySelectorAll("button")].find(b=>/^(🐧\s*)?commands?$/i.test(txt(b)));
+  }
+  function hideLegacyCommandQuestion(){
+    const terminal=document.getElementById("terminalQuest");
+    const reference=document.getElementById("commandReference");
+    const candidates=[...document.querySelectorAll("section,div,article")];
+    candidates.forEach(el=>{
+      if(el===terminal || el===reference || el.contains(terminal) || el.contains(reference)) return;
+      const t=txt(el);
+      if(/STATION\s*1\s*[·•-]?\s*COMMAND QUEST/i.test(t) &&
+         /(New Random Scenario|mkdir linux_lab|cd linux_lab|pwd linux_lab|cat linux_lab)/i.test(t)){
+        el.style.display="none";
+      }
+    });
+  }
+  function moveBottomNav(){
+    let home=[...document.querySelectorAll("a,button")].find(el=>/week\s*2\s*home/i.test(txt(el)));
+    let review=[...document.querySelectorAll("a,button")].find(el=>/review\s*center/i.test(txt(el)));
+    if(!home && !review) return;
+
+    let nav=document.getElementById("bottomAdventureNav");
+    if(!nav){
+      nav=document.createElement("div");
+      nav.id="bottomAdventureNav";
+      const main=document.querySelector("main") || document.body;
+      main.appendChild(nav);
+    }
+    [home,review].filter(Boolean).forEach(el=>{
+      // Move the actual controls so their existing links/click handlers are preserved.
+      nav.appendChild(el);
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded",()=>{
+    moveBottomNav();
+    const cmd=findCommandButton();
+    if(cmd){
+      cmd.addEventListener("click",()=>{
+        setTimeout(()=>{
+          document.body.classList.add("station-commands");
+          hideLegacyCommandQuestion();
+          const ref=document.getElementById("commandReference");
+          const term=document.getElementById("terminalQuest");
+          if(ref){ref.hidden=false;ref.style.display="block";}
+          if(term){term.hidden=false;term.style.display="block";}
+        },80);
+      });
+    }
   });
 })();
 </script>
