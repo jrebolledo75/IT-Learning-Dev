@@ -33,9 +33,20 @@
 .command-table code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-weight:800;color:#0f5132}
 .command-note{padding:10px 14px;color:#64748b;font-size:.9rem;background:#fafafa}
 </style>
+
+<style id="sixStationIsolationStyles">
+.station-isolated-hidden{display:none!important}
+#stationFocusHost{margin-top:16px}
+#stationFocusHost:empty{display:none}
+body.station-commands #commandReference,
+body.station-commands #terminalQuest{display:block!important}
+body:not(.station-commands) #commandReference,
+body:not(.station-commands) #terminalQuest{display:none!important}
+</style>
 </head><body><main class="shell"><section class="hero"><div class="eyebrow">ITT103 WEEK 2 · HANDS-ON PRACTICE</div><h1>🐧 Systems Administrator Adventure</h1><p>Five core stations + one optional AI bonus. Every station can be replayed for a new scenario.</p><div class="progress"><span id="prog" style="width:0%"></span></div><b>Stations completed: <span id="done">0</span>/5</b></section>
 <div class="tabs"><button onclick="go('commands')">🐧 Commands</button><button onclick="go('filesystems')">💾 File Systems</button><button onclick="go('directories')">🗂️ Directories</button><button onclick="go('permissions')">🔐 Permissions</button><button onclick="go('admin')">🛡️ Admin</button><button onclick="go('ai')">🤖 AI Bonus</button></div><section id="app"></section><div class="nav"><a class="btn" href="index.html">← Week 2 Home</a><a class="btn" href="review-interactive.html">Review Center</a></div>
 
+<div id="stationFocusHost"></div>
 <div id="commandReference" class="command-reference" hidden>
   <h3>Linux Command Reference for This Scenario</h3>
   <div class="command-table-wrap">
@@ -400,4 +411,104 @@ const aiCases=[
  {issue:'A user needs access to a shared project directory.',good:'Help me identify the current owner, group, and permissions, then explain the least-privilege options before suggesting a change.',bad:['Make the user root.','Give everyone rwx.'],reply:'Inspect ownership and permissions first. Group membership or a targeted permission change may be safer than broad access.',verify:'Approve only a least-privilege change after checking current state.'}
 ];
 ai=function(){let x=rnd(aiCases),prompts=sh([x.good,...x.bad]);app.innerHTML=`<div class=card><div class=eyebrow>BONUS · AI TECHNICIAN COPILOT</div><h2>🤖 AI-Assisted Troubleshooting Lab</h2><div class=ai-layout><div class=chat-panel><div class=chat-head>Linux Ticket + AI Assistant</div><div class=chat-body><div class="bubble user"><b>Ticket:</b> ${x.issue}</div><p><b>Choose the best prompt:</b></p>${prompts.map(v=>`<button class=prompt-card data-prompt="${v}">${v}</button>`).join('')}<div id=aiReply></div></div></div><div class=verify-panel><div class=chat-head>Technician Verification</div><div class=chat-body id=verifyArea><p>AI output will appear after you choose a prompt.</p><p><b>Your job:</b> verify the recommendation before acting.</p></div></div></div><div class=nav><button onclick=ai()>🔄 New AI Scenario</button></div></div>`;document.querySelectorAll('.prompt-card').forEach(b=>b.onclick=()=>{let ok=b.dataset.prompt===x.good;document.querySelectorAll('.prompt-card').forEach(z=>z.disabled=true);aiReply.innerHTML=`<div class="bubble ai"><b>AI:</b> ${ok?x.reply:'I need more context before giving a safe recommendation.'}</div>`;verifyArea.innerHTML=`<p><b>${ok?'✅ Strong prompt':'⚠️ Weak prompt'}.</b></p><p>${ok?x.verify:'A professional prompt should include evidence, context, and ask the AI to explain before action.'}</p><button class=verify-card onclick="this.outerHTML='<div class=station-feedback>🔎 Verified: the technician—not the AI—owns the final decision.</div>'">🔎 Verify recommendation</button>`;})}
+</script>
+
+<script id="sixStationIsolationScript">
+(function(){
+  const stationMatchers = {
+    commands:/^(🐧\s*)?commands?$/i,
+    files:/(💾\s*)?file systems?/i,
+    dirs:/(🗂️\s*)?directories/i,
+    perms:/(🔐\s*)?permissions/i,
+    admin:/(🛡️\s*)?admin/i,
+    ai:/(🤖\s*)?ai bonus/i
+  };
+  let homeParent=null, homeNext=null, focusHost=null;
+
+  function allButtons(){ return [...document.querySelectorAll("button")]; }
+  function findButton(key){ return allButtons().find(b=>stationMatchers[key].test((b.textContent||"").trim())); }
+
+  function likelyActivityContainers(){
+    const ids=["area","activity","stationArea","gameArea","adventureArea","contentArea","challengeArea"];
+    let arr=ids.map(id=>document.getElementById(id)).filter(Boolean);
+    // Also capture obvious station panels, but never navigation, terminal, reference, or focus host.
+    document.querySelectorAll(".station-panel,.activity-panel,.challenge-panel,.game-panel").forEach(el=>arr.push(el));
+    return [...new Set(arr)].filter(el =>
+      el.id!=="stationFocusHost" &&
+      !el.closest("#terminalQuest") &&
+      !el.closest("#commandReference")
+    );
+  }
+
+  function restoreFocusContent(){
+    if(!focusHost) return;
+    [...focusHost.children].forEach(el=>{
+      if(el.dataset.originalParentId){
+        const p=document.getElementById(el.dataset.originalParentId);
+        if(p) p.appendChild(el);
+      } else if(homeParent) {
+        homeParent.insertBefore(el,homeNext);
+      }
+    });
+    focusHost.innerHTML="";
+  }
+
+  function isolateRenderedActivity(){
+    if(!focusHost) return;
+    // Wait until the existing station renderer has updated the page.
+    const containers=likelyActivityContainers().filter(el=>{
+      const r=el.getBoundingClientRect();
+      return el.innerHTML.trim() && getComputedStyle(el).display!=="none" && r.height>0;
+    });
+    if(containers.length){
+      const el=containers[0];
+      if(el.parentElement!==focusHost){
+        if(!el.id) el.id="stationGeneratedActivity";
+        el.dataset.originalParentId=el.parentElement?.id||"";
+        homeParent=el.parentElement;
+        homeNext=el.nextSibling;
+        focusHost.appendChild(el);
+      }
+      el.style.display="";
+    }
+    likelyActivityContainers().forEach(el=>{
+      if(el.parentElement!==focusHost) el.classList.add("station-isolated-hidden");
+      else el.classList.remove("station-isolated-hidden");
+    });
+  }
+
+  function activate(key){
+    document.body.classList.remove("station-commands","station-files","station-dirs","station-perms","station-admin","station-ai");
+    document.body.classList.add("station-"+key);
+    restoreFocusContent();
+    likelyActivityContainers().forEach(el=>el.classList.remove("station-isolated-hidden"));
+
+    const ref=document.getElementById("commandReference");
+    const term=document.getElementById("terminalQuest");
+
+    if(key==="commands"){
+      likelyActivityContainers().forEach(el=>el.classList.add("station-isolated-hidden"));
+      if(ref){ref.hidden=false;ref.style.display="block";}
+      if(term){term.hidden=false;term.style.display="block";}
+      if(typeof terminalBoot==="function") terminalBoot();
+      if(typeof renderCommandReference==="function") renderCommandReference();
+      setTimeout(()=>{if(ref) ref.scrollIntoView({behavior:"smooth",block:"start"});},50);
+    } else {
+      if(ref){ref.hidden=true;ref.style.display="none";}
+      if(term){term.hidden=true;term.style.display="none";}
+      setTimeout(()=>{
+        isolateRenderedActivity();
+        if(focusHost && focusHost.firstElementChild) focusHost.scrollIntoView({behavior:"smooth",block:"start"});
+      },80);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded",()=>{
+    focusHost=document.getElementById("stationFocusHost");
+    Object.keys(stationMatchers).forEach(key=>{
+      const b=findButton(key);
+      if(b) b.addEventListener("click",()=>setTimeout(()=>activate(key),20));
+    });
+  });
+})();
 </script>
