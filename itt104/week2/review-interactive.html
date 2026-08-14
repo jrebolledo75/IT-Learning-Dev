@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ITT104 Week 2 Review Center</title>
+<style>
+:root{--ink:#171334;--purple:#4b3670;--lav:#f5f1fb;--line:#ddd6eb;--green:#13795b;--blue:#2459a9}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;background:linear-gradient(180deg,#f8f6fc,#eef3fb);color:var(--ink)}
+.shell{max-width:1180px;margin:auto;padding:18px}.hero,.panel{background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 10px 28px #392c5b16}
+.hero{padding:24px;background:linear-gradient(120deg,#2856a6,#4b3670);color:#fff}.hero h1{font-size:clamp(2rem,5vw,3.2rem);margin:.25rem 0}.hero p{max-width:850px;line-height:1.55}
+.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:14px 0}.tabs button,.btn{min-height:46px;border:1px solid var(--line);border-radius:12px;background:#fff;font-weight:850;cursor:pointer;padding:10px;color:var(--ink)}
+.tabs button.active{background:var(--purple);color:#fff}.panel{padding:22px;min-height:500px}.eyebrow{font-size:.78rem;font-weight:900;letter-spacing:.09em;color:#684d96}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.card{border:1px solid var(--line);border-radius:15px;padding:16px;background:#faf9fd}.card h3{margin-top:0}.flash{min-height:230px;display:grid;place-items:center;text-align:center;font-size:1.25rem;cursor:pointer}
+.jeop{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}.jhead,.jcell{padding:12px 7px;text-align:center;border-radius:9px;font-weight:900}.jhead{background:#2856a6;color:#fff}.jcell{background:#2856a6;color:#fff;cursor:pointer;min-height:60px}
+.choice{display:block;width:100%;text-align:left;margin:8px 0;padding:12px;border:1px solid var(--line);border-radius:11px;background:#fff;cursor:pointer}.choice.good{border-color:#13795b;background:#eef9f5}.choice.bad{border-color:#a33;background:#fff0f0}
+.feedback{padding:12px;margin-top:12px;border-radius:12px;background:#f4f1f9}.meter{height:12px;background:#e8e3f0;border-radius:999px;overflow:hidden}.meter span{display:block;height:100%;background:#13795b}
+.bottom{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:18px 0}.bottom a{text-decoration:none;color:var(--purple);font-weight:850;padding:12px 16px;border:1px solid var(--line);border-radius:12px;background:#fff}
+code{background:#eee9f5;padding:2px 5px;border-radius:5px}@media(max-width:800px){.tabs{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.jeop{grid-template-columns:repeat(2,1fr)}.shell{padding:10px}.panel{padding:15px}}
+</style></head>
+<body><div class="shell">
+<header class="hero"><div style="font-weight:900;letter-spacing:.08em">NCC · ITT104 · WEEK 2</div><h1>🎯 Review Center</h1><p>Program design, pseudocode, variables, data types, Boolean logic, lists/arrays, dictionaries, debugging, and evidence-based testing.</p><div>Review progress: <b><span id="progress">0</span>/5 sections practiced</b></div></header>
+<nav class="tabs" id="tabs"></nav><main class="panel"><div id="app"></div></main>
+<div class="bottom"><a href="index.html">← Software Developer Mission</a><a href="../../index.html">ITT104 Home</a></div>
+</div>
+<script>
+const sections=[['guide','📘','Study Guide'],['cards','🧠','Flashcards'],['jeop','🏆','Jeopardy'],['quiz','📝','Practice Quiz'],['ready','🚀','Readiness']];
+let current='guide',done=new Set(); const app=document.getElementById('app');
+function nav(){tabs.innerHTML=sections.map(s=>`<button class="${current===s[0]?'active':''}" onclick="openS('${s[0]}')">${s[1]} ${s[2]}</button>`).join('')}
+function mark(x=current){done.add(x);progress.textContent=done.size}
+function openS(x){current=x;nav();({guide,cards,jeop,quiz,ready}[x])();scrollTo({top:130,behavior:'smooth'})}
+const flash=[
+['Program sequence','The order in which instructions execute. Correct order matters because later steps may depend on earlier input or processing.'],
+['Pseudocode','Human-readable planning logic written before language-specific syntax.'],
+['Variable','A named storage location for a value used by a program.'],
+['Integer','A whole-number numeric type, useful for counts such as number of users.'],
+['Float','A numeric type that can represent decimal values such as 19.99.'],
+['String','Text data. Numeric-looking identifiers such as phone numbers may still be strings when arithmetic is not intended.'],
+['Boolean','A True/False value used to represent conditions and decisions.'],
+['List / Array','An ordered collection used to group related values and access them by position.'],
+['Dictionary','A key/value collection that gives related fields meaningful labels.'],
+['Type conversion','Changing a value from one type to another so the intended operation is valid.'],
+['Testing cycle','Predict first → run second → compare third → explain the difference before changing code.'],
+['Program flow','A useful planning model is Start → Input → Process/Decision → Output → End.']
+];
+function guide(){mark();app.innerHTML=`<div class=eyebrow>WEEK 2 CORE CONCEPTS</div><h2>Study Guide</h2><div class=grid>
+<div class=card><h3>1 · Design before syntax</h3><p>Define what the program must accomplish, identify inputs and outputs, then put the instructions in a logical sequence.</p><p><b>Flow:</b> Start → Input → Process/Decision → Output → End.</p></div>
+<div class=card><h3>2 · Pseudocode</h3><p>Use clear high-level steps another developer can implement. For the two-input challenge: accept A and B, calculate C = A + B, compare A and B, display the larger value (or equality), then display C.</p></div>
+<div class=card><h3>3 · Variables & types</h3><p>Choose storage based on meaning and operations: Integer, Float, String, Boolean, List/Array, or Dictionary. Convert types when input arrives in a form that cannot support the required operation.</p></div>
+<div class=card><h3>4 · Boolean decisions</h3><p>Conditions evaluate True or False. Use comparisons and logical operators to control which branch executes.</p></div>
+<div class=card><h3>5 · Collections</h3><p>Lists/arrays group ordered values. Dictionaries store related information by meaningful keys.</p></div>
+<div class=card><h3>6 · Testing & debugging</h3><p><b>Predict → Run → Compare → Explain.</b> Treat unexpected output and errors as evidence. Explain what changed before editing the program.</p></div></div>`}
+let fi=0,face=0;function cards(){app.innerHTML=`<div class=eyebrow>RETRIEVAL PRACTICE</div><h2>Flashcards</h2><p>Tap the card to reveal the explanation.</p><div class="card flash" onclick="flip()" id=fc></div><div class=bottom><button class=btn onclick="prevF()">← Previous</button><b id=count></b><button class=btn onclick="nextF()">Next →</button></div>`;drawF()}
+function drawF(){fc.innerHTML=face?`<div><div class=eyebrow>EXPLANATION</div><p>${flash[fi][1]}</p></div>`:`<div><div class=eyebrow>TERM / IDEA</div><h2>${flash[fi][0]}</h2><small>Tap to reveal</small></div>`;count.textContent=`${fi+1} / ${flash.length}`}
+function flip(){face=1-face;drawF();mark()} function nextF(){fi=(fi+1)%flash.length;face=0;drawF()} function prevF(){fi=(fi-1+flash.length)%flash.length;face=0;drawF()}
+const jq=[
+['Sequence',100,'What comes before processing when a program needs user data?','Input.'],
+['Sequence',200,'Put these in a general program order: Output, Start, Input, End, Process.','Start → Input → Process → Output → End.'],
+['Pseudocode',100,'What is the purpose of pseudocode?','To plan readable program logic before language-specific syntax.'],
+['Pseudocode',200,'For A and B, what expression stores their sum in C?','C = A + B.'],
+['Data Types',100,'Best type for an active/inactive flag?','Boolean.'],
+['Data Types',200,'Why might "7025550199" be stored as a string?','It is an identifier; arithmetic is not the intended operation.'],
+['Collections',100,'Which collection is best for an ordered group of names?','A list/array.'],
+['Collections',200,'Which collection gives fields meaningful labels such as name and role?','A dictionary / key-value structure.'],
+['Testing',100,'What should happen before running code?','Predict the expected output.'],
+['Testing',200,'After running and comparing, what should happen before changing code?','Explain the difference or evidence.']
+];
+function jeop(){app.innerHTML=`<div class=eyebrow>GAME REVIEW</div><h2>Week 2 Jeopardy</h2><p>Choose a tile. All category titles use white text for consistency.</p><div class=jeop id=board></div><div id=jfb class=feedback>Select a clue.</div>`;let cats=['Sequence','Pseudocode','Data Types','Collections','Testing'];board.innerHTML=cats.map(c=>`<div class=jhead>${c}</div>`).join('')+cats.map(c=>jq.filter(q=>q[0]===c).map((q,i)=>`<button class=jcell onclick="clue('${c}',${i},this)">$${q[1]}</button>`).join('')).join('')}
+function clue(c,i,b){let q=jq.filter(x=>x[0]===c)[i];jfb.innerHTML=`<b>${q[0]} for $${q[1]}</b><p>${q[2]}</p><button class=btn onclick="this.nextElementSibling.hidden=false;mark('jeop')">Reveal Answer</button><div hidden class=feedback><b>${q[3]}</b></div>`;b.disabled=true;b.style.opacity=.45}
+const qs=[
+['A program must store the number of failed login attempts. Best type?',['String','Integer','Boolean','Dictionary'],1,'A count is a whole number, so Integer is the best fit.'],
+['Which is the best high-level order?',['Output → Input → Start → End','Start → Input → Process/Decision → Output → End','Input → End → Process → Start','Start → Output → Input → End'],1,'Planning normally moves from start/input into processing or decisions, then output and end.'],
+['Which structure best stores name, role, and department with meaningful labels?',['Float','Boolean','List only','Dictionary'],3,'A dictionary maps meaningful keys to related values.'],
+['What does a Boolean expression produce?',['A file path','True or False','Only text','A list'],1,'Boolean logic evaluates conditions as True or False.'],
+['What is the preferred Week 2 testing habit?',['Edit until it works','Run without predicting','Predict → Run → Compare → Explain','Ignore errors'],2,'Prediction and explanation turn output/errors into evidence.'],
+['Why convert "10" to an integer before adding 5?',['To make it longer','To allow numeric arithmetic','To create a dictionary','To make it Boolean'],1,'The string must be converted to a numeric type for numeric addition.'],
+['A developer needs five related ordered scores. Best choice?',['Five unrelated Booleans','List/array','One string only','Dictionary is always required'],1,'A list/array groups ordered related values.'],
+['Pseudocode should primarily be…',['Valid Python syntax','Readable implementation planning','Machine code','A final compiled program'],1,'Pseudocode communicates logic without requiring language-specific syntax.']
+]; let qi=0,qscore=0;
+function quiz(){qi=0;qscore=0;drawQ()}
+function drawQ(){let q=qs[qi];app.innerHTML=`<div class=eyebrow>KNOWLEDGE CHECK</div><h2>Practice Quiz</h2><p>Question ${qi+1} of ${qs.length} · Score ${qscore}</p><div class=card><h3>${q[0]}</h3><div id=opts>${q[1].map((x,i)=>`<button class=choice onclick="answerQ(${i},this)">${x}</button>`).join('')}</div><div id=qfb class=feedback>Choose the best answer.</div></div>`}
+function answerQ(i,b){let q=qs[qi],ok=i===q[2];[...opts.children].forEach(x=>x.disabled=true);b.classList.add(ok?'good':'bad');qfb.innerHTML=(ok?'✓ Correct. ':'Not quite. ')+q[3];if(ok)qscore++;setTimeout(()=>{qi++;if(qi<qs.length)drawQ();else{mark('quiz');app.innerHTML=`<div class=eyebrow>QUIZ COMPLETE</div><h2>${qscore}/${qs.length}</h2><p>${qscore>=6?'Strong result. Move to Readiness and explain your reasoning.':'Review the Study Guide and Flashcards, then replay the quiz.'}</p><button class=btn onclick=quiz()>Replay Quiz</button>`}},850)}
+function ready(){mark();let pct=Math.round(done.size/5*100);app.innerHTML=`<div class=eyebrow>MISSION READINESS</div><h2>Can you explain it without guessing?</h2><div class=meter><span style="width:${pct}%"></span></div><p><b>${pct}% of Review Center sections practiced.</b></p><div class=grid>
+<div class=card><h3>Explain</h3><p>Why does program sequence matter?</p><p>When is a list better than separate variables?</p><p>When does a dictionary make data easier to understand?</p></div>
+<div class=card><h3>Demonstrate</h3><p>Choose a type for a new client field and justify it.</p><p>Write one Boolean condition and predict its result.</p><p>Describe one bug poor type selection could cause.</p></div>
+<div class=card><h3>Testing evidence</h3><p>State your prediction, actual output, difference, and what the evidence tells you before making a change.</p></div>
+<div class=card><h3>Mission standard</h3><p>You are ready when you can explain the sequence, data choices, decision logic, collection choice, and testing evidence to another developer.</p></div></div>`}
+nav();guide();
+</script></body></html>
