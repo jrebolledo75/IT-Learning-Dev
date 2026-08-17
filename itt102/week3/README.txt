@@ -6,7 +6,8 @@ IT-Learning-Dev/itt102/week3/
 FILES:
 - index.html                 Week 3 landing page
 - mission-ready.html         Interactive Network Wall Challenge
-- mission-qr.png             Mission access image asset
+- mission-qr.png
+- keystone-t568b-reference.png  Real keystone termination reference used in Mission 3             Mission access image asset
 - review.html                Review Center launcher
 - review-interactive.html    Interactive Review Center
 - review-qr.png              Review access image asset
