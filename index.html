@@ -1,7 +1,6 @@
-
-
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -34,6 +33,7 @@
 
       <div>
         <h1>NCC IT Learning Hub Professional Edition</h1>
+
         <p>
           ITT101–ITT104 mastery reviews, labs, flashcards,
           and exam preparation.
@@ -102,12 +102,13 @@
         </div>
 
         <h3>
-          Week 1 Modules Active
+          Interactive Modules Active
         </h3>
 
         <p class="muted">
-          ITT101–ITT104 Week 1 modules are now active,
-          including the new ITT104 Software Solutions mission.
+          ITT101–ITT104 interactive learning modules are active,
+          with new weekly Mission Ready experiences being added
+          throughout the program.
         </p>
 
       </div>
@@ -215,7 +216,12 @@
           </small>
 
 
-          <div class="course-actions">
+          <div
+            class="course-actions"
+            style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px"
+          >
+
+            <!-- ITT101 WEEK 1 -->
 
             <button
               class="btn primary"
@@ -229,6 +235,8 @@
             </button>
 
 
+            <!-- ITT101 WEEK 2 -->
+
             <button
               class="btn"
               onclick="openDirect(
@@ -240,6 +248,22 @@
               Launch Week 2
             </button>
 
+
+            <!-- ITT101 WEEK 3 -->
+
+            <button
+              class="btn"
+              onclick="openDirect(
+                'itt101/Week3/index.html',
+                'ITT101 Week 3 Help Desk Command Center',
+                'itt101'
+              )"
+            >
+              Launch Week 3
+            </button>
+
+
+            <!-- ITT101 FINAL REVIEW -->
 
             <button
               class="btn"
@@ -292,7 +316,10 @@
           </small>
 
 
-          <div class="course-actions" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px">
+          <div
+            class="course-actions"
+            style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px"
+          >
 
             <button
               class="btn primary"
@@ -461,6 +488,8 @@
 
           <div class="course-actions">
 
+            <!-- ITT104 WEEK 1 -->
+
             <button
               class="btn primary"
               onclick="openDirect(
@@ -473,7 +502,7 @@
             </button>
 
 
-            <!-- NEW ITT104 WEEK 2 BUTTON -->
+            <!-- ITT104 WEEK 2 -->
 
             <button
               class="btn"
@@ -695,27 +724,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
