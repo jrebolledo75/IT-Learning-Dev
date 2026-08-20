@@ -1,1 +1,146 @@
-<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>ITT103 Week 3 Study Center</title><style>body{font-family:Arial;background:#f5f3f8;color:#17132f;margin:0}.w{max-width:950px;margin:auto;padding:28px}.hero{background:#4b3670;color:#fff;padding:25px;border-radius:20px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:18px}.c{background:#fff;border:1px solid #ddd;border-radius:16px;padding:20px}.btn{background:#4b3670;color:#fff;border:0;border-radius:10px;padding:12px 15px;font-weight:bold;cursor:pointer}@media(max-width:650px){.grid{grid-template-columns:1fr}}</style></head><body><div class='w'><div class='hero'><h1>📚 ITT103 Week 3 Study Center</h1><p>Quick retrieval before the randomized Review Arena.</p><button class='btn' onclick="location.href='review-interactive.html'">Play Review Arena</button> <button class='btn' onclick="location.href='index.html'">Home</button></div><div class='grid'><div class='c'><h2>Software</h2><p>Know hardware vs. software vs. firmware, system vs. application software, releases, patches, upgrades, installation, and compatibility.</p></div><div class='c'><h2>Technician Management</h2><p>Connect applications, tasks, drivers/devices, and services to evidence-based troubleshooting decisions.</p></div><div class='c'><h2>Prompt Engineering</h2><p>Stronger prompts include useful context, a specific goal, constraints, and the desired form of the response.</p></div><div class='c'><h2>Machine Learning</h2><p>Features describe examples; labels identify intended categories. Dataset quality, variety, and balance influence predictions.</p></div><div class='c'><h2>Responsible AI</h2><p>AI output can be incomplete, incorrect, overconfident, or biased. A technician verifies with real evidence.</p></div><div class='c'><h2>Week 3 Mindset</h2><p>Retrieve → Decide → Perform → Explain → Test → Verify.</p></div></div></div></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ITT103 Week 3 Study Center</title>
+<style>
+*{box-sizing:border-box}
+body{font-family:Arial,sans-serif;background:#f5f3f8;color:#17132f;margin:0}
+.w{max-width:1050px;margin:auto;padding:28px}
+.hero{background:linear-gradient(120deg,#2856a6,#4b3670);color:#fff;padding:28px;border-radius:22px}
+.hero h1{margin:8px 0}.hero p{line-height:1.5}
+.top{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
+.btn{background:#4b3670;color:#fff;border:0;border-radius:10px;padding:12px 15px;font-weight:bold;cursor:pointer}
+.btn.alt{background:#fff;color:#4b3670;border:1px solid #d7d0e5}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0}
+.tab{background:#fff;border:1px solid #ddd3ea;border-radius:14px;padding:15px;font-weight:800;cursor:pointer;color:#17132f}
+.tab.active{background:#4b3670;color:#fff}
+.panel{display:none;background:#fff;border:1px solid #ddd3ea;border-radius:18px;padding:22px}
+.panel.active{display:block}
+.card{min-height:240px;border:2px solid #e1d9ec;border-radius:18px;padding:30px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;cursor:pointer;background:#faf9fc}
+.card h2{font-size:28px}.muted{color:#716986}.status{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:12px 0}
+.answers{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.answer{padding:16px;border:1px solid #d9d1e5;background:#faf9fc;border-radius:12px;font-weight:700;cursor:pointer;text-align:left}
+.feedback{margin-top:14px;padding:14px;border-radius:12px;background:#f0edf5;display:none}
+.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.term,.target{padding:14px;border-radius:12px;border:1px solid #d8d0e4;background:#faf9fc;margin:8px 0}
+.term{cursor:grab;font-weight:800}
+.term.selected{outline:3px solid #7b4ab5}
+.target{min-height:68px;cursor:pointer}
+.target.good{background:#e9f7ef;border-color:#6ab184}
+.target.bad{background:#fff0f0;border-color:#c56d75}
+.mastery{margin-top:18px;background:#fff;border:1px solid #ddd3ea;border-radius:16px;padding:18px}
+.bar{height:12px;background:#ebe7f1;border-radius:20px;overflow:hidden}.bar span{display:block;height:100%;background:#4b3670;width:0}
+@media(max-width:750px){.tabs{grid-template-columns:1fr 1fr}.answers,.match-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="w">
+  <div class="hero">
+    <div class="top"><strong>📚 ITT103 WEEK 3 • STUDY CENTER</strong><button class="btn alt" onclick="location.href='index.html'">← Week 3 Home</button></div>
+    <h1>Study → Practice → Match → Compete</h1>
+    <p>Review software support, prompt engineering, machine learning, and responsible AI. Activities reshuffle so you can practice again with a different order.</p>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('flash',this)">🃏 Flash Cards</button>
+    <button class="tab" onclick="showTab('quiz',this)">📝 Quick Quiz</button>
+    <button class="tab" onclick="showTab('match',this)">🧩 Drag & Match</button>
+    <button class="tab" onclick="location.href='review-interactive.html'">🏆 Review Arena</button>
+  </div>
+
+  <section id="flash" class="panel active">
+    <div class="top"><div><h2>Flashcard Sprint</h2><p class="muted">Click the card to reveal the answer.</p></div><button class="btn" onclick="resetFlash()">↻ Shuffle Deck</button></div>
+    <div class="status"><b id="flashCount"></b><span id="flashSide">QUESTION</span></div>
+    <div id="flashCard" class="card" onclick="flipCard()"></div>
+    <div class="top" style="margin-top:14px"><button class="btn alt" onclick="prevCard()">← Previous</button><button class="btn" onclick="nextCard()">Next →</button></div>
+  </section>
+
+  <section id="quiz" class="panel">
+    <div class="top"><div><h2>Randomized Quick Quiz</h2><p class="muted">Five questions with immediate explanations.</p></div><button class="btn" onclick="resetQuiz()">↻ New Quiz</button></div>
+    <div class="status"><b id="quizProgress"></b><b>Score: <span id="quizScore">0</span>/5</b></div>
+    <h2 id="quizQuestion"></h2><div id="quizAnswers" class="answers"></div>
+    <div id="quizFeedback" class="feedback"></div>
+    <button id="quizNext" class="btn" style="display:none;margin-top:14px" onclick="nextQuiz()">Next →</button>
+  </section>
+
+  <section id="match" class="panel">
+    <div class="top"><div><h2>Drag & Match Challenge</h2><p class="muted">Drag a term to its definition, or tap a term and then tap its matching definition.</p></div><button class="btn" onclick="resetMatch()">↻ New Match</button></div>
+    <div class="status"><b>Matches: <span id="matchScore">0</span>/6</b><span id="matchMessage"></span></div>
+    <div class="match-grid"><div id="terms"></div><div id="targets"></div></div>
+  </section>
+
+  <div class="mastery">
+    <div class="top"><strong>Week 3 Study Progress</strong><span id="masteryText">0% practiced</span></div>
+    <div class="bar"><span id="masteryBar"></span></div>
+  </div>
+</div>
+
+<script>
+const flashcards=[
+['Patch','A small code release used to fix an immediate problem in existing software.'],
+['Compatibility','Whether software can operate with the required OS, processor, hardware, and resources.'],
+['Application software','Software that helps a user perform a task, such as a spreadsheet program.'],
+['System service','A background component that may provide functions required by applications or the OS.'],
+['Prompt engineering','Improving an AI request with useful context, a specific goal, constraints, and desired output.'],
+['Feature','A measurable or descriptive input used by a machine-learning model.'],
+['Label','The known category or intended output assigned to a supervised-learning example.'],
+['Training dataset','Examples used to teach a model patterns and relationships.'],
+['Unbalanced dataset','Training data that overrepresents some categories and can distort predictions.'],
+['AI verification','Checking AI output against real evidence before acting on it.'],
+['Firmware','Software embedded in hardware that helps control the device.'],
+['Week 3 mindset','Retrieve → Decide → Perform → Explain → Test → Verify.']
+];
+
+const quizBank=[
+['A required background service is stopped. What should you inspect?','System services',['System services','Desktop wallpaper','Browser favorites','Printer paper'],'Services can be dependencies for applications.'],
+['An application needs more RAM than the computer has. What should you check?','Hardware requirements',['Hardware requirements','File name','Mouse speed','Theme'],'Compatibility includes hardware and resource requirements.'],
+['Which change makes a weak AI prompt stronger?','Add context and a specific goal',['Add context and a specific goal','Remove details','Avoid the desired result','Use unrelated keywords'],'Useful context and a clear goal help guide the response.'],
+['In supervised learning, what is a label?','The known category/output',['The known category/output','A network cable','A BIOS password','A software license'],'A label identifies the intended class or output for a training example.'],
+['Why can an unbalanced dataset cause problems?','It can distort predictions',['It can distort predictions','It patches Windows','It increases RAM','It changes screen size'],'The composition of training data influences model behavior.'],
+['AI confidently diagnoses a failed SSD without evidence. Best response?','Verify using real system evidence',['Verify using real system evidence','Replace the SSD immediately','Trust the answer','Ignore the user'],'AI output can be wrong or overconfident; technicians verify before acting.'],
+['Which is application software?','Spreadsheet program',['Spreadsheet program','RAM','SSD','Motherboard firmware'],'Application software helps users perform tasks.'],
+['Software built for Windows fails on Linux. What is the likely issue?','OS compatibility',['OS compatibility','Keyboard layout','Wallpaper','Monitor brightness'],'Software can target a specific operating system.'],
+['What is a patch designed to do?','Fix an immediate software problem',['Fix an immediate software problem','Replace RAM','Train an AI model','Change a monitor'],'A patch modifies existing software to address a problem.'],
+['Why does human verification matter with AI support?','AI can be incomplete, wrong, or biased',['AI can be incomplete, wrong, or biased','AI has physical tools','Humans cannot use software','AI always deletes files'],'Technicians remain responsible for evidence-based decisions.']
+];
+
+const matchBank=[
+['Patch','Fixes an immediate software problem'],
+['Firmware','Software embedded in hardware'],
+['Application software','Helps a user perform a task'],
+['Prompt engineering','Adds context, goal, constraints, and desired output'],
+['Feature','Input characteristic used by a model'],
+['Label','Known category/output for a training example'],
+['System service','Background component that can support applications'],
+['Compatibility','Fit between software and OS/hardware/resources'],
+['Training dataset','Examples used to teach a model'],
+['AI verification','Check generated advice against real evidence']
+];
+
+function shuffle(a){let x=[...a];for(let i=x.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[x[i],x[j]]=[x[j],x[i]]}return x}
+function showTab(id,btn){document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');btn.classList.add('active')}
+
+let deck=[],fi=0,flipped=false;
+function resetFlash(){deck=shuffle(flashcards);fi=0;flipped=false;renderFlash();localStorage.setItem('itt103w3_flash','1');updateMastery()}
+function renderFlash(){let c=deck[fi];flashCount.textContent=`Card ${fi+1}/${deck.length}`;flashSide.textContent=flipped?'ANSWER':'QUESTION';flashCard.innerHTML=flipped?`<h2>${c[0]}</h2><p>${c[1]}</p><small class="muted">Click to see the term again</small>`:`<h2>${c[0]}</h2><p class="muted">What does this mean in Week 3?</p><small>Click to reveal</small>`}
+function flipCard(){flipped=!flipped;renderFlash()}
+function nextCard(){fi=(fi+1)%deck.length;flipped=false;renderFlash()}
+function prevCard(){fi=(fi-1+deck.length)%deck.length;flipped=false;renderFlash()}
+
+let qq=[],qi=0,qscore=0,qlocked=false;
+function resetQuiz(){qq=shuffle(quizBank).slice(0,5);qi=0;qscore=0;quizScore.textContent=0;renderQuiz()}
+function renderQuiz(){qlocked=false;let q=qq[qi];quizProgress.textContent=`Question ${qi+1}/5`;quizQuestion.textContent=q[0];quizAnswers.innerHTML='';shuffle(q[2]).forEach(a=>{let b=document.createElement('button');b.className='answer';b.textContent=a;b.onclick=()=>answerQuiz(a);quizAnswers.appendChild(b)});quizFeedback.style.display='none';quizNext.style.display='none'}
+function answerQuiz(a){if(qlocked)return;qlocked=true;let q=qq[qi],ok=a===q[1];if(ok){qscore++;quizScore.textContent=qscore}quizFeedback.style.display='block';quizFeedback.innerHTML=(ok?'✅ <b>Correct.</b> ':'❌ <b>Not quite.</b> ')+q[3];quizNext.style.display='inline-block'}
+function nextQuiz(){qi++;if(qi<5)renderQuiz();else{quizQuestion.textContent='Quick Quiz Complete';quizAnswers.innerHTML='';quizFeedback.style.display='block';quizFeedback.innerHTML=`You scored <b>${qscore}/5</b>. Generate a new randomized quiz to practice again.`;quizNext.style.display='none';localStorage.setItem('itt103w3_quiz','1');updateMastery()}}
+
+let selected=null,matchSet=[],matched=0;
+function resetMatch(){matched=0;selected=null;matchScore.textContent='0';matchMessage.textContent='';matchSet=shuffle(matchBank).slice(0,6);terms.innerHTML='';targets.innerHTML='';shuffle(matchSet).forEach(([term,def])=>{let d=document.createElement('div');d.className='term';d.textContent=term;d.draggable=true;d.dataset.term=term;d.onclick=()=>selectTerm(d);d.ondragstart=e=>e.dataTransfer.setData('text/plain',term);terms.appendChild(d)});shuffle(matchSet).forEach(([term,def])=>{let d=document.createElement('div');d.className='target';d.textContent=def;d.dataset.term=term;d.onclick=()=>{if(selected)tryMatch(selected.dataset.term,d)};d.ondragover=e=>e.preventDefault();d.ondrop=e=>{e.preventDefault();tryMatch(e.dataTransfer.getData('text/plain'),d)};targets.appendChild(d)})}
+function selectTerm(el){document.querySelectorAll('.term').forEach(x=>x.classList.remove('selected'));selected=el;el.classList.add('selected');matchMessage.textContent='Now choose the matching definition.'}
+function tryMatch(term,target){if(target.classList.contains('good'))return;if(term===target.dataset.term){target.classList.add('good');target.innerHTML=`✅ ${target.textContent}`;let el=[...document.querySelectorAll('.term')].find(x=>x.dataset.term===term);if(el)el.remove();matched++;matchScore.textContent=matched;matchMessage.textContent='Correct match!';selected=null;if(matched===6){matchMessage.textContent='🎉 All six matched!';localStorage.setItem('itt103w3_match','1');updateMastery()}}else{target.classList.add('bad');matchMessage.textContent='Try again — use the definition as evidence.';setTimeout(()=>target.classList.remove('bad'),500)}}
+function updateMastery(){let n=['itt103w3_flash','itt103w3_quiz','itt103w3_match'].filter(k=>localStorage.getItem(k)).length;let p=Math.round(n/3*100);masteryText.textContent=`${p}% practiced`;masteryBar.style.width=p+'%'}
+resetFlash();resetQuiz();resetMatch();updateMastery();
+</script>
+</body>
+</html>
