@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ITT101 Week 4 Final Mastery Review</title>
+<style>
+:root{--bg:#08111f;--card:#111d31;--ink:#eef6ff;--muted:#9fb2ca;--a:#25c2c7;--b:#7c5cff;--good:#32d583;--bad:#ff5d6c}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,system-ui;background:radial-gradient(circle at 10% 0,#17365a,#08111f 38%);color:var(--ink)}
+.wrap{max-width:1180px;margin:auto;padding:22px}.hero,.card{background:#111d31;border:1px solid #29415f;border-radius:20px;padding:22px}
+.hero{background:linear-gradient(135deg,#11243c,#10182b)}.eyebrow{color:#70e5e8;font-weight:800;letter-spacing:.1em}.hero h1{font-size:clamp(2rem,5vw,3.5rem);margin:.3rem 0}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:15px}.stat{background:#172641;border-radius:14px;padding:14px}.stat b{font-size:1.5rem;display:block}.stat span,.muted{color:var(--muted)}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}.tab,.btn{border:1px solid #35506f;background:#13243b;color:#fff;border-radius:10px;padding:10px 13px;font-weight:800;cursor:pointer}.tab.active,.btn.primary{background:linear-gradient(135deg,var(--a),var(--b));border:0}
+.panel{display:none}.panel.active{display:block}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.q{font-size:1.2rem;font-weight:800}.choices{display:grid;gap:9px;margin:14px 0}.choice{padding:13px;border:1px solid #38506d;border-radius:10px;background:#17263c;color:#fff;text-align:left;cursor:pointer}.correct{background:#123728!important;border-color:var(--good)!important}.wrong{background:#3a1821!important;border-color:var(--bad)!important}
+.progress{height:9px;background:#1d2d44;border-radius:9px;overflow:hidden}.bar{height:100%;background:linear-gradient(90deg,var(--a),var(--b));width:0}.pill{display:inline-block;padding:6px 10px;background:#203654;border-radius:999px;color:#bfe8ff;font-size:.8rem}
+.conf{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0}.conf button{padding:10px;border-radius:9px;border:1px solid #38506d;background:#17263c;color:#fff;cursor:pointer}.conf button.sel{outline:3px solid var(--a)}
+.feedback{min-height:42px}.flash{min-height:210px;border:2px solid #35506f;border-radius:16px;display:grid;place-items:center;text-align:center;padding:20px;background:#0d1728;cursor:pointer}
+.match{display:grid;grid-template-columns:1fr 1fr;gap:12px}.term,.target{padding:11px;border:1px solid #38506d;border-radius:9px;background:#17263c;margin:7px 0}.term{font-weight:800;cursor:pointer}.term.sel{outline:3px solid var(--a)}.target.good{background:#123728}.target.bad{background:#3a1821}
+.reflect-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.reflect{padding:16px;border-radius:14px}.reflect:nth-child(1){background:#315f9d}.reflect:nth-child(2){background:#d96614}.reflect:nth-child(3){background:#9f275f}.reflect textarea,.meta textarea{width:100%;min-height:90px;border:0;border-radius:8px;padding:9px;margin-top:8px}.meta{margin-top:14px;padding:15px;border:1px solid #2a4566;border-radius:13px;background:#0e1930}
+.scenario{border-left:4px solid var(--a);padding-left:14px}.timer{font-size:4rem;font-weight:900;text-align:center}.report{white-space:pre-wrap;line-height:1.5;background:#081421;border:1px dashed #3b5675;padding:16px;border-radius:12px}
+.cal{padding:10px;border-radius:9px;margin-top:8px}.cal.good{background:#123728}.cal.bad{background:#3a1821}.cal.warn{background:#4a3312}
+@media(max-width:800px){.stats,.grid,.reflect-grid,.match{grid-template-columns:1fr}.conf{grid-template-columns:1fr 1fr}.wrap{padding:12px}}
+</style>
+</head>
+<body><div class="wrap">
+<section class="hero"><div class="eyebrow">NCC IT Learning Hub • ITT101 • Week 4</div><h1>Final Mastery Review + Metacognition</h1>
+<p><b>Retrieve → Monitor → Review → Apply → Explain → Control your next study move.</b> This review measures not only what you know, but how accurately you judge what you know.</p>
+<div class="stats">
+<div class="stat"><b id="mastery">0%</b><span>Overall Mastery</span></div>
+<div class="stat"><b id="ind">0</b><span>Independent</span></div>
+<div class="stat"><b id="prompt">0</b><span>Prompted</span></div>
+<div class="stat"><b id="nyd">0</b><span>Not Yet Demonstrated</span></div>
+<div class="stat"><b id="calibration">—</b><span>Confidence Calibration</span></div>
+</div></section>
+
+<nav class="tabs">
+<button class="tab active" data-p="retrieve">1. Cold Retrieval</button>
+<button class="tab" data-p="review">2. Mastery Lab</button>
+<button class="tab" data-p="apply">3. Scenario Lab</button>
+<button class="tab" data-p="meta">4. Metacognition Check</button>
+<button class="tab" data-p="explain">5. Explain It</button>
+<button class="tab" data-p="exam">6. Random Exam Simulator</button>
+<button class="tab" data-p="report">Readiness Report</button>
+</nav>
+
+<section id="retrieve" class="panel active"><div class="card">
+<span class="pill">NO NOTES • NO HINTS FIRST</span><h2>Independent Retention Bridge</h2>
+<p class="muted">Before answering, rate your confidence. Then answer from memory. Your goal is to make your confidence match your actual performance.</p>
+<div class="progress"><div id="rbar" class="bar"></div></div><p id="rmeta" class="muted"></p><div id="rq" class="q"></div><div id="confidenceBox"></div><div id="rchoices" class="choices"></div><div id="rfeed" class="feedback"></div>
+<button id="hint" class="btn">Need a hint</button> <button id="rnext" class="btn primary">Next</button><div id="calmsg"></div>
+</div></section>
+
+<section id="review" class="panel"><div class="grid">
+<div class="card"><h3>⚡ Random Mastery Question</h3><div id="kq" class="q"></div><div id="kchoices" class="choices"></div><div id="kfeed" class="feedback"></div><button id="knew" class="btn primary">Random Question</button></div>
+<div class="card"><h3>🧠 Flashcards</h3><div id="flash" class="flash"></div><p class="muted">Before flipping, say the answer aloud. After flipping, ask: <b>When might I forget this?</b></p><button id="flip" class="btn">Flip</button> <button id="fnew" class="btn primary">Next</button></div>
+<div class="card"><h3>🧩 Match the Concept</h3><div class="match"><div id="terms"></div><div id="targets"></div></div><div id="mfeed" class="feedback"></div><button id="mreset" class="btn">Reset Match</button></div>
+<div class="card"><h3>🔢 Conversion Sprint</h3><div id="convq" class="q"></div><div id="convchoices" class="choices"></div><div id="convfeed" class="feedback"></div><button id="convnew" class="btn primary">New Conversion</button></div>
+</div></section>
+
+<section id="apply" class="panel"><div class="card"><span class="pill">REAL-WORLD REASONING</span><h2>Scenario Application & Socratic Verification</h2>
+<div id="scenario" class="scenario"></div><div id="schoices" class="choices"></div><div id="sfeed" class="feedback"></div>
+<div class="meta"><b>Think like a technician:</b> Why? How do I know? What would I check next?</div><button id="snew" class="btn primary">New Random Scenario</button>
+</div></section>
+
+<section id="meta" class="panel"><div class="card"><span class="pill">MONITOR → CONTROL</span><h2>Metacognition Pause Ticket</h2>
+<p class="muted">Identify what you know, what is unclear, and what you will do next.</p>
+<div class="reflect-grid">
+<div class="reflect"><b>What are three things you’ve learned or are excited about from this class?</b><textarea id="m1"></textarea></div>
+<div class="reflect"><b>What questions do you have? What questions need clarification?</b><textarea id="m2"></textarea></div>
+<div class="reflect"><b>What ideas or concepts do you confidently understand?</b><textarea id="m3"></textarea></div>
+</div>
+<div class="meta"><h3>Confidence Reality Check</h3><p id="metaSummary"></p>
+<label>One topic I should study next:</label><textarea id="studyNext"></textarea>
+<label>What will I do differently in the next 20 minutes?</label><textarea id="nextAction"></textarea>
+<label>Write one question that would reveal whether someone truly understands ITT101:</label><textarea id="ownQuestion"></textarea>
+<button id="saveMeta" class="btn primary">Save Reflection</button></div>
+</div></section>
+
+<section id="explain" class="panel"><div class="card"><h2>30–40 Second Pre-Exam Retention Check</h2>
+<p>Explain the selected concept <b>without notes</b>: what it is, why it matters to an IT technician, and one real-world example.</p><div id="concept" class="q"></div><div id="timer" class="timer">40</div>
+<button id="starttimer" class="btn primary">Start 40 Seconds</button> <button id="newconcept" class="btn">Random Concept</button>
+<p>Record the level after explaining:</p><button class="btn rate" data-v="ind">Independent</button> <button class="btn rate" data-v="prompt">Prompted</button> <button class="btn rate" data-v="nyd">Not Yet Demonstrated</button>
+</div></section>
+
+
+<section id="exam" class="panel">
+<div class="card">
+<span class="pill">WEEKS 1–3 + CUMULATIVE FINAL REVIEW DOMAINS</span>
+<h2>Random Exam Simulator</h2>
+<p class="muted">Choose a random set or target a topic. Questions and answer choices are reshuffled each attempt. This is representative mastery practice, not a copy of the live Canvas final exam.</p>
+
+<div class="grid">
+  <div>
+    <label><b>Question Set</b></label>
+    <div class="choices" style="grid-template-columns:repeat(2,1fr)">
+      <button class="btn exam-size" data-n="10">Random 10</button>
+      <button class="btn exam-size" data-n="20">Random 20</button>
+      <button class="btn exam-size" data-n="30">Random 30</button>
+      <button class="btn exam-size" data-n="50">Full Mastery 50</button>
+    </div>
+  </div>
+  <div>
+    <label><b>Topic Filter</b></label>
+    <select id="examTopic" style="width:100%;padding:12px;border-radius:10px;background:#17263c;color:white;border:1px solid #38506d;margin-top:8px">
+      <option value="ALL">All Topics Mixed</option>
+      <option value="Week 1">Week 1 – IT Foundations & Digital Citizenship</option>
+      <option value="Week 2">Week 2 – Number Systems, Logic & Technology</option>
+      <option value="Week 3">Week 3 – Troubleshooting, Ticketing & Customer Service</option>
+      <option value="History">History of IT</option>
+      <option value="Computing">Computing & Processing</option>
+      <option value="Storage">Storage & RAID</option>
+      <option value="Notation">Binary / Decimal / Hexadecimal</option>
+      <option value="Logic">Boolean Logic</option>
+      <option value="Units">Units of Measure</option>
+      <option value="Troubleshooting">Troubleshooting</option>
+      <option value="Ticketing">IT Ticket Systems</option>
+      <option value="Soft Skills">Soft Skills & Customer Service</option>
+    </select>
+  </div>
+</div>
+
+<div id="examStartBox" class="meta">
+  <b>How it works:</b> each attempt generates a fresh randomized set. Before each answer, rate confidence from 1–4. Your result shows both accuracy and confidence calibration.
+</div>
+
+<div id="examPlay" style="display:none;margin-top:18px">
+  <div class="progress"><div id="examBar" class="bar"></div></div>
+  <p id="examMeta" class="muted"></p>
+  <div id="examQ" class="q"></div>
+  <div id="examConf"></div>
+  <div id="examChoices" class="choices"></div>
+  <div id="examFeed" class="feedback"></div>
+  <button id="examNext" class="btn primary">Next</button>
+</div>
+
+<div id="examResult" class="report" style="display:none;margin-top:18px"></div>
+</div>
+</section>
+
+<section id="report" class="panel"><div class="card"><h2>ITT101 Final Readiness</h2><div id="reportbox" class="report"></div><button id="resetall" class="btn">Reset Entire Review</button></div></section>
+</div>
+
+<script>
+const bank=[
+{c:'Computing',q:'Which component is required to execute program instructions?',a:['Processor (CPU)','Monitor','Keyboard','Printer'],x:0,h:'Think processing.',e:'The processor executes program instructions.'},
+{c:'Memory',q:'Why is RAM considered volatile?',a:['It needs constant power to retain data','It is always external','It uses a laser','It stores data permanently'],x:0,h:'What happens when power is removed?',e:'RAM loses its contents when power is removed.'},
+{c:'I/O',q:'Which device is an input device?',a:['Keyboard','Monitor','Printer','Speaker'],x:0,h:'Which sends user data into the system?',e:'A keyboard is an input device.'},
+{c:'Storage',q:'Which set contains optical storage media?',a:['CD, DVD, Blu-ray','SSD, RAM, HDD','USB, RAM, tape','CPU, cache, ROM'],x:0,h:'Think laser-based media.',e:'CD, DVD, and Blu-ray are optical media.'},
+{c:'Computing Cycle',q:'Which sequence best represents the computing cycle?',a:['Input → Process → Storage → Output','Process → Output → Input → Storage','Storage → Input → Output → Process','Output → Process → Input → Storage'],x:0,h:'Start with data entering the system.',e:'The reviewed sequence is Input → Process → Storage → Output.'},
+{c:'RAID',q:'Which RAID level provides redundancy through mirroring?',a:['RAID 1','RAID 0','RAID 2','RAID 3'],x:0,h:'Think exact copy.',e:'RAID 1 mirrors data for redundancy.'},
+{c:'RAID',q:'Which RAID level offers no redundancy?',a:['RAID 0','RAID 1','RAID 5','RAID 3'],x:0,h:'Striping without protection.',e:'RAID 0 offers no redundancy.'},
+{c:'Peripherals',q:'Which device digitizes a paper document?',a:['Scanner','Monitor','Speaker','Printer'],x:0,h:'Physical page to digital.',e:'A scanner digitizes paper documents.'},
+{c:'Notation',q:'Which binary number equals decimal 23?',a:['10111','11011','11101','10101'],x:0,h:'16+4+2+1.',e:'23 = 10111.'},
+{c:'Notation',q:'What is decimal 45 in binary?',a:['101101','100101','110101','101011'],x:0,h:'32+8+4+1.',e:'45 = 101101.'},
+{c:'Notation',q:'How many values can 6 bits represent?',a:['64','6','16','256'],x:0,h:'Use 2^bits.',e:'2^6 = 64.'},
+{c:'Notation',q:'What is binary 1010 0011 in hexadecimal?',a:['A3','A2','B3','B4'],x:0,h:'1010 = A; 0011 = 3.',e:'The answer is A3.'},
+{c:'Notation',q:'What hexadecimal value equals binary 0101 1110?',a:['5E','4E','4F','5F'],x:0,h:'0101 = 5; 1110 = E.',e:'The answer is 5E.'},
+{c:'Notation',q:'What is hexadecimal 2B in binary?',a:['00101011','00101111','00111011','00101101'],x:0,h:'2 = 0010; B = 1011.',e:'2B = 0010 1011.'},
+{c:'Notation',q:'What is the largest value in 8-bit unsigned binary?',a:['255','127','128','256'],x:0,h:'256 total values starting at 0.',e:'The range is 0–255.'},
+{c:'CPU',q:'What does the Instruction Register hold?',a:['The current instruction being decoded/executed','The next instruction address','Only arithmetic results','A password'],x:0,h:'Current instruction.',e:'The Instruction Register holds the current instruction.'},
+{c:'CPU',q:'Which register stores the location of the next instruction?',a:['Program Counter','Instruction Register','Accumulator','Status register'],x:0,h:'It advances as the program runs.',e:'The Program Counter stores the next instruction location.'},
+{c:'History',q:'Who is commonly recognized as the world’s first programmer?',a:['Ada Lovelace','Thomas Edison','Alan Turing','Bill Gates'],x:0,h:'Analytical Engine.',e:'Ada Lovelace is commonly recognized as the first programmer.'},
+{c:'History',q:'Which computer is commonly identified as the first electronic general-purpose computer?',a:['ENIAC','Abacus','Jacquard loom','PLATO'],x:0,h:'Early electronic computing.',e:'ENIAC is commonly identified as the first electronic general-purpose computer.'},
+{c:'History',q:'Which technology characterized first-generation computers?',a:['Vacuum tubes','Integrated circuits','Microprocessors','Cloud computing'],x:0,h:'Earliest electronic generation.',e:'First-generation computers used vacuum tubes.'}
+];
+
+const examBank=[{"week": "Week 1", "c": "Computing", "q": "Which item is hardware?", "a": ["Keyboard", "Web browser", "Operating system", "Spreadsheet application"], "x": 0, "e": "A keyboard is a physical component, so it is hardware."}, {"week": "Week 1", "c": "Computing", "q": "Which item is software?", "a": ["Operating system", "CPU", "RAM module", "Monitor"], "x": 0, "e": "An operating system is software that manages computer resources."}, {"week": "Week 1", "c": "Computing", "q": "Which statement best distinguishes hardware from software?", "a": ["Hardware is physical; software is instructions/programs", "Hardware is always portable; software is not", "Hardware only stores data; software only prints", "Hardware is online; software is offline"], "x": 0, "e": "Hardware refers to physical components; software refers to programs and instructions."}, {"week": "Week 1", "c": "Soft Skills", "q": "Which action best demonstrates professional IT communication?", "a": ["Explain the next step clearly and respectfully", "Use jargon without explanation", "Ignore user questions", "Blame the user"], "x": 0, "e": "Clear, respectful communication is a core professional soft skill."}, {"week": "Week 1", "c": "Soft Skills", "q": "A technology choice is effective when it...", "a": ["supports the task, user, and context", "is the newest product", "is the most expensive option", "uses the most features"], "x": 0, "e": "Technology effectiveness depends on purpose and context."}, {"week": "Week 1", "c": "Soft Skills", "q": "Responsible AI use in IT work should include...", "a": ["verification, ownership, and accuracy", "copying answers without checking", "hiding AI use from all stakeholders", "assuming every output is correct"], "x": 0, "e": "Responsible AI use requires verification and ownership of the final work."}, {"week": "Week 1", "c": "Ticketing", "q": "Why are ticketing systems important in IT support?", "a": ["They document issues, actions, and outcomes", "They replace all troubleshooting", "They eliminate communication", "They automatically repair hardware"], "x": 0, "e": "Ticketing systems create a useful service record and support follow-up."}, {"week": "Week 1", "c": "Computing", "q": "Which category includes networks, data, hardware, software, and support systems?", "a": ["Information technology", "Only cybersecurity", "Only programming", "Only office administration"], "x": 0, "e": "ITT101 introduces information technology as a broad field connecting these systems."}, {"week": "Week 1", "c": "Soft Skills", "q": "When technology use 'depends on the situation,' what should a technician consider first?", "a": ["the goal, context, and impact", "only device age", "only brand name", "only purchase price"], "x": 0, "e": "Context determines whether a technology choice is productive or appropriate."}, {"week": "Week 2", "c": "Notation", "q": "How many bits are in one byte?", "a": ["8", "4", "16", "32"], "x": 0, "e": "A standard byte contains 8 bits."}, {"week": "Week 2", "c": "Notation", "q": "How many bits are in one nibble?", "a": ["4", "2", "8", "16"], "x": 0, "e": "A nibble is half a byte, or 4 bits."}, {"week": "Week 2", "c": "Notation", "q": "Which decimal value equals binary 00001111?", "a": ["15", "12", "14", "17"], "x": 0, "e": "8+4+2+1 = 15."}, {"week": "Week 2", "c": "Notation", "q": "Which decimal value equals binary 00011010?", "a": ["26", "24", "25", "28"], "x": 0, "e": "16+8+2 = 26."}, {"week": "Week 2", "c": "Notation", "q": "Which decimal value equals binary 10000000?", "a": ["128", "32", "64", "256"], "x": 0, "e": "Only the 128 place is on."}, {"week": "Week 2", "c": "Notation", "q": "What is decimal 2 in binary?", "a": ["10", "01", "11", "100"], "x": 0, "e": "Binary 10 represents decimal 2."}, {"week": "Week 2", "c": "Notation", "q": "What is the maximum unsigned value in 8 bits?", "a": ["255", "127", "128", "256"], "x": 0, "e": "Eight bits provide 256 values, numbered 0 through 255."}, {"week": "Week 2", "c": "Notation", "q": "Which binary number equals decimal 23?", "a": ["10111", "11011", "11101", "10101"], "x": 0, "e": "23 = 16+4+2+1 = 10111."}, {"week": "Week 2", "c": "Notation", "q": "What is decimal 45 in binary?", "a": ["101101", "100101", "110101", "101011"], "x": 0, "e": "45 = 32+8+4+1 = 101101."}, {"week": "Week 2", "c": "Notation", "q": "How many values can 6 bits represent?", "a": ["64", "6", "16", "256"], "x": 0, "e": "2^6 = 64 possible values."}, {"week": "Week 2", "c": "Notation", "q": "What is binary 1010 0011 in hexadecimal?", "a": ["A3", "A2", "B3", "B4"], "x": 0, "e": "1010 is A and 0011 is 3."}, {"week": "Week 2", "c": "Notation", "q": "What hexadecimal value equals binary 0101 1110?", "a": ["5E", "4E", "4F", "5F"], "x": 0, "e": "0101 is 5 and 1110 is E."}, {"week": "Week 2", "c": "Notation", "q": "What is hexadecimal 2B in binary?", "a": ["00101011", "00101111", "00111011", "00101101"], "x": 0, "e": "2 is 0010 and B is 1011."}, {"week": "Week 2", "c": "Logic", "q": "Which logic gate outputs 1 only when both inputs are 1?", "a": ["AND", "OR", "XOR", "NOT"], "x": 0, "e": "AND requires both inputs to be true."}, {"week": "Week 2", "c": "Logic", "q": "Which logic gate outputs 1 when at least one input is 1?", "a": ["OR", "AND", "NOT", "NAND"], "x": 0, "e": "OR is true when either or both inputs are true."}, {"week": "Week 2", "c": "Logic", "q": "Which logic gate reverses a single input?", "a": ["NOT", "AND", "OR", "XOR"], "x": 0, "e": "NOT inverts the input."}, {"week": "Week 2", "c": "Logic", "q": "Which gate outputs 1 when the two inputs are different?", "a": ["XOR", "AND", "OR", "NOR"], "x": 0, "e": "XOR is true only when inputs differ."}, {"week": "Week 2", "c": "Logic", "q": "Which gate is the inverse of AND?", "a": ["NAND", "NOR", "XOR", "OR"], "x": 0, "e": "NAND is NOT-AND."}, {"week": "Week 2", "c": "Logic", "q": "Which gate is the inverse of OR?", "a": ["NOR", "NAND", "XOR", "AND"], "x": 0, "e": "NOR is NOT-OR."}, {"week": "Week 2", "c": "Units", "q": "Which unit is larger?", "a": ["1 GB", "1 MB", "1 KB", "1 byte"], "x": 0, "e": "A gigabyte is larger than a megabyte, kilobyte, or byte."}, {"week": "Week 2", "c": "Units", "q": "Which prefix represents 10^6 in decimal SI usage?", "a": ["Mega", "Kilo", "Giga", "Tera"], "x": 0, "e": "Mega represents one million, 10^6."}, {"week": "Week 2", "c": "Units", "q": "Which prefix represents 10^9 in decimal SI usage?", "a": ["Giga", "Kilo", "Mega", "Nano"], "x": 0, "e": "Giga represents one billion, 10^9."}, {"week": "Week 2", "c": "Computing", "q": "Which processor is generally designed for graphics and massively parallel operations?", "a": ["GPU", "CPU register", "HDD", "NIC"], "x": 0, "e": "A GPU is designed for highly parallel workloads such as graphics."}, {"week": "Week 2", "c": "Computing", "q": "Which processor is the main general-purpose processor in a computer?", "a": ["CPU", "GPU only", "SSD", "Router"], "x": 0, "e": "The CPU executes general program instructions."}, {"week": "Week 2", "c": "Computing", "q": "Containers and orchestration are most closely associated with...", "a": ["managing application deployment environments", "replacing keyboards", "printing documents", "analog storage"], "x": 0, "e": "Containers package applications; orchestration coordinates their deployment and operation."}, {"week": "Week 3", "c": "Troubleshooting", "q": "What should you do first when troubleshooting an unfamiliar issue?", "a": ["identify the problem and gather information", "replace hardware immediately", "reinstall everything", "close the ticket"], "x": 0, "e": "Logical troubleshooting begins by identifying the problem and collecting evidence."}, {"week": "Week 3", "c": "Troubleshooting", "q": "After forming a theory of probable cause, what should you do?", "a": ["test the theory", "document before testing", "replace every component", "escalate without evidence"], "x": 0, "e": "Testing the theory verifies whether it explains the symptoms."}, {"week": "Week 3", "c": "Troubleshooting", "q": "After implementing a solution, what should a technician verify?", "a": ["full system functionality", "only that the computer turns on", "only that the ticket exists", "only that the user left"], "x": 0, "e": "A technician should verify the solution and overall functionality."}, {"week": "Week 3", "c": "Troubleshooting", "q": "What belongs at the end of a troubleshooting process?", "a": ["document findings, actions, and outcomes", "erase the history", "delete the ticket", "avoid recording details"], "x": 0, "e": "Documentation preserves the troubleshooting record."}, {"week": "Week 3", "c": "Ticketing", "q": "Which ticket note is most useful?", "a": ["Symptom, cause, action taken, and result", "Fixed", "User issue", "Done"], "x": 0, "e": "Detailed notes support future support and accountability."}, {"week": "Week 3", "c": "Ticketing", "q": "Why should a support ticket include timestamps or status updates?", "a": ["to track progress and communication", "to make the ticket longer", "to replace troubleshooting", "to avoid contacting the user"], "x": 0, "e": "Status history helps others understand what happened and when."}, {"week": "Week 3", "c": "Soft Skills", "q": "A frustrated user needs help. What is the best initial response?", "a": ["acknowledge the problem and ask focused questions", "argue with the user", "blame the user", "use unexplained jargon"], "x": 0, "e": "Professional support combines empathy with purposeful information gathering."}, {"week": "Week 3", "c": "Soft Skills", "q": "Which behavior best demonstrates active listening?", "a": ["confirming the user's concern before proposing a solution", "interrupting repeatedly", "assuming the problem", "changing the subject"], "x": 0, "e": "Active listening verifies understanding before action."}, {"week": "Week 3", "c": "Soft Skills", "q": "Why should technicians avoid excessive jargon with end users?", "a": ["clear language improves understanding and trust", "jargon is always prohibited", "users never need technical details", "jargon slows the CPU"], "x": 0, "e": "Plain language supports effective customer communication."}, {"week": "Week 3", "c": "Troubleshooting", "q": "A technician changes many settings at once. Why is that poor troubleshooting practice?", "a": ["it makes it hard to know which change affected the result", "computers allow only one change per day", "settings cannot be reversed", "tickets prohibit multiple actions"], "x": 0, "e": "Controlled testing helps isolate cause and effect."}, {"week": "Final Review", "c": "History", "q": "Who is commonly recognized as the world’s first programmer?", "a": ["Ada Lovelace", "Thomas Edison", "Bill Gates", "Steve Jobs"], "x": 0, "e": "Ada Lovelace is commonly recognized as the first programmer."}, {"week": "Final Review", "c": "History", "q": "Which computer is commonly identified as the first electronic general-purpose computer?", "a": ["ENIAC", "Abacus", "Jacquard loom", "PLATO"], "x": 0, "e": "ENIAC is commonly identified as the first electronic general-purpose computer."}, {"week": "Final Review", "c": "History", "q": "Which technology characterized first-generation computers?", "a": ["Vacuum tubes", "Integrated circuits", "Microprocessors", "Cloud computing"], "x": 0, "e": "First-generation computers used vacuum tubes."}, {"week": "Final Review", "c": "History", "q": "Punch cards were first used with which device in the supplied history review?", "a": ["Jacquard loom", "ENIAC", "Smartphone", "Router"], "x": 0, "e": "The supplied history review connects punch cards to the Jacquard loom."}, {"week": "Final Review", "c": "History", "q": "The Antikythera Mechanism is best described as...", "a": ["an ancient mechanical computing device", "a modern cloud server", "a networking protocol", "a semiconductor chip"], "x": 0, "e": "The history review describes it as an ancient mechanical computing device."}, {"week": "Final Review", "c": "History", "q": "Moore’s Law refers to the observation that...", "a": ["transistor count tends to increase dramatically over time", "RAM is always volatile", "all software is open source", "binary has ten digits"], "x": 0, "e": "The supplied review associates Moore’s Law with growth in transistor count."}, {"week": "Final Review", "c": "Computing", "q": "Which component controls when steps of the fetch-execute cycle occur?", "a": ["Control unit", "Keyboard", "Scanner", "HDD"], "x": 0, "e": "The control unit coordinates CPU operations."}, {"week": "Final Review", "c": "Computing", "q": "What does the Instruction Register hold?", "a": ["the current instruction being decoded/executed", "only the next instruction address", "only user data", "a printer queue"], "x": 0, "e": "The Instruction Register holds the current instruction."}, {"week": "Final Review", "c": "Computing", "q": "Which register stores the address/location of the next instruction?", "a": ["Program Counter", "Instruction Register", "Keyboard buffer", "RAID controller"], "x": 0, "e": "The Program Counter identifies the next instruction."}, {"week": "Final Review", "c": "Computing", "q": "Which bus carries instructions and data between memory and CPU?", "a": ["Data bus", "Address bus only", "Power cable", "HDMI cable"], "x": 0, "e": "The supplied CPU review identifies the data bus as carrying the fetched instruction."}, {"week": "Final Review", "c": "Computing", "q": "Which bus is typically unidirectional in the supplied CPU review?", "a": ["Address bus", "Data bus", "USB bus", "Audio bus"], "x": 0, "e": "The address bus carries addresses from CPU toward memory/devices."}, {"week": "Final Review", "c": "Computing", "q": "Interrupt requests and control signals use which bus?", "a": ["Control bus", "Address bus", "Video cable", "SATA data only"], "x": 0, "e": "The supplied review associates interrupt/control signals with the control bus."}, {"week": "Final Review", "c": "Computing", "q": "Which cache level is typically largest among L1, L2, and L3?", "a": ["L3", "L1", "L2", "They are always equal"], "x": 0, "e": "The supplied review identifies L3 as the largest cache level."}, {"week": "Final Review", "c": "Computing", "q": "Which memory technology stores the boot program/firmware?", "a": ["ROM / firmware memory", "Volatile RAM only", "Printer memory only", "Keyboard buffer"], "x": 0, "e": "The supplied review places the boot program in ROM/firmware."}, {"week": "Final Review", "c": "Storage", "q": "Which RAID level uses mirroring for redundancy?", "a": ["RAID 1", "RAID 0", "RAID 2", "RAID 3"], "x": 0, "e": "RAID 1 mirrors data."}, {"week": "Final Review", "c": "Storage", "q": "Which RAID level provides no redundancy?", "a": ["RAID 0", "RAID 1", "RAID 5", "RAID 3"], "x": 0, "e": "RAID 0 uses striping without redundancy."}, {"week": "Final Review", "c": "Storage", "q": "Which devices are optical media?", "a": ["CD, DVD, and Blu-ray", "RAM, CPU, and SSD", "HDD, RAM, and tape", "USB, RAM, and cache"], "x": 0, "e": "CD, DVD, and Blu-ray use optical technology."}, {"week": "Final Review", "c": "Storage", "q": "Which memory is short-term and volatile?", "a": ["RAM", "HDD", "Blu-ray", "Magnetic tape"], "x": 0, "e": "RAM temporarily holds active data and loses it when power is removed."}, {"week": "Final Review", "c": "Computing", "q": "Which device is used to digitize paper documents?", "a": ["Scanner", "Printer", "Speaker", "Monitor"], "x": 0, "e": "A scanner converts paper documents to digital form."}, {"week": "Final Review", "c": "Computing", "q": "Which device normally replaces a mouse as the built-in pointing device on a laptop?", "a": ["Touch pad", "Printer", "Scanner", "Optical disc"], "x": 0, "e": "The supplied review identifies a touch pad as the standard built-in laptop pointing device."}, {"week": "Final Review", "c": "Computing", "q": "Which printer type in the supplied review is capable of extremely high throughput by printing whole lines?", "a": ["Line printer", "Inkjet", "Daisy-wheel", "Dot-matrix"], "x": 0, "e": "The supplied review identifies line printers as the fastest option among those listed."}, {"week": "Final Review", "c": "Computing", "q": "Which sequence represents the computing cycle in the supplied review?", "a": ["Input → Process → Storage → Output", "Output → Input → Process → Storage", "Process → Storage → Input → Output", "Storage → Output → Input → Process"], "x": 0, "e": "The supplied review uses Input → Process → Storage → Output."}, {"week": "Final Review", "c": "Soft Skills", "q": "Which IT careers in the supplied quiz should understand cryptography?", "a": ["All listed IT administration/security roles", "Only web administrators", "Only database administrators", "Only security specialists"], "x": 0, "e": "The supplied answer key indicates cryptography knowledge can matter across the listed IT roles."}, {"week": "Final Review", "c": "Troubleshooting", "q": "Detecting that a slow computer is caused by a virus is an example of...", "a": ["troubleshooting", "data entry", "printing", "physical installation only"], "x": 0, "e": "Identifying the cause of a symptom is troubleshooting."}, {"week": "Week 1", "c": "Computing", "q": "Which answer best matches this ITT101 concept: A keyboard is a physical component, so it is hardware?", "a": ["Keyboard", "Web browser", "Operating system", "Spreadsheet application"], "x": 0, "e": "A keyboard is a physical component, so it is hardware."}, {"week": "Week 1", "c": "Computing", "q": "Which answer best matches this ITT101 concept: An operating system is software that manages computer resources?", "a": ["Operating system", "CPU", "RAM module", "Monitor"], "x": 0, "e": "An operating system is software that manages computer resources."}, {"week": "Week 1", "c": "Computing", "q": "Which answer best matches this ITT101 concept: Hardware refers to physical components; software refers to programs and instructions?", "a": ["Hardware is physical; software is instructions/programs", "Hardware is always portable; software is not", "Hardware only stores data; software only prints", "Hardware is online; software is offline"], "x": 0, "e": "Hardware refers to physical components; software refers to programs and instructions."}, {"week": "Week 1", "c": "Soft Skills", "q": "Which answer best matches this ITT101 concept: Clear, respectful communication is a core professional soft skill?", "a": ["Explain the next step clearly and respectfully", "Use jargon without explanation", "Ignore user questions", "Blame the user"], "x": 0, "e": "Clear, respectful communication is a core professional soft skill."}, {"week": "Week 1", "c": "Soft Skills", "q": "Which answer best matches this ITT101 concept: Technology effectiveness depends on purpose and context?", "a": ["supports the task, user, and context", "is the newest product", "is the most expensive option", "uses the most features"], "x": 0, "e": "Technology effectiveness depends on purpose and context."}, {"week": "Week 1", "c": "Soft Skills", "q": "Which answer best matches this ITT101 concept: Responsible AI use requires verification and ownership of the final work?", "a": ["verification, ownership, and accuracy", "copying answers without checking", "hiding AI use from all stakeholders", "assuming every output is correct"], "x": 0, "e": "Responsible AI use requires verification and ownership of the final work."}, {"week": "Week 1", "c": "Ticketing", "q": "Which answer best matches this ITT101 concept: Ticketing systems create a useful service record and support follow-up?", "a": ["They document issues, actions, and outcomes", "They replace all troubleshooting", "They eliminate communication", "They automatically repair hardware"], "x": 0, "e": "Ticketing systems create a useful service record and support follow-up."}, {"week": "Week 1", "c": "Computing", "q": "Which answer best matches this ITT101 concept: ITT101 introduces information technology as a broad field connecting these systems?", "a": ["Information technology", "Only cybersecurity", "Only programming", "Only office administration"], "x": 0, "e": "ITT101 introduces information technology as a broad field connecting these systems."}, {"week": "Week 1", "c": "Soft Skills", "q": "Which answer best matches this ITT101 concept: Context determines whether a technology choice is productive or appropriate?", "a": ["the goal, context, and impact", "only device age", "only brand name", "only purchase price"], "x": 0, "e": "Context determines whether a technology choice is productive or appropriate."}, {"week": "Week 2", "c": "Notation", "q": "Which answer best matches this ITT101 concept: A standard byte contains 8 bits?", "a": ["8", "4", "16", "32"], "x": 0, "e": "A standard byte contains 8 bits."}, {"week": "Week 2", "c": "Notation", "q": "Which answer best matches this ITT101 concept: A nibble is half a byte, or 4 bits?", "a": ["4", "2", "8", "16"], "x": 0, "e": "A nibble is half a byte, or 4 bits."}, {"week": "Week 2", "c": "Notation", "q": "Which answer best matches this ITT101 concept: 8+4+2+1 = 15?", "a": ["15", "12", "14", "17"], "x": 0, "e": "8+4+2+1 = 15."}, {"week": "Week 2", "c": "Notation", "q": "Which answer best matches this ITT101 concept: 16+8+2 = 26?", "a": ["26", "24", "25", "28"], "x": 0, "e": "16+8+2 = 26."}, {"week": "Week 2", "c": "Notation", "q": "Which answer best matches this ITT101 concept: Only the 128 place is on?", "a": ["128", "32", "64", "256"], "x": 0, "e": "Only the 128 place is on."}, {"week": "Week 2", "c": "Notation", "q": "Which answer best matches this ITT101 concept: Binary 10 represents decimal 2?", "a": ["10", "01", "11", "100"], "x": 0, "e": "Binary 10 represents decimal 2."}, {"week": "Week 2", "c": "Notation", "q": "Which answer best matches this ITT101 concept: Eight bits provide 256 values, numbered 0 through 255?", "a": ["255", "127", "128", "256"], "x": 0, "e": "Eight bits provide 256 values, numbered 0 through 255."}, {"week": "Week 2", "c": "Notation", "q": "Which answer best matches this ITT101 concept: 23 = 16+4+2+1 = 10111?", "a": ["10111", "11011", "11101", "10101"], "x": 0, "e": "23 = 16+4+2+1 = 10111."}, {"week": "Week 2", "c": "Notation", "q": "Which answer best matches this ITT101 concept: 45 = 32+8+4+1 = 101101?", "a": ["101101", "100101", "110101", "101011"], "x": 0, "e": "45 = 32+8+4+1 = 101101."}, {"week": "Week 2", "c": "Notation", "q": "Which answer best matches this ITT101 concept: 2^6 = 64 possible values?", "a": ["64", "6", "16", "256"], "x": 0, "e": "2^6 = 64 possible values."}, {"week": "Week 2", "c": "Notation", "q": "Which answer best matches this ITT101 concept: 1010 is A and 0011 is 3?", "a": ["A3", "A2", "B3", "B4"], "x": 0, "e": "1010 is A and 0011 is 3."}, {"week": "Week 2", "c": "Notation", "q": "Which answer best matches this ITT101 concept: 0101 is 5 and 1110 is E?", "a": ["5E", "4E", "4F", "5F"], "x": 0, "e": "0101 is 5 and 1110 is E."}, {"week": "Week 2", "c": "Notation", "q": "Which answer best matches this ITT101 concept: 2 is 0010 and B is 1011?", "a": ["00101011", "00101111", "00111011", "00101101"], "x": 0, "e": "2 is 0010 and B is 1011."}, {"week": "Week 2", "c": "Logic", "q": "Which answer best matches this ITT101 concept: AND requires both inputs to be true?", "a": ["AND", "OR", "XOR", "NOT"], "x": 0, "e": "AND requires both inputs to be true."}, {"week": "Week 2", "c": "Logic", "q": "Which answer best matches this ITT101 concept: OR is true when either or both inputs are true?", "a": ["OR", "AND", "NOT", "NAND"], "x": 0, "e": "OR is true when either or both inputs are true."}, {"week": "Week 2", "c": "Logic", "q": "Which answer best matches this ITT101 concept: NOT inverts the input?", "a": ["NOT", "AND", "OR", "XOR"], "x": 0, "e": "NOT inverts the input."}, {"week": "Week 2", "c": "Logic", "q": "Which answer best matches this ITT101 concept: XOR is true only when inputs differ?", "a": ["XOR", "AND", "OR", "NOR"], "x": 0, "e": "XOR is true only when inputs differ."}, {"week": "Week 2", "c": "Logic", "q": "Which answer best matches this ITT101 concept: NAND is NOT-AND?", "a": ["NAND", "NOR", "XOR", "OR"], "x": 0, "e": "NAND is NOT-AND."}, {"week": "Week 2", "c": "Logic", "q": "Which answer best matches this ITT101 concept: NOR is NOT-OR?", "a": ["NOR", "NAND", "XOR", "AND"], "x": 0, "e": "NOR is NOT-OR."}, {"week": "Week 2", "c": "Units", "q": "Which answer best matches this ITT101 concept: A gigabyte is larger than a megabyte, kilobyte, or byte?", "a": ["1 GB", "1 MB", "1 KB", "1 byte"], "x": 0, "e": "A gigabyte is larger than a megabyte, kilobyte, or byte."}, {"week": "Week 2", "c": "Units", "q": "Which answer best matches this ITT101 concept: Mega represents one million, 10^6?", "a": ["Mega", "Kilo", "Giga", "Tera"], "x": 0, "e": "Mega represents one million, 10^6."}, {"week": "Week 2", "c": "Units", "q": "Which answer best matches this ITT101 concept: Giga represents one billion, 10^9?", "a": ["Giga", "Kilo", "Mega", "Nano"], "x": 0, "e": "Giga represents one billion, 10^9."}, {"week": "Week 2", "c": "Computing", "q": "Which answer best matches this ITT101 concept: A GPU is designed for highly parallel workloads such as graphics?", "a": ["GPU", "CPU register", "HDD", "NIC"], "x": 0, "e": "A GPU is designed for highly parallel workloads such as graphics."}, {"week": "Week 2", "c": "Computing", "q": "Which answer best matches this ITT101 concept: The CPU executes general program instructions?", "a": ["CPU", "GPU only", "SSD", "Router"], "x": 0, "e": "The CPU executes general program instructions."}, {"week": "Week 2", "c": "Computing", "q": "Which answer best matches this ITT101 concept: Containers package applications; orchestration coordinates their deployment and operation?", "a": ["managing application deployment environments", "replacing keyboards", "printing documents", "analog storage"], "x": 0, "e": "Containers package applications; orchestration coordinates their deployment and operation."}, {"week": "Week 3", "c": "Troubleshooting", "q": "Which answer best matches this ITT101 concept: Logical troubleshooting begins by identifying the problem and collecting evidence?", "a": ["identify the problem and gather information", "replace hardware immediately", "reinstall everything", "close the ticket"], "x": 0, "e": "Logical troubleshooting begins by identifying the problem and collecting evidence."}, {"week": "Week 3", "c": "Troubleshooting", "q": "Which answer best matches this ITT101 concept: Testing the theory verifies whether it explains the symptoms?", "a": ["test the theory", "document before testing", "replace every component", "escalate without evidence"], "x": 0, "e": "Testing the theory verifies whether it explains the symptoms."}, {"week": "Week 3", "c": "Troubleshooting", "q": "Which answer best matches this ITT101 concept: A technician should verify the solution and overall functionality?", "a": ["full system functionality", "only that the computer turns on", "only that the ticket exists", "only that the user left"], "x": 0, "e": "A technician should verify the solution and overall functionality."}, {"week": "Week 3", "c": "Troubleshooting", "q": "Which answer best matches this ITT101 concept: Documentation preserves the troubleshooting record?", "a": ["document findings, actions, and outcomes", "erase the history", "delete the ticket", "avoid recording details"], "x": 0, "e": "Documentation preserves the troubleshooting record."}, {"week": "Week 3", "c": "Ticketing", "q": "Which answer best matches this ITT101 concept: Detailed notes support future support and accountability?", "a": ["Symptom, cause, action taken, and result", "Fixed", "User issue", "Done"], "x": 0, "e": "Detailed notes support future support and accountability."}, {"week": "Week 3", "c": "Ticketing", "q": "Which answer best matches this ITT101 concept: Status history helps others understand what happened and when?", "a": ["to track progress and communication", "to make the ticket longer", "to replace troubleshooting", "to avoid contacting the user"], "x": 0, "e": "Status history helps others understand what happened and when."}, {"week": "Week 3", "c": "Soft Skills", "q": "Which answer best matches this ITT101 concept: Professional support combines empathy with purposeful information gathering?", "a": ["acknowledge the problem and ask focused questions", "argue with the user", "blame the user", "use unexplained jargon"], "x": 0, "e": "Professional support combines empathy with purposeful information gathering."}, {"week": "Week 3", "c": "Soft Skills", "q": "Which answer best matches this ITT101 concept: Active listening verifies understanding before action?", "a": ["confirming the user's concern before proposing a solution", "interrupting repeatedly", "assuming the problem", "changing the subject"], "x": 0, "e": "Active listening verifies understanding before action."}];
+const scenarios=[
+{t:'A computer is running slowly. You do not yet know the cause.',a:['Gather symptoms and evidence before making changes','Replace the CPU immediately','Delete all files','Assume user error'],x:0,w:'Troubleshooting begins with symptoms and evidence.'},
+{t:'A frustrated user says, “My computer keeps freezing and I have work due now.”',a:['Acknowledge impact, ask focused questions, explain next step','Tell the user to calm down','Walk away','Blame software'],x:0,w:'Customer service combines empathy, communication, and purposeful troubleshooting.'},
+{t:'You solve a recurring printer issue. What should you do before closing the ticket?',a:['Document symptom, cause, action, and result','Delete the ticket','Write only “fixed”','Leave it open'],x:0,w:'Useful ticket documentation preserves evidence.'},
+{t:'A user wants faster responsiveness while many programs are open, and memory usage is near capacity.',a:['Evaluate RAM capacity and workload','Replace keyboard','Change wallpaper','Buy monitor'],x:0,w:'High memory pressure points toward RAM/workload analysis.'},
+{t:'A field can store only 8 unsigned bits. A student says it can hold decimal 256.',a:['Explain the maximum is 255 because the range starts at 0','Agree because 2^8=256','Change it to hex','Add a printer'],x:0,w:'8 bits provide 256 values, from 0 through 255.'}
+];
+
+const flashes=[['RAM','Volatile working memory.'],['CPU','Executes instructions.'],['Input → Process → Storage → Output','The reviewed computing cycle.'],['RAID 0','Striping; no redundancy.'],['RAID 1','Mirroring for redundancy.'],['Scanner','Digitizes paper documents.'],['8-bit unsigned max','255.'],['Nibble','4 bits.'],['Byte','8 bits.'],['Instruction Register','Current instruction.'],['Program Counter','Next instruction location.'],['Ada Lovelace','First programmer.'],['ENIAC','Early electronic general-purpose computer.']];
+const pairs=[['CPU','Executes instructions'],['RAM','Volatile working memory'],['Scanner','Digitizes paper documents'],['RAID 1','Mirroring / redundancy'],['RAID 0','Striping / no redundancy'],['Program Counter','Next instruction location']];
+
+let state=JSON.parse(localStorage.getItem('itt101w4meta')||'{"ind":0,"prompt":0,"nyd":0,"correct":0,"total":0,"confidence":[],"reflections":{}}');
+const save=()=>{localStorage.setItem('itt101w4meta',JSON.stringify(state));dash()};
+function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
+function calcCal(){if(!state.confidence.length)return null;let e=0;state.confidence.forEach(r=>{let p=(r.c-1)/3;e+=Math.abs(p-(r.ok?1:0))});return Math.max(0,Math.round((1-e/state.confidence.length)*100))}
+function dash(){ind.textContent=state.ind;prompt.textContent=state.prompt;nyd.textContent=state.nyd;mastery.textContent=(state.total?Math.round(state.correct/state.total*100):0)+'%';let c=calcCal();calibration.textContent=c===null?'—':c+'%';metaSummary.textContent=c===null?'Complete Cold Retrieval to generate a calibration score.':`Your confidence calibration is ${c}%.`;renderReport()}
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab,.panel').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(b.dataset.p).classList.add('active')});
+
+let rset=shuffle(bank).slice(0,12),ri=0,rhint=false,ranswered=false,conf=null;
+function confUI(){confidenceBox.innerHTML='<p><b>Before answering, how confident are you?</b></p><div class="conf">'+[1,2,3,4].map((n,i)=>`<button onclick="setConf(${n},this)">${n}<br><small>${['Guessing','Unsure','Fairly sure','Very sure'][i]}</small></button>`).join('')+'</div>'}
+function setConf(n,b){conf=n;document.querySelectorAll('.conf button').forEach(x=>x.classList.remove('sel'));b.classList.add('sel')}
+function loadR(){if(ri>=rset.length){rq.textContent='Cold retrieval complete.';rchoices.innerHTML='';confidenceBox.innerHTML='';rfeed.textContent='Continue to the Mastery Lab.';rnext.disabled=true;return}let q=rset[ri];rmeta.textContent=`Question ${ri+1} of ${rset.length} • ${q.c}`;rbar.style.width=(ri/rset.length*100)+'%';rq.textContent=q.q;rchoices.innerHTML='';rfeed.textContent='';calmsg.innerHTML='';rhint=false;ranswered=false;conf=null;confUI();q.a.forEach((v,i)=>{let b=document.createElement('button');b.className='choice';b.textContent=v;b.onclick=()=>ansR(b,i,q);rchoices.appendChild(b)})}
+function ansR(b,i,q){if(ranswered)return;if(conf===null){rfeed.textContent='Rate confidence first.';return}if(i===q.x){b.classList.add('correct');rfeed.textContent=q.e;state[rhint?'prompt':'ind']++;state.correct++;state.total++;ranswered=true;state.confidence.push({c:conf,ok:true,cat:q.c});save();calmsg.innerHTML=conf<=2?'<div class="cal good">✅ You knew more than you thought.</div>':'<div class="cal good">✅ Confidence matched performance.</div>'}else{b.classList.add('wrong');if(rhint){rfeed.textContent='Not yet demonstrated. '+q.e;state.nyd++;state.total++;ranswered=true;state.confidence.push({c:conf,ok:false,cat:q.c});save();calmsg.innerHTML=conf>=3?'<div class="cal bad">⚠️ High-confidence miss. Ask: what made the wrong answer feel right?</div>':'<div class="cal warn">Review, then retrieve again later without notes.</div>'}else{rhint=true;rfeed.textContent='Incorrect. Use a hint and try once more.'}}}
+hint.onclick=()=>{if(ri<rset.length){rhint=true;rfeed.textContent='Hint: '+rset[ri].h}};rnext.onclick=()=>{if(!ranswered){rfeed.textContent='Finish this question first.';return}ri++;loadR()};loadR();
+
+function mcq(q,T,C,F,record=true){T.textContent=q.q||'';C.innerHTML='';F.textContent='';q.a.forEach((v,i)=>{let b=document.createElement('button');b.className='choice';b.textContent=v;b.onclick=()=>{[...C.children].forEach(x=>x.disabled=true);if(i===q.x){b.classList.add('correct');F.textContent=q.e||q.w;if(record){state.correct++;state.total++;save()}}else{b.classList.add('wrong');C.children[q.x].classList.add('correct');F.textContent=q.e||q.w;if(record){state.total++;save()}}};C.appendChild(b)})}
+function knewF(){mcq(bank[Math.floor(Math.random()*bank.length)],kq,kchoices,kfeed)}knew.onclick=knewF;knewF();
+
+let fc,back=false;function newF(){fc=flashes[Math.floor(Math.random()*flashes.length)];back=false;flash.innerHTML=`<div><h2>${fc[0]}</h2><p class="muted">Say what you know before flipping.</p></div>`}flip.onclick=()=>{back=!back;flash.innerHTML=back?`<div><h2>${fc[0]}</h2><p>${fc[1]}</p></div>`:`<div><h2>${fc[0]}</h2><p class="muted">Say what you know before flipping.</p></div>`};fnew.onclick=newF;newF();
+
+let selected=null,matched=0;function resetM(){matched=0;selected=null;terms.innerHTML='';targets.innerHTML='';mfeed.textContent='';shuffle(pairs).forEach(([t,d])=>{let e=document.createElement('div');e.className='term';e.textContent=t;e.dataset.t=t;e.onclick=()=>{document.querySelectorAll('.term').forEach(x=>x.classList.remove('sel'));selected=e;e.classList.add('sel')};terms.appendChild(e)});shuffle(pairs).forEach(([t,d])=>{let e=document.createElement('div');e.className='target';e.textContent=d;e.dataset.t=t;e.onclick=()=>{if(!selected)return;if(selected.dataset.t===e.dataset.t){e.classList.add('good');selected.remove();selected=null;matched++;mfeed.textContent=`✅ ${matched}/${pairs.length} matched.`}else{e.classList.add('bad');setTimeout(()=>e.classList.remove('bad'),400)}};targets.appendChild(e)})}mreset.onclick=resetM;resetM();
+
+const conv=bank.filter(q=>q.c==='Notation');function newConv(){mcq(conv[Math.floor(Math.random()*conv.length)],convq,convchoices,convfeed,false)}convnew.onclick=newConv;newConv();
+function newS(){let q=scenarios[Math.floor(Math.random()*scenarios.length)];scenario.innerHTML=`<h3>${q.t}</h3><p class="muted">Choose the best first response and be ready to explain why.</p>`;mcq({q:'',a:q.a,x:q.x,e:q.w},{set textContent(v){}},schoices,sfeed)}snew.onclick=newS;newS();
+
+[m1,m2,m3,studyNext,nextAction,ownQuestion].forEach(el=>el.value=state.reflections[el.id]||'');saveMeta.onclick=()=>{[m1,m2,m3,studyNext,nextAction,ownQuestion].forEach(el=>state.reflections[el.id]=el.value);save();saveMeta.textContent='Saved ✓';setTimeout(()=>saveMeta.textContent='Save Reflection',800)};
+
+const concepts=['CPU vs RAM','Input → Process → Storage → Output','RAID 0 vs RAID 1','Binary vs decimal','Binary vs hexadecimal','Volatile vs nonvolatile storage','Instruction Register vs Program Counter','Troubleshooting methodology','IT ticket documentation','Customer service and soft skills','History of computing'];
+function nc(){concept.textContent=concepts[Math.floor(Math.random()*concepts.length)]}newconcept.onclick=nc;nc();let ti;starttimer.onclick=()=>{clearInterval(ti);let t=40;timer.textContent=t;ti=setInterval(()=>{t--;timer.textContent=t;if(t<=0){clearInterval(ti);timer.textContent='TIME'}},1000)};
+document.querySelectorAll('.rate').forEach(b=>b.onclick=()=>{state[b.dataset.v]++;save();b.textContent='Recorded ✓';setTimeout(()=>b.textContent=b.dataset.v==='ind'?'Independent':b.dataset.v==='prompt'?'Prompted':'Not Yet Demonstrated',700)});
+
+function needs(){let c={};state.confidence.forEach(r=>{c[r.cat]=c[r.cat]||0;if(!r.ok)c[r.cat]+=r.c>=3?2:1});return Object.entries(c).sort((a,b)=>b[1]-a[1]).slice(0,3).map(x=>x[0])}
+function renderReport(){let pct=state.total?Math.round(state.correct/state.total*100):0,c=calcCal(),n=needs(),status=pct>=85?'FINAL EXAM READY':pct>=70?'NEAR READY — TARGET WEAK AREAS':'REVIEW RECOMMENDED';reportbox.textContent=`ITT101 FINAL READINESS + METACOGNITION
+
+Overall Mastery             ${pct}%
+Independent Retrieval       ${state.ind}
+Prompted                    ${state.prompt}
+Not Yet Demonstrated        ${state.nyd}
+Confidence Calibration      ${c===null?'Not enough data':c+'%'}
+
+Priority Review             ${n.length?n.join(', '):'Complete Cold Retrieval first'}
+
+STATUS: ${status}
+
+METACOGNITIVE CONTROL
+1. Review high-confidence mistakes first.
+2. Retrieve those concepts again without notes.
+3. Explain one difficult concept aloud.
+4. Choose what to study next based on evidence, not familiarity.
+
+Study Next:
+${state.reflections.studyNext||'(not recorded yet)'}
+
+Next 20-Minute Action:
+${state.reflections.nextAction||'(not recorded yet)'}`}
+
+
+let examSet=[],examIndex=0,examCorrect=0,examConfVal=null,examAnswered=false,examConfidence=[];
+function randomizeQuestion(q){
+  const pairs=q.a.map((label,i)=>({label,correct:i===q.x}));
+  const mixed=shuffle(pairs);
+  return {...q,a:mixed.map(x=>x.label),x:mixed.findIndex(x=>x.correct)};
+}
+function topicMatch(q,filter){
+  if(filter==='ALL') return true;
+  if(filter==='Week 1'||filter==='Week 2'||filter==='Week 3') return q.week===filter;
+  return q.c===filter;
+}
+function startExam(n){
+  const filter=examTopic.value;
+  let pool=examBank.filter(q=>topicMatch(q,filter));
+  if(!pool.length){examResult.style.display='block';examResult.textContent='No questions are available for that filter yet.';return}
+  pool=shuffle(pool).map(randomizeQuestion);
+  examSet=pool.slice(0,Math.min(n,pool.length)); examIndex=0; examCorrect=0; examConfidence=[]; examPlay.style.display='block';examResult.style.display='none';loadExamQ();
+}
+document.querySelectorAll('.exam-size').forEach(b=>b.onclick=()=>startExam(Number(b.dataset.n)));
+function loadExamQ(){
+  if(examIndex>=examSet.length){finishExam();return}
+  const q=examSet[examIndex];examAnswered=false;examConfVal=null;
+  examMeta.textContent=`Question ${examIndex+1} of ${examSet.length} • ${q.week} • ${q.c}`;
+  examBar.style.width=(examIndex/examSet.length*100)+'%';examQ.textContent=q.q;examChoices.innerHTML='';examFeed.textContent='';
+  examConf.innerHTML='<p><b>Confidence before answering:</b></p><div class="conf">'+[1,2,3,4].map((n,i)=>`<button onclick="setExamConf(${n},this)">${n}<br><small>${['Guessing','Unsure','Fairly sure','Very sure'][i]}</small></button>`).join('')+'</div>';
+  q.a.forEach((v,i)=>{let b=document.createElement('button');b.className='choice';b.textContent=v;b.onclick=()=>answerExam(b,i,q);examChoices.appendChild(b)})
+}
+function setExamConf(n,b){examConfVal=n;examConf.querySelectorAll('button').forEach(x=>x.classList.remove('sel'));b.classList.add('sel')}
+function answerExam(b,i,q){
+  if(examAnswered)return;
+  if(examConfVal===null){examFeed.textContent='Rate your confidence first.';return}
+  examAnswered=true;[...examChoices.children].forEach(x=>x.disabled=true);
+  const ok=i===q.x;if(ok){b.classList.add('correct');examCorrect++}else{b.classList.add('wrong');examChoices.children[q.x].classList.add('correct')}
+  examConfidence.push({c:examConfVal,ok});examFeed.textContent=q.e;
+}
+examNext.onclick=()=>{if(!examAnswered){examFeed.textContent='Answer this question before moving on.';return}examIndex++;loadExamQ()};
+function finishExam(){
+  examPlay.style.display='none';examResult.style.display='block';
+  let n=examSet.length,pct=n?Math.round(examCorrect/n*100):0;
+  let err=0;examConfidence.forEach(r=>{let p=(r.c-1)/3;err+=Math.abs(p-(r.ok?1:0))});
+  let cal=n?Math.max(0,Math.round((1-err/n)*100)):0;
+  const misses={};examSet.forEach((q,i)=>{if(examConfidence[i]&&!examConfidence[i].ok)misses[q.c]=(misses[q.c]||0)+1});
+  const weak=Object.entries(misses).sort((a,b)=>b[1]-a[1]).slice(0,3).map(x=>x[0]).join(', ')||'No dominant weak area in this attempt';
+  examResult.textContent=`RANDOM EXAM SIMULATOR RESULT
+
+Questions:                  ${n}
+Correct:                    ${examCorrect}
+Accuracy:                   ${pct}%
+Confidence Calibration:     ${cal}%
+Priority Review:            ${weak}
+
+Metacognition prompt:
+Which wrong answer felt most convincing, and what will you do to make the correct concept easier to retrieve next time?
+
+Use "Random 10/20/30/50" again to generate a fresh set.`;
+}
+
+resetall.onclick=()=>{if(confirm('Reset all ITT101 Week 4 mastery and reflection data?')){localStorage.removeItem('itt101w4meta');location.reload()}};
+dash();
+</script></body></html>
